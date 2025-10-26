@@ -1,0 +1,155 @@
+[gd_scene load_steps=6 format=3 uid="uid://btlvl3adq1x6g"]
+
+[ext_resource type="Script" uid="uid://bm2j76770ru2y" path="res://plugins/tile_editor/tile_editor.gd" id="1_dmxkm"]
+[ext_resource type="Texture2D" uid="uid://cpnbt8yxfr4me" path="res://assets/grid_x24.svg" id="2_0rdcn"]
+[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="2_4waw0"]
+[ext_resource type="Texture2D" uid="uid://btkb5msbheua6" path="res://assets/add_24x.svg" id="4_myjan"]
+[ext_resource type="Texture2D" uid="uid://besw02bk8n8g8" path="res://assets/remove_24x.svg" id="5_8sblb"]
+
+[node name="Tile Editor" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_dmxkm")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="tpalette_bank_hbox4" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/separation = 6
+
+[node name="show_grid_btn" type="Button" parent="MarginContainer/HBoxContainer/tpalette_bank_hbox4"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 3
+toggle_mode = true
+icon = ExtResource("2_0rdcn")
+
+[node name="tile_count_hbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/tile_count_hbox"]
+layout_mode = 2
+text = "Mode"
+label_settings = ExtResource("2_4waw0")
+
+[node name="tile_count_opt" type="OptionButton" parent="MarginContainer/HBoxContainer/tile_count_hbox"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "1 Tile"
+popup/item_0/id = 1
+popup/item_1/text = "2 Tiles"
+popup/item_1/id = 2
+popup/item_2/text = "4 Tiles"
+popup/item_2/id = 4
+
+[node name="tpalette_bank_hbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/tpalette_bank_hbox"]
+layout_mode = 2
+text = "Bank"
+label_settings = ExtResource("2_4waw0")
+
+[node name="palette_bank_opt" type="OptionButton" parent="MarginContainer/HBoxContainer/tpalette_bank_hbox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="tpalette_bank_hbox2" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/tpalette_bank_hbox2"]
+layout_mode = 2
+text = "Tile Count"
+label_settings = ExtResource("2_4waw0")
+
+[node name="tile_count_inpt" type="SpinBox" parent="MarginContainer/HBoxContainer/tpalette_bank_hbox2"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 3
+
+[node name="tpalette_bank_hbox3" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/tpalette_bank_hbox3"]
+layout_mode = 2
+text = "Tile Columns"
+label_settings = ExtResource("2_4waw0")
+
+[node name="col_count_inpt" type="SpinBox" parent="MarginContainer/HBoxContainer/tpalette_bank_hbox3"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 3
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_type_variation = &"inner_panel"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="tile_texture_grid" type="GridContainer" parent="Control/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+
+[node name="zoom_in_btn" type="Button" parent="MarginContainer2/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"widget_menubar_button"
+icon = ExtResource("4_myjan")
+
+[node name="zoom_label" type="Label" parent="MarginContainer2/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="zoom_out_btn" type="Button" parent="MarginContainer2/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"widget_menubar_button"
+icon = ExtResource("5_8sblb")
+
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/tile_count_hbox/tile_count_opt" to="." method="_on_tile_count_opt_item_selected"]
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/tpalette_bank_hbox/palette_bank_opt" to="." method="_on_palette_bank_opt_item_selected"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/tpalette_bank_hbox2/tile_count_inpt" to="." method="_on_tile_count_inpt_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/tpalette_bank_hbox3/col_count_inpt" to="." method="_on_col_count_inpt_value_changed"]
+[connection signal="mouse_entered" from="Control/ScrollContainer/tile_texture_grid" to="." method="_on_tile_texture_grid_mouse_entered"]
+[connection signal="mouse_exited" from="Control/ScrollContainer/tile_texture_grid" to="." method="_on_tile_texture_grid_mouse_exited"]
+[connection signal="pressed" from="MarginContainer2/HBoxContainer/HBoxContainer/zoom_in_btn" to="." method="_on_zoom_in_btn_pressed"]
+[connection signal="pressed" from="MarginContainer2/HBoxContainer/HBoxContainer/zoom_out_btn" to="." method="_on_zoom_out_btn_pressed"]

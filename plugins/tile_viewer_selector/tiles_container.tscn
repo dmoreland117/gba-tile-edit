@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=3 uid="uid://btej4pvrnpkp2"]
+
+[ext_resource type="LabelSettings" uid="uid://dxvhmchtcry6m" path="res://resources/label/body_lg.tres" id="1_1p1aq"]
+[ext_resource type="Script" uid="uid://bhbt0khy226aw" path="res://plugins/tile_viewer_selector/tiles_container.gd" id="1_jfr2n"]
+[ext_resource type="Texture2D" uid="uid://bes2ngv3a52pp" path="res://assets/file_open_24x.svg" id="3_kvb4r"]
+[ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="4_wyh5i"]
+[ext_resource type="Texture2D" uid="uid://btkb5msbheua6" path="res://assets/add_24x.svg" id="5_5y12a"]
+[ext_resource type="Texture2D" uid="uid://besw02bk8n8g8" path="res://assets/remove_24x.svg" id="6_h7s2i"]
+[ext_resource type="Texture2D" uid="uid://wd2jhldebdhj" path="res://assets/up_24x.svg" id="7_bi7cb"]
+[ext_resource type="Texture2D" uid="uid://cu5qigo75mrmq" path="res://assets/down_24x.svg" id="8_6max0"]
+
+[node name="tiles_container" type="VBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+offset_right = 160.0
+offset_bottom = 958.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"inner_panel"
+script = ExtResource("1_jfr2n")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "Tiles"
+label_settings = ExtResource("1_1p1aq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"widget_container_panel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="tile_grid" type="GridContainer" parent="PanelContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+columns = 2
+
+[node name="hbox" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="VBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="import_palette_btn" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Import a Tileset file"
+theme_type_variation = &"widget_menubar_button"
+icon = ExtResource("3_kvb4r")
+icon_alignment = 1
+
+[node name="export_palette_btn" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export Tileset file"
+theme_type_variation = &"widget_menubar_button"
+icon = ExtResource("4_wyh5i")
+icon_alignment = 1
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="add_color_btn3" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "add Tile"
+theme_type_variation = &"green_button"
+icon = ExtResource("5_5y12a")
+icon_alignment = 1
+
+[node name="remove_color_btn4" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "remove selected Tile"
+theme_type_variation = &"widget_menubar_button"
+icon = ExtResource("6_h7s2i")
+icon_alignment = 1
+
+[node name="VBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="move_up_btn" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export palette file"
+theme_type_variation = &"widget_menubar_button"
+icon = ExtResource("7_bi7cb")
+icon_alignment = 1
+
+[node name="move_down_btn" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export palette file"
+theme_type_variation = &"widget_menubar_button"
+icon = ExtResource("8_6max0")
+icon_alignment = 1
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer/import_palette_btn" to="." method="_on_import_palette_btn_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer2/add_color_btn3" to="." method="_on_add_color_btn_3_pressed"]

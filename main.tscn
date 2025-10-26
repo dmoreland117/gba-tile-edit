@@ -1,0 +1,306 @@
+[gd_scene load_steps=12 format=3 uid="uid://dkpttseek6jfw"]
+
+[ext_resource type="Theme" uid="uid://5tmknl2gspks" path="res://theme.tres" id="1_1bvp3"]
+[ext_resource type="Script" uid="uid://co1sr23jinggc" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://xgmex8x8n0i7" path="res://ui.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://d3kfcrt5trost" path="res://popups.gd" id="4_7mycd"]
+[ext_resource type="LabelSettings" uid="uid://vryua1inycx3" path="res://resources/label/body_bold.tres" id="5_7mycd"]
+[ext_resource type="Texture2D" uid="uid://mm6csnmgswc3" path="res://assets/textures/scr1.png" id="5_kek77"]
+[ext_resource type="LabelSettings" uid="uid://dxvhmchtcry6m" path="res://resources/label/body_lg.tres" id="7_272bh"]
+[ext_resource type="Script" uid="uid://cnn1ope3p6cyu" path="res://popups/command_palette_popup.gd" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://8efh3ipu4r1e" path="res://popups/settings_window.tscn" id="9_kek77"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c57u"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.13611963, 0.14347011, 0.17654723, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.25490198)
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_272bh"]
+font_size = 48
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_1bvp3")
+script = ExtResource("1_h2yge")
+
+[node name="ui" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_ig7tw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MarginContainer" type="MarginContainer" parent="ui/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="top_bar" type="HBoxContainer" parent="ui/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="menu" type="MenuBar" parent="ui/VBoxContainer/MarginContainer/top_bar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="tab_bar_container" type="CenterContainer" parent="ui/VBoxContainer/MarginContainer/top_bar"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TabBar" type="TabBar" parent="ui/VBoxContainer/MarginContainer/top_bar/tab_bar_container"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 3
+clip_tabs = false
+
+[node name="TabBar" type="TabBar" parent="ui/VBoxContainer/MarginContainer/top_bar/tab_bar_container/TabBar"]
+layout_mode = 0
+focus_mode = 3
+clip_tabs = false
+
+[node name="top_right_container" type="HBoxContainer" parent="ui/VBoxContainer/MarginContainer/top_bar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="middle_containers" type="HBoxContainer" parent="ui/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="reght_split" type="HSplitContainer" parent="ui/VBoxContainer/middle_containers"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="left_split" type="HSplitContainer" parent="ui/VBoxContainer/middle_containers/reght_split"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="left_container" type="TabContainer" parent="ui/VBoxContainer/middle_containers/reght_split/left_split"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+focus_mode = 3
+clip_tabs = false
+tab_focus_mode = 0
+
+[node name="PanelContainer2" type="PanelContainer" parent="ui/VBoxContainer/middle_containers/reght_split/left_split"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="main_container" type="VBoxContainer" parent="ui/VBoxContainer/middle_containers/reght_split/left_split/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="right_container" type="TabContainer" parent="ui/VBoxContainer/middle_containers/reght_split"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+
+[node name="bottom_bar" type="HBoxContainer" parent="ui/VBoxContainer"]
+layout_mode = 2
+
+[node name="popups" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_7mycd")
+
+[node name="welcome_popup" type="PopupPanel" parent="popups"]
+unique_name_in_owner = true
+transparent_bg = false
+oversampling_override = 1.0
+title = "Welcome"
+size = Vector2i(800, 600)
+transient_to_focused = true
+transparent = false
+force_native = true
+content_scale_factor = 1.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_4c57u")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 529.3333
+offset_bottom = 396.0
+theme = ExtResource("1_1bvp3")
+
+[node name="TextureRect" type="TextureRect" parent="popups/welcome_popup/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.6666667)
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+texture = ExtResource("5_kek77")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ColorRect" type="ColorRect" parent="popups/welcome_popup/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.12156863)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="popups/welcome_popup/VBoxContainer/TextureRect/VBoxContainer"]
+layout_mode = 2
+text = "Welcome to "
+label_settings = ExtResource("5_7mycd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="popups/welcome_popup/VBoxContainer/TextureRect/VBoxContainer"]
+layout_mode = 2
+text = "GBA Edit"
+label_settings = SubResource("LabelSettings_272bh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="popups/welcome_popup/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Recents"
+label_settings = ExtResource("7_272bh")
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"widget_container_panel"
+
+[node name="Control" type="Control" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "New"
+
+[node name="Button2" type="Button" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Open"
+
+[node name="Button3" type="Button" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Quit"
+
+[node name="command_palette_popup" type="PopupPanel" parent="popups"]
+unique_name_in_owner = true
+transparent_bg = false
+oversampling_override = 1.0
+title = "Welcome"
+size = Vector2i(800, 600)
+transient_to_focused = true
+transparent = false
+force_native = true
+content_scale_factor = 2.0
+script = ExtResource("8_5vw27")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/command_palette_popup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 396.0
+offset_bottom = 296.0
+
+[node name="Label" type="Label" parent="popups/command_palette_popup/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Command palette"
+label_settings = ExtResource("7_272bh")
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="popups/command_palette_popup/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"inner_panel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/command_palette_popup/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme = ExtResource("1_1bvp3")
+
+[node name="LineEdit" type="LineEdit" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Enter Command..."
+
+[node name="Control" type="Control" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="command_list" type="VBoxContainer" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="save_file" type="FileDialog" parent="popups"]
+unique_name_in_owner = true
+access = 2
+filters = PackedStringArray("")
+
+[node name="open_file" type="FileDialog" parent="popups"]
+unique_name_in_owner = true
+title = "Open a File"
+file_mode = 0
+access = 2
+filters = PackedStringArray("")
+
+[node name="settings_Window" parent="popups" instance=ExtResource("9_kek77")]
+unique_name_in_owner = true
+
+[connection signal="visibility_changed" from="popups/command_palette_popup" to="popups/command_palette_popup" method="_on_visibility_changed"]
+[connection signal="text_submitted" from="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer/LineEdit" to="popups/command_palette_popup" method="_on_line_edit_text_submitted"]

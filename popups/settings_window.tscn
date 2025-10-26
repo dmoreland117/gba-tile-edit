@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://8efh3ipu4r1e"]
+
+[ext_resource type="Script" uid="uid://c440l6jeqbfty" path="res://popups/settings_window.gd" id="1_drspk"]
+[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="1_xueda"]
+
+[node name="settings_window" type="Window"]
+oversampling_override = 1.0
+title = "Settings"
+position = Vector2i(0, 36)
+size = Vector2i(900, 700)
+visible = false
+force_native = true
+content_scale_mode = 2
+content_scale_aspect = 4
+content_scale_factor = 2.0
+script = ExtResource("1_drspk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Categories"
+label_settings = ExtResource("1_xueda")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"widget_container_panel"
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]

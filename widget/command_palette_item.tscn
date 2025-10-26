@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://c34gs4jas8a5h"]
+
+[ext_resource type="Script" uid="uid://dpnqht18e02nj" path="res://widget/command_palette_item.gd" id="1_oaber"]
+[ext_resource type="Texture2D" uid="uid://dtsm0vev2inui" path="res://assets/out_arror_24x.svg" id="2_p8v5a"]
+
+[node name="command_palette_item" type="PanelContainer"]
+offset_right = 424.0
+offset_bottom = 40.0
+script = ExtResource("1_oaber")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="cmd_name_label" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Cmd name"
+vertical_alignment = 1
+
+[node name="args_container" type="HBoxContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("2_p8v5a")

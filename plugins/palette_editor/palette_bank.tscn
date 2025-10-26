@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://c104ob4n4fthl"]
+
+[ext_resource type="Script" uid="uid://dxuxabmh7a6x4" path="res://plugins/palette_editor/palette_bank.gd" id="1_24e1c"]
+
+[node name="palette_bank" type="PanelContainer"]
+offset_right = 313.0
+offset_bottom = 68.0
+script = ExtResource("1_24e1c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "1"
+
+[node name="HFlowContainer" type="HFlowContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8

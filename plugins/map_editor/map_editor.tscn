@@ -1,0 +1,121 @@
+[gd_scene load_steps=6 format=3 uid="uid://b60wc5mnlvqpb"]
+
+[ext_resource type="Script" uid="uid://mmo8ro564a0d" path="res://plugins/map_editor/map_editor.gd" id="1_5x2ld"]
+[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="2_5x2ld"]
+[ext_resource type="Texture2D" uid="uid://coylvar1xkb1r" path="res://assets/icons/pencil_24x.svg" id="2_8sb7y"]
+[ext_resource type="Texture2D" uid="uid://dabsryctmg1g6" path="res://assets/icons/swap_horiz_24x.svg" id="3_x1jh8"]
+[ext_resource type="Texture2D" uid="uid://uehxwjo7x4ic" path="res://assets/icons/swap_vert_24x.svg" id="4_8sb7y"]
+
+[node name="Map Editor" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_5x2ld")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="mode_btns" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="edit_mode_btn" type="Button" parent="MarginContainer/HBoxContainer/mode_btns"]
+layout_mode = 2
+focus_mode = 3
+theme_type_variation = &"widget_menubar_button"
+toggle_mode = true
+icon = ExtResource("2_8sb7y")
+
+[node name="hflip_mode_btn" type="Button" parent="MarginContainer/HBoxContainer/mode_btns"]
+layout_mode = 2
+focus_mode = 3
+theme_type_variation = &"widget_menubar_button"
+toggle_mode = true
+icon = ExtResource("3_x1jh8")
+
+[node name="vflip_mode_btn" type="Button" parent="MarginContainer/HBoxContainer/mode_btns"]
+layout_mode = 2
+focus_mode = 3
+theme_type_variation = &"widget_menubar_button"
+toggle_mode = true
+icon = ExtResource("4_8sb7y")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Tile Scale"
+label_settings = ExtResource("2_5x2ld")
+
+[node name="tile_scale_input" type="SpinBox" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.1
+max_value = 4.0
+step = 0.1
+value = 0.1
+suffix = "%"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Tile Spacing"
+label_settings = ExtResource("2_5x2ld")
+
+[node name="tile_spacing_input" type="SpinBox" parent="MarginContainer/HBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.1
+max_value = 4.0
+step = 0.1
+value = 0.1
+suffix = "px"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_type_variation = &"inner_panel"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="mouse_pos_label" type="Label" parent="MarginContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/HBoxContainer/tile_scale_input" to="." method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/HBoxContainer2/tile_spacing_input" to="." method="_on_tile_spacing_input_value_changed"]
+[connection signal="mouse_entered" from="PanelContainer/ScrollContainer/GridContainer" to="." method="_on_grid_container_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/ScrollContainer/GridContainer" to="." method="_on_grid_container_mouse_exited"]

@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqc0cy8b1th7t"]
+
+[ext_resource type="Script" uid="uid://7pqwmdsaqobt" path="res://plugins/exporter/export_container.gd" id="1_rye6a"]
+[ext_resource type="Script" uid="uid://ckhyikvmnvn6h" path="res://plugins/exporter/export_param_container.gd" id="2_q1lff"]
+[ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="3_53xte"]
+
+[node name="Export" type="ScrollContainer"]
+offset_right = 375.0
+offset_bottom = 1061.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_rye6a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="export_type_opt" type="OptionButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 3
+
+[node name="export_plugin_opt" type="OptionButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="export_param_container" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_q1lff")
+
+[node name="export_btn" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Export"
+icon = ExtResource("3_53xte")
+
+[connection signal="item_selected" from="VBoxContainer/export_type_opt" to="." method="_on_export_type_opt_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/export_plugin_opt" to="." method="_on_export_plugin_opt_item_selected"]
+[connection signal="pressed" from="VBoxContainer/export_btn" to="." method="_on_export_btn_pressed"]

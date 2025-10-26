@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c15rfpw83as42"]
+
+[ext_resource type="Script" uid="uid://cjx8vnpgoxboj" path="res://widget/arg_container.gd" id="1_5knwe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e4811"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.08462096, 0.08949, 0.111400664, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="arg_container" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_e4811")
+script = ExtResource("1_5knwe")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="arg_label" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Arg:Type"

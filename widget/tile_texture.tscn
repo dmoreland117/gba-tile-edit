@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://r7wohb3j3kqu"]
+
+[ext_resource type="Texture2D" uid="uid://dct64lw8qa7x3" path="res://icon.svg" id="1_i752t"]
+[ext_resource type="Script" uid="uid://bt2n6o6x656g2" path="res://widget/tile_texture.gd" id="2_b5if5"]
+
+[node name="tile_texture" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_i752t")
+script = ExtResource("2_b5if5")
