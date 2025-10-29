@@ -90,8 +90,8 @@ func _set_palette_mode(mode:String):
 		palette_editor.mode = palette_editor.PaletteMode.BANKED
 
 func _select_color(id:int, bank:int):
-	Context.selected_palette_idx = id
-	Context.selected_palette_bank = bank
+	Project.palette.selected_palette_idx = id
+	Project.palette.selected_palette_bank = bank
 
 func _remove_color(id:int, bank:int):
 	Project.palette.remove_color(
@@ -101,7 +101,7 @@ func _remove_color(id:int, bank:int):
 	)
 
 func _add_color():
-	Project.palette.add_color(Color.WHITE)
+	Project.palette.add_color()
 
 func _set_color(r:int, g:int, b:int, id:int = -1, bank:int = -1):
 	var c = Color()

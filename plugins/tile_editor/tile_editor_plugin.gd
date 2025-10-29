@@ -34,4 +34,4 @@ func _add_settings():
 	if !Settings.has_setting('tile_mode', 'tile_editor'):
 		Settings.set_setting(1, 'tile_mode', 'tile_editor')
 func set_selected_bank(bank:int):
-	Context.selected_palette_bank = bank
+	Project.palette.selected_palette_bank = bank

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://w3ut3j5wah08"]
+[gd_scene load_steps=10 format=3 uid="uid://w3ut3j5wah08"]
 
 [ext_resource type="Script" uid="uid://cq21d7wsqgajw" path="res://plugins/palette_editor/palette_editor.gd" id="1_iqxba"]
 [ext_resource type="Texture2D" uid="uid://bes2ngv3a52pp" path="res://assets/file_open_24x.svg" id="1_kgu1t"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://besw02bk8n8g8" path="res://assets/remove_24x.svg" id="4_iqxba"]
 [ext_resource type="Texture2D" uid="uid://wd2jhldebdhj" path="res://assets/up_24x.svg" id="5_4ws6c"]
 [ext_resource type="Texture2D" uid="uid://cu5qigo75mrmq" path="res://assets/down_24x.svg" id="6_iqxba"]
+[ext_resource type="Script" uid="uid://bnleo4igrn2w5" path="res://plugins/palette_editor/fixed_color_picker.gd" id="9_kop0x"]
 
 [node name="Palette Editor" type="VBoxContainer"]
 anchors_preset = 15
@@ -24,11 +25,10 @@ script = ExtResource("1_iqxba")
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HSplitContainer"]
+[node name="vbox" type="VBoxContainer" parent="HSplitContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="HSplitContainer/vbox"]
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 text = "Palette"
@@ -36,104 +36,121 @@ label_settings = ExtResource("2_qjixa")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer/VBoxContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer/vbox"]
 layout_mode = 2
-size_flags_vertical = 3
 theme_type_variation = &"widget_container_panel"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer2/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/vbox/PanelContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 6
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="palette_grid" type="VBoxContainer" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="palette_grid" type="VBoxContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="palette_mode_opt" type="OptionButton" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-selected = 0
-item_count = 2
-popup/item_0/text = "Normal"
-popup/item_0/id = 0
-popup/item_1/text = "Banked"
-popup/item_1/id = 1
-
-[node name="hbox" type="HBoxContainer" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer"]
+[node name="vbox" type="VBoxContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="VBoxContainer" type="HBoxContainer" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="import_palette_btn" type="Button" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer"]
+[node name="import_palette_btn" type="Button" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Import a palette file"
+focus_mode = 3
 theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("1_kgu1t")
 icon_alignment = 1
 
-[node name="export_palette_btn" type="Button" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer"]
+[node name="export_palette_btn" type="Button" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Export palette file"
+focus_mode = 3
 theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("2_8iof6")
 icon_alignment = 1
 
-[node name="VBoxContainer2" type="HBoxContainer" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="add_color_btn3" type="Button" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer2"]
+[node name="add_color_btn3" type="Button" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Export palette file"
+focus_mode = 3
 theme_type_variation = &"green_button"
 icon = ExtResource("3_4ws6c")
 icon_alignment = 1
 
-[node name="remove_color_btn4" type="Button" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer2"]
+[node name="remove_color_btn4" type="Button" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Export palette file"
+focus_mode = 3
 theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("4_iqxba")
 icon_alignment = 1
 
-[node name="VBoxContainer3" type="HBoxContainer" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="move_up_btn" type="Button" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer3"]
+[node name="move_up_btn" type="Button" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Export palette file"
+focus_mode = 3
 theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("5_4ws6c")
 icon_alignment = 1
 
-[node name="move_down_btn" type="Button" parent="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer3"]
+[node name="move_down_btn" type="Button" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Export palette file"
+focus_mode = 3
 theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("6_iqxba")
+icon_alignment = 1
+
+[node name="banked_btn" type="Button" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export palette file"
+focus_mode = 3
+theme_type_variation = &"widget_menubar_button"
+toggle_mode = true
+text = "B"
+icon_alignment = 1
+
+[node name="fixed_mode_btn" type="Button" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export palette file"
+focus_mode = 3
+theme_type_variation = &"widget_menubar_button"
+toggle_mode = true
+text = "F"
 icon_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
@@ -147,11 +164,11 @@ label_settings = ExtResource("2_qjixa")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer/VBoxContainer"]
+[node name="color_picker_panel" type="PanelContainer" parent="HSplitContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"widget_container_panel"
 
-[node name="ColorPicker" type="ColorPicker" parent="HSplitContainer/VBoxContainer/PanelContainer"]
+[node name="ColorPicker" type="ColorPicker" parent="HSplitContainer/VBoxContainer/color_picker_panel"]
 unique_name_in_owner = true
 layout_mode = 2
 edit_alpha = false
@@ -159,11 +176,19 @@ edit_intensity = false
 can_add_swatches = false
 presets_visible = false
 
-[connection signal="item_selected" from="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/palette_mode_opt" to="." method="_on_palette_mode_opt_item_selected"]
-[connection signal="pressed" from="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer/import_palette_btn" to="." method="_on_import_palette_btn_pressed"]
-[connection signal="pressed" from="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer/export_palette_btn" to="." method="_on_export_palette_btn_pressed"]
-[connection signal="pressed" from="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer2/add_color_btn3" to="." method="_on_add_color_btn_3_pressed"]
-[connection signal="pressed" from="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer2/remove_color_btn4" to="." method="_on_remove_color_btn_4_pressed"]
-[connection signal="pressed" from="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer3/move_up_btn" to="." method="_on_move_up_btn_pressed"]
-[connection signal="pressed" from="HSplitContainer/VBoxContainer2/PanelContainer/VBoxContainer/hbox/VBoxContainer3/move_down_btn" to="." method="_on_move_down_btn_pressed"]
-[connection signal="color_changed" from="HSplitContainer/VBoxContainer/PanelContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[node name="fixed_color_picker" type="HFlowContainer" parent="HSplitContainer/VBoxContainer/color_picker_panel"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+script = ExtResource("9_kop0x")
+
+[connection signal="pressed" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer/import_palette_btn" to="." method="_on_import_palette_btn_pressed"]
+[connection signal="pressed" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer/export_palette_btn" to="." method="_on_export_palette_btn_pressed"]
+[connection signal="pressed" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer2/add_color_btn3" to="." method="_on_add_color_btn_3_pressed"]
+[connection signal="pressed" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer2/remove_color_btn4" to="." method="_on_remove_color_btn_4_pressed"]
+[connection signal="pressed" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer3/move_up_btn" to="." method="_on_move_up_btn_pressed"]
+[connection signal="pressed" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer3/move_down_btn" to="." method="_on_move_down_btn_pressed"]
+[connection signal="toggled" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/banked_btn" to="." method="_on_banked_btn_toggled"]
+[connection signal="toggled" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/fixed_mode_btn" to="." method="_on_fixed_mode_btn_toggled"]
+[connection signal="color_changed" from="HSplitContainer/VBoxContainer/color_picker_panel/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="selected_color_changed" from="HSplitContainer/VBoxContainer/color_picker_panel/fixed_color_picker" to="." method="_on_fixed_color_picker_selected_color_changed"]

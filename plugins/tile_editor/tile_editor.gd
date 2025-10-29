@@ -38,7 +38,7 @@ func _ready() -> void:
 	set_tile_count(mode)
 	set_tile_scale(1.0)
 	
-	Context.selected_palette_bank_changed.connect(_on_context_bank_changed)
+	Project.palette.selected_palette_bank_changed.connect(_on_context_bank_changed)
 	Context.selected_tile_changed.connect(_draw_tile_textures)
 	Project.tiles.tiles_updated.connect(_draw_tile_textures)
 
@@ -80,7 +80,7 @@ func _draw_tile_textures():
 			return
 		
 		inst.tile = tile_data
-		inst.palette_bank = Context.selected_palette_bank
+		inst.palette_bank = Project.palette.selected_palette_bank
 		inst.custom_minimum_size = Vector2(TILE_SIZE * tile_scale, TILE_SIZE * tile_scale)
 		inst.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		inst.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -123,7 +123,7 @@ func _process(delta: float) -> void:
 		_hovered_tile_data.set_color_index(
 			_mouse_pos.x,
 			_mouse_pos.y,
-			Context.selected_palette_idx
+			Project.palette.selected_palette_idx
 		)
 	
 	if Input.is_action_just_pressed('zoom_in'):
@@ -151,7 +151,7 @@ func _setup_menubar():
 	for i in range(16):
 		palette_bank_opt.add_item('Bank ' + str(i))
 	
-	palette_bank_opt.select(Context.selected_palette_bank)
+	palette_bank_opt.select(Project.palette.selected_palette_bank)
 	
 	tile_count_opt.select(tile_count_opt.get_item_index(mode))
 

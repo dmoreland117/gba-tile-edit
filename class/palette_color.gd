@@ -2,6 +2,13 @@ class_name PaletteColor
 
 
 var color:Color
+var fixed_palette_idx:int = 0 :
+	set(val):
+		fixed_palette_idx = val
+		color = palette[val]
+		
+var palette:Array[Color] = []
+
 
 func _init(col:Color) -> void:
 	color = col
@@ -29,3 +36,13 @@ static func from_rgb5(rgb5:int) -> PaletteColor:
 	c.g8 = g8
 	
 	return PaletteColor.new(c)
+
+static func from_fixed_pal_idx(idx:int, pal:Array[Color]):
+	if pal.is_empty():
+		return PaletteColor.new(Color.WHITE)
+	
+	var pc = PaletteColor.new(pal[idx])
+	pc.palette = pal
+	pc.fixed_palette_idx = idx
+	return pc
+	

@@ -14,6 +14,7 @@ enum {
 
 signal export_type_changed()
 signal exporters_updated()
+signal default_exporter_changed(idx:int)
 
 var export_type:int = EXPORT_PALETTE:
 	set(val):
@@ -21,7 +22,10 @@ var export_type:int = EXPORT_PALETTE:
 		export_type_changed.emit()
 
 var exporters:Array[ExportPlugin]
-
+var default_exporter = 0:
+	set(val):
+		default_exporter = val
+		default_exporter_changed.emit(val)
 
 func _ready() -> void:
 	_register_commands()
@@ -45,6 +49,7 @@ func register_export_plugin(plugin:ExportPlugin):
 	)
 	exporters.append(plugin)
 	exporters_updated.emit()
+	return exporters.size()
 
 func get_exporters() -> Array[ExportPlugin]:
 	return exporters

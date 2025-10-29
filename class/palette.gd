@@ -1,20 +1,38 @@
 class_name GBPalette
 
 
-const MAX_COLORS = 256
-const BANK_SIZE = 16
-const MAX_BANKS = MAX_COLORS / BANK_SIZE
+
+enum {PALETTE_MODE_FIXED, PALETTE_MODE_RGB}
 
 signal palette_updated()
 signal palette_idx_updated(idx:int)
+signal palette_mode_changed(mode:int)
+signal selected_palette_idx_changed(idx:int)
+signal selected_palette_bank_changed(bank:int)
+signal fixed_colors_registered()
 
 var palette_name:String = 'Untitled'
 var colors:Array[PaletteColor] = []
+var fixed_color_palette:Array[Color] = []
 
+var mode:int = PALETTE_MODE_RGB : set=set_palette_mode
+var selected_palette_bank:int = 0 : set=set_selected_palette_bank
+var selected_palette_idx:int = 0 : set=set_selected_palette_idx
 
-func add_color(color:Color):
-	colors.append(PaletteColor.new(color))
-	palette_updated.emit()
+static var bank_size:int = 16
+
+func add_color():
+	if mode == PALETTE_MODE_RGB:
+		colors.append(PaletteColor.new(Color.WHITE))
+		palette_updated.emit()
+		return
+	
+	if mode == PALETTE_MODE_FIXED:
+		if fixed_color_palette.is_empty():
+			return
+		
+		colors.append(PaletteColor.from_fixed_pal_idx(0, fixed_color_palette))
+		palette_updated.emit()
 
 func remove_color(idx:int):
 	if !_check_idx_in_bounds(idx):
@@ -23,18 +41,32 @@ func remove_color(idx:int):
 	colors.remove_at(idx)
 	palette_updated.emit()
 
+func register_fixed_palette(palette:Array[Color]):
+	if mode == PALETTE_MODE_FIXED:
+		fixed_color_palette = palette
+	
+	fixed_colors_registered.emit()
+
 func get_color(idx:int) -> Color:
 	if !_check_idx_in_bounds(idx):
 		return Color(0, 0, 0)
 	
 	return colors[idx].color
 
-func set_color(idx:int, color:Color):
+func set_color(idx:int, color):
 	if !_check_idx_in_bounds(idx):
 		return
 	
-	colors[idx].color = color
-	palette_updated.emit()
+	if mode == PALETTE_MODE_RGB:
+		colors[idx].color = color
+		palette_updated.emit()
+	
+	if mode == PALETTE_MODE_FIXED:
+		if typeof(color) != TYPE_INT:
+			return
+		
+		colors[idx].fixed_palette_idx = color
+		palette_updated.emit()
 
 func get_colors() -> Array[Color]:
 	var ret:Array[Color] = []
@@ -76,6 +108,25 @@ func to_dict() -> Dictionary:
 
 	return ret
 
+func set_palette_mode(m:int):
+	mode = m
+	if m == PALETTE_MODE_FIXED:
+		clear()
+		add_color()
+	
+	palette_mode_changed.emit(mode)
+
+func set_selected_palette_bank(bank:int):
+	if bank == selected_palette_bank:
+		return
+		
+	selected_palette_bank = bank
+	selected_palette_bank_changed.emit(bank)
+
+func set_selected_palette_idx(idx:int):
+	selected_palette_idx = idx
+	selected_palette_idx_changed.emit(idx)
+
 static func from_bgr5_array(arr:Array[int]) -> GBPalette:
 	var p = GBPalette.new()
 	for col_bgr5 in arr:
@@ -107,12 +158,6 @@ static func bank_and_idx_to_main_idx(bank:int, idx:int) -> int:
 		return idx
 	
 	if bank == 1:
-		return BANK_SIZE + idx
+		return bank_size + idx
 	
-	return (BANK_SIZE * bank) + idx
-
-static func idx_to_bank_and_bank_idx(idx:int):
-	return {
-		'bank': int(idx / MAX_BANKS),
-		'idx':  idx - int((idx / MAX_BANKS) * BANK_SIZE)
-	}
+	return (bank_size * bank) + idx

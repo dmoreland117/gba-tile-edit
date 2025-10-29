@@ -7,22 +7,26 @@ extends ScrollContainer
 @onready var export_param_container: ExportPropContainer = %export_param_container
 
 var selected_exporter_idx:int = 0:
-	set=exporter_selected
+	set=set_exporter
 
 
 func _ready() -> void:
 	_populate_export_type_opt()
 	_populate_plugin_opt()
-	exporter_selected(selected_exporter_idx)
+	set_exporter(Exporter.default_exporter)
 	
 	Exporter.exporters_updated.connect(_populate_plugin_opt)
 	Exporter.export_type_changed.connect(_populate_plugin_opt)
+	Exporter.default_exporter_changed.connect(
+		func(idx):
+			selected_exporter_idx = idx
+	)
 
 func _populate_export_type_opt():
 	for type in Exporter.EXPORT_NAMES:
 		export_type_opt.add_item(type)
 	
-	exporter_selected(selected_exporter_idx)
+	set_exporter(selected_exporter_idx)
 
 func _populate_plugin_opt():
 	export_plugin_opt.clear()
@@ -32,12 +36,12 @@ func _populate_plugin_opt():
 	for p in Exporter.get_exporters():
 		export_plugin_opt.add_item(p._get_exporter_name())
 
-	exporter_selected(selected_exporter_idx)
+	set_exporter(selected_exporter_idx)
 
 func _on_export_plugin_opt_item_selected(index: int) -> void:
 	selected_exporter_idx = index
 
-func exporter_selected(val):
+func set_exporter(val):
 	selected_exporter_idx = val
 	
 	if Exporter.get_exporters().is_empty():
@@ -45,6 +49,8 @@ func exporter_selected(val):
 	
 	if export_param_container:
 		export_param_container.params = Exporter.get_exporters()[selected_exporter_idx]._get_exporter_params()
+	
+	export_plugin_opt.select(val)
 
 func _on_export_btn_pressed() -> void:
 	match Exporter.export_type:

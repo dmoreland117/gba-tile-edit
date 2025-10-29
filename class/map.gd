@@ -54,6 +54,11 @@ func resize(new_size:Vector2):
 
 func clear():
 	tile_attrbs.clear()
+	for i in range(size.x * size.y):
+		var t = GBATileAttrib.new()
+		tile_attrbs.append(t)
+	
+	tile_attrib_updated.emit()
 
 func get_16_bit_array() -> Array[int]:
 	return []
