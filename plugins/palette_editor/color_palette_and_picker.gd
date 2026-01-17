@@ -95,7 +95,7 @@ func _select_color(id:int, bank:int):
 
 func _remove_color(id:int, bank:int):
 	Project.palette.remove_color(
-		GBPalette.bank_and_idx_to_main_idx(
+		GBPaletteData.bank_and_idx_to_main_idx(
 			bank, id
 		)
 	)
@@ -110,7 +110,7 @@ func _set_color(r:int, g:int, b:int, id:int = -1, bank:int = -1):
 	c.b8 = b
 	
 	Project.palette.set_color(
-		GBPalette.bank_and_idx_to_main_idx(bank, id),
+		GBPaletteData.bank_and_idx_to_main_idx(bank, id),
 		c
 	)
 	

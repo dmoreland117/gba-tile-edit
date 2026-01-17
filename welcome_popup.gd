@@ -17,3 +17,6 @@ func _populate_system_preset_opt():
 func _on_new_project_btn_pressed() -> void:
 	Project.create_new_project(system_preset_opt.selected)
 	hide()
+
+func _on_button_2_pressed() -> void:
+	CommandPalette.call_command('load')

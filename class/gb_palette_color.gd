@@ -1,4 +1,4 @@
-class_name PaletteColor
+class_name GBPaletteColor
 
 
 var color:Color
@@ -21,7 +21,7 @@ func get_bgr5() -> int:
 	ret = (b5 << 10) | (g5 << 5) | r5
 	return ret
 
-static func from_rgb5(rgb5:int) -> PaletteColor:
+static func from_rgb5(rgb5:int) -> GBPaletteColor:
 	var b5 = (rgb5 >> 10) & 0x1F 
 	var g5 = (rgb5 >> 5) & 0x1F 
 	var r5 = rgb5 & 0x1F 
@@ -35,13 +35,25 @@ static func from_rgb5(rgb5:int) -> PaletteColor:
 	c.b8 = b8
 	c.g8 = g8
 	
-	return PaletteColor.new(c)
+	return GBPaletteColor.new(c)
 
-static func from_fixed_pal_idx(idx:int, pal:Array[Color]):
-	if pal.is_empty():
-		return PaletteColor.new(Color.WHITE)
+static func from_rgb8(rgb8:int) -> GBPaletteColor:
+	var r8 = (rgb8 >> 14) & 0xFF 
+	var g8 = (rgb8 >> 7) & 0xFF 
+	var b8 = rgb8 & 0xFF 
 	
-	var pc = PaletteColor.new(pal[idx])
+	var c = Color(1, 1, 1)
+	c.r8 = r8
+	c.g8 = g8
+	c.b8 = b8
+	
+	return GBPaletteColor.new(c)
+
+static func from_fixed_pal_idx(idx:int, pal:Array[Color]) -> GBPaletteColor:
+	if pal.is_empty():
+		return GBPaletteColor.new(Color.WHITE)
+	
+	var pc = GBPaletteColor.new(pal[idx])
 	pc.palette = pal
 	pc.fixed_palette_idx = idx
 	return pc

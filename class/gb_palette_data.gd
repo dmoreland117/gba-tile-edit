@@ -1,4 +1,4 @@
-class_name GBPalette
+class_name GBPaletteData
 
 
 
@@ -12,7 +12,7 @@ signal selected_palette_bank_changed(bank:int)
 signal fixed_colors_registered()
 
 var palette_name:String = 'Untitled'
-var colors:Array[PaletteColor] = []
+var colors:Array[GBPaletteColor] = []
 var fixed_color_palette:Array[Color] = []
 
 var mode:int = PALETTE_MODE_RGB : set=set_palette_mode
@@ -23,7 +23,7 @@ static var bank_size:int = 16
 
 func add_color():
 	if mode == PALETTE_MODE_RGB:
-		colors.append(PaletteColor.new(Color.WHITE))
+		colors.append(GBPaletteColor.new(Color.WHITE))
 		palette_updated.emit()
 		return
 	
@@ -31,7 +31,7 @@ func add_color():
 		if fixed_color_palette.is_empty():
 			return
 		
-		colors.append(PaletteColor.from_fixed_pal_idx(0, fixed_color_palette))
+		colors.append(GBPaletteColor.from_fixed_pal_idx(0, fixed_color_palette))
 		palette_updated.emit()
 
 func remove_color(idx:int):
@@ -87,7 +87,7 @@ func get_bgr5_array() -> Array[int]:
 	return ret
 
 func _check_idx_in_bounds(idx:int) -> bool:
-	if idx >= colors.size() and idx != 0:
+	if idx < 0 or idx >= colors.size():
 		print('Could not get palette color out of bounds. id: ', idx)
 		return false
 	if colors.is_empty():
@@ -127,19 +127,19 @@ func set_selected_palette_idx(idx:int):
 	selected_palette_idx = idx
 	selected_palette_idx_changed.emit(idx)
 
-static func from_bgr5_array(arr:Array[int]) -> GBPalette:
-	var p = GBPalette.new()
+static func from_bgr5_array(arr:Array[int]) -> GBPaletteData:
+	var p = GBPaletteData.new()
 	for col_bgr5 in arr:
-		p.colors.append(PaletteColor.from_rgb5(col_bgr5))
+		p.colors.append(GBPaletteColor.from_rgb5(col_bgr5))
 	
 	return p
 
-static func from_dict(dict:Dictionary, old_palette:GBPalette = null) -> GBPalette:
+static func from_dict(dict:Dictionary, old_palette:GBPaletteData = null) -> GBPaletteData:
 	if old_palette:
 		old_palette.palette_name = dict['name']
 		old_palette.clear()
 		for col in dict['colors_bgr5']:
-			old_palette.colors.append(PaletteColor.from_rgb5(col))
+			old_palette.colors.append(GBPaletteColor.from_rgb5(col))
 		
 		old_palette.palette_updated.emit()
 		

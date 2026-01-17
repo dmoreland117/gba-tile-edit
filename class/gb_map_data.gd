@@ -1,4 +1,4 @@
-class_name Map
+class_name GBMapData
 
 
 signal tile_attrib_updated()
@@ -7,14 +7,14 @@ signal resized()
 var map_name:String = 'Untitled'
 var size:Vector2 = Vector2(32, 32)
 
-var tile_attrbs:Array[GBATileAttrib] = []
+var tile_attrbs:Array[GBTileAttrib] = []
 
 
 func _init(map_size:Vector2 = Vector2(32, 32)) -> void:
 	size = map_size
 	
 	for i in range(size.x * size.y):
-		var t = GBATileAttrib.new()
+		var t = GBTileAttrib.new()
 		tile_attrbs.append(t)
 
 func set_tile(x:int, y:int, idx:int):
@@ -24,10 +24,10 @@ func set_tile(x:int, y:int, idx:int):
 func get_tile(x:int, y:int) -> GBTileData:
 	return Project.tiles.get_tile(tile_attrbs[(y * size.x) + x].tile_index)
 
-func get_tile_atrib(x:int, y:int) -> GBATileAttrib:
+func get_tile_atrib(x:int, y:int) -> GBTileAttrib:
 	return tile_attrbs[(y * size.x) + x]
 
-func get_tile_attribs() -> Array[GBATileAttrib]:
+func get_tile_attribs() -> Array[GBTileAttrib]:
 	return tile_attrbs
 
 func set_tile_h_flip(x:int, y:int, flip:bool):
@@ -55,7 +55,7 @@ func resize(new_size:Vector2):
 func clear():
 	tile_attrbs.clear()
 	for i in range(size.x * size.y):
-		var t = GBATileAttrib.new()
+		var t = GBTileAttrib.new()
 		tile_attrbs.append(t)
 	
 	tile_attrib_updated.emit()
@@ -78,13 +78,13 @@ func to_dict() -> Dictionary:
 	
 	return d
 
-static func from_dict(dict:Dictionary, old_map:Map):
-	old_map.clear()
+static func from_dict(dict:Dictionary, old_map:GBMapData):
+	old_map.tile_attrbs.clear()
 	old_map.map_name = dict.get('name', 'Untitled')
 	old_map.size.x = dict.get('size', {}).get('x', 0)
 	old_map.size.y = dict.get('size', {}).get('y', 0)
 	
 	for attr in dict.get('attrs', []):
-		old_map.tile_attrbs.append(GBATileAttrib.from_dict(attr))
+		old_map.tile_attrbs.append(GBTileAttrib.from_dict(attr))
 	
 	old_map.tile_attrib_updated.emit()

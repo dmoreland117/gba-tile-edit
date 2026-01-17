@@ -29,3 +29,6 @@ func _on_import_palette_btn_pressed() -> void:
 
 func _on_add_color_btn_3_pressed() -> void:
 	Project.tiles.add_tile()
+
+func _on_remove_tile_btn_4_pressed() -> void:
+	Project.tiles.remove_tile(Context.selected_tile_index)

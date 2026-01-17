@@ -8,7 +8,7 @@ func _get_exporter_name() -> String:
 func _get_filters() -> PackedStringArray:
 	return ['*.png']
 
-func _export_palette(colors:Array[PaletteColor], path:String, params:Dictionary):
+func _export_palette(colors:Array[GBPaletteColor], path:String, params:Dictionary):
 	pass
 		
 func _export_tiles(tiles:Array[GBTileData], path:String, params):

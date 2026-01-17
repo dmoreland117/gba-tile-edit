@@ -67,7 +67,7 @@ func _draw_colors():
 			)
 
 			flow_container.add_child(c)
-			c.button_pressed = c.get_index() == GBPalette.bank_and_idx_to_main_idx(
+			c.button_pressed = c.get_index() == GBPaletteData.bank_and_idx_to_main_idx(
 															Project.palette.selected_palette_bank,
 															Project.palette.selected_palette_idx)
 
@@ -81,7 +81,7 @@ func select_color(bank:int, idx:int):
 
 func _on_context_selected_color_changed(idx):
 	color_picker.color = Project.palette.get_color(
-		GBPalette.bank_and_idx_to_main_idx(
+		GBPaletteData.bank_and_idx_to_main_idx(
 			Project.palette.selected_palette_bank,
 			Project.palette.selected_palette_idx
 		)
@@ -122,7 +122,7 @@ func _on_banked_btn_toggled(toggled_on: bool) -> void:
 	banked = toggled_on
 
 func _on_palette_mode_changed(mode:int):
-	if mode == GBPalette.PALETTE_MODE_FIXED:
+	if mode == GBPaletteData.PALETTE_MODE_FIXED:
 		color_picker.hide()
 		fixed_color_picker.show()
 	else:
@@ -131,10 +131,10 @@ func _on_palette_mode_changed(mode:int):
 
 func _on_fixed_mode_btn_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		Project.palette.mode = GBPalette.PALETTE_MODE_FIXED
+		Project.palette.mode = GBPaletteData.PALETTE_MODE_FIXED
 		return
 	
-	Project.palette.mode = GBPalette.PALETTE_MODE_RGB
+	Project.palette.mode = GBPaletteData.PALETTE_MODE_RGB
 
 func _on_fixed_color_picker_selected_color_changed(idx: Variant) -> void:
 	Project.palette.set_color(

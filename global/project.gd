@@ -1,15 +1,9 @@
 extends Node
 
 
-enum {
-	TILE_MODE_4BPP,
-	TILE_MODE_8BPP
-}
-
 signal Preset_idx_changed(idx:int)
 
 var proj_name = 'Untitled'
-var tile_mode:int = TILE_MODE_8BPP
 var needs_save:bool = false
 var last_save_path:String = ''
 var preset_idx:int = 0:
@@ -17,9 +11,9 @@ var preset_idx:int = 0:
 		preset_idx = val
 		Preset_idx_changed.emit(val)
 
-var palette:GBPalette = GBPalette.new()
+var palette:GBPaletteData = GBPaletteData.new()
 var tiles:GBTileSet = GBTileSet.new()
-var map:Map = Map.new()
+var map:GBMapData = GBMapData.new()
 
 func create_initail_project():
 	var preset = PluginManager.get_system_presets()[0]
@@ -90,6 +84,6 @@ func load(path:String):
 	var dict = JSON.parse_string(dict_String)
 	proj_name = dict.get('name', 'Untitled')
 	last_save_path = path
-	GBPalette.from_dict(dict['palette'], palette)
+	GBPaletteData.from_dict(dict['palette'], palette)
 	GBTileSet.from_dict(dict['tileset'], tiles)
-	Map.from_dict(dict['map'], map)
+	GBMapData.from_dict(dict['map'], map)

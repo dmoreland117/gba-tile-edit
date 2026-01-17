@@ -70,6 +70,9 @@ const NES_PALETTE:Array[Color] = [
 
 
 func _ready() -> void:
+	
+	var c = GBPaletteColor.from_rgb8(0xFF0000)
+	
 	Project.create_initail_project()
 	
 	Settings.load()
@@ -113,7 +116,6 @@ func _process(delta: float) -> void:
 		Popups.show_command_palette()
 	if Input.is_action_just_pressed("add_palette_color"):
 		Project.palette.add_color()
-
 
 func save_proj():
 	var path

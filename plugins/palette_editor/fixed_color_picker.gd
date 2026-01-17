@@ -12,7 +12,7 @@ func _ready() -> void:
 	draw_colors()
 
 func draw_colors():
-	if Project.palette.mode == GBPalette.PALETTE_MODE_RGB:
+	if Project.palette.mode == GBPaletteData.PALETTE_MODE_RGB:
 		return
 	
 	for color in Project.palette.fixed_color_palette:

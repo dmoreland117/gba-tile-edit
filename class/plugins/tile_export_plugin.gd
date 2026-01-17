@@ -12,7 +12,7 @@ func _get_exporter_name() -> String:
 func _get_exporter_params() -> Dictionary:
 	return {}
 
-func _export_palette(colors:Array[PaletteColor], path:String, params:Dictionary):
+func _export_palette(colors:Array[GBPaletteColor], path:String, params:Dictionary):
 	pass
 
 func _export_tile(tile:GBTileData, path:String, params:Dictionary):
@@ -21,7 +21,7 @@ func _export_tile(tile:GBTileData, path:String, params:Dictionary):
 func _export_tiles(tiles:Array[GBTileData], path:String, params:Dictionary):
 	pass
 
-func _export_map(map:Map, path:String, params:Dictionary):
+func _export_map(map:GBMapData, path:String, params:Dictionary):
 	pass
 
 func _get_filters() -> PackedStringArray:

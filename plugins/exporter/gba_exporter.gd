@@ -21,7 +21,7 @@ func _get_exporter_name() -> String:
 func _get_filters() -> PackedStringArray:
 	return [FILTERS[export_type]]
 
-func _export_palette(colors:Array[PaletteColor], path:String, params:Dictionary):
+func _export_palette(colors:Array[GBPaletteColor], path:String, params:Dictionary):
 	var arr = PackedByteArray()
 	for color_idx in range(0, colors.size()):
 		var hi = (colors[color_idx].get_bgr5() >> 8) & 0xFF
@@ -61,7 +61,7 @@ func _export_tiles(tiles:Array[GBTileData], path:String, params):
 		file.store_string(Utils.int_array_to_c_char_array(arr, params.get('C Array Name', 'tileset')))
 	file.close()
 
-func _export_map(map:Map, path:String, params:Dictionary):
+func _export_map(map:GBMapData, path:String, params:Dictionary):
 	var arr = PackedByteArray()
 	
 	for attr in map.tile_attrbs:
@@ -83,8 +83,9 @@ func _export_map(map:Map, path:String, params:Dictionary):
 			arr,
 			params.get('C Array Name', 'tilemap'),
 			[
-				'const %s_TILEMAP_WIDTH = %d' % [params.get('C Array Name', 'untitled').to_upper().replace(' ', '_'), map.size.x],
-				'const %s_TILEMAP_HEIGHT = %d' % [params.get('C Array Name', 'untitled').to_upper().replace(' ', '_'), map.size.y]
+				'#include <gba_base.h> \n',
+				'const u16 %s_TILEMAP_WIDTH = %d;' % [params.get('C Array Name', 'untitled').to_upper().replace(' ', '_'), map.size.x],
+				'const u16 %s_TILEMAP_HEIGHT = %d;' % [params.get('C Array Name', 'untitled').to_upper().replace(' ', '_'), map.size.y]
 			]))
 	file.close()
 

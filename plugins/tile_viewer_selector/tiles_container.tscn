@@ -82,7 +82,7 @@ theme_type_variation = &"green_button"
 icon = ExtResource("5_5y12a")
 icon_alignment = 1
 
-[node name="remove_color_btn4" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer2"]
+[node name="remove_tile_btn4" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "remove selected Tile"
@@ -114,3 +114,4 @@ icon_alignment = 1
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer/import_palette_btn" to="." method="_on_import_palette_btn_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer2/add_color_btn3" to="." method="_on_add_color_btn_3_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer2/remove_tile_btn4" to="." method="_on_remove_tile_btn_4_pressed"]

@@ -1,4 +1,4 @@
-class_name GBATileAttrib
+class_name GBTileAttrib
 
 
 var tile_index:int = 0
@@ -29,8 +29,8 @@ func to_dict() -> Dictionary:
 		'v_flip': v_flip
 	}
 
-static func from_dict(dict:Dictionary) -> GBATileAttrib:
-	var attr = GBATileAttrib.new()
+static func from_dict(dict:Dictionary) -> GBTileAttrib:
+	var attr = GBTileAttrib.new()
 	attr.tile_index = dict.get('idx', 0) 
 	attr.palette_bank_index = dict.get('palette_idx', 0)
 	attr.h_flip = dict.get('h_flip', false)

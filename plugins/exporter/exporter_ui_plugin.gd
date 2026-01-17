@@ -79,8 +79,8 @@ func _enter_tree() -> void:
 	
 	register_system_preset(
 		{
-		'name': 'Nintendo Entertainment System (NES)',
-		'palette_type': 'fixed',
+		'label': 'Nintendo Entertainment System (NES)',
+		'palette_mode': SystemPreset.PALETTE_MODE_FIXED,
 		'palette_bank_size': 4,
 		'fixed_palette_colors': NES_PALETTE,
 		'initial_color_count': 4,
