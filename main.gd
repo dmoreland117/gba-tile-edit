@@ -36,11 +36,13 @@ func _ready() -> void:
 	
 	Ui.get_container(Ui.TOP_RIGHT_CONTIANER).add_child(save_btn)
 	
-	PluginManager.load_plugin("res://plugin_test.cfg")
-	PluginManager.load_plugin("res://plugins/tile_editor/tile_editor_plugin.gd")
-	PluginManager.load_plugin("res://plugins/exporter/exporter_ui_plugin.gd")
-	PluginManager.load_plugin("res://plugins/tile_viewer_selector/tile_viewer_plugin.gd")
-	PluginManager.load_plugin("res://plugins/map_editor/map_edit_plugin.gd")
+	PluginManager.scan_plugins_dir()
+	
+	#PluginManager.load_plugin("res://plugin_test.cfg")
+	#PluginManager.load_plugin("res://plugins/tile_editor/tile_editor_plugin.gd")
+	#PluginManager.load_plugin("res://plugins/exporter/exporter_ui_plugin.gd")
+	#PluginManager.load_plugin("res://plugins/tile_viewer_selector/tile_viewer_plugin.gd")
+	#PluginManager.load_plugin("res://plugins/map_editor/map_edit_plugin.gd")
 	
 	Popups.show_welcome_popup()
 

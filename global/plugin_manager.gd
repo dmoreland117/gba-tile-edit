@@ -3,10 +3,12 @@ extends Node
 
 const PALETTE_TYPE_FIXED = 'fixed'
 const PALETTE_TYPE_RGB = 'rgb'
+const SCAN_PATHS = [
+	'res://plugins'
+]
 
 signal system_presets_changed()
 
-var plugins:Array[GBEditPlugin]
 var _system_presets:Array[Dictionary] = [
 	{
 		'name': 'Nintendo Game Boy Advanced (GBA)',
@@ -19,26 +21,44 @@ var _system_presets:Array[Dictionary] = [
 	
 ]
 
+
+func scan_plugins_dir():
+	var dir = DirAccess.open('res://plugins')
+	dir.list_dir_begin()
+	
+	var current = dir.get_next()
+	while current != '':
+		var current_path = 'res://plugins/' + current + '/' + 'plugin.cfg'
+		if !FileAccess.file_exists(current_path):
+			printerr('No plugin.cfg found.')
+			current = dir.get_next()
+			
+			continue
+			
+		load_plugin(current_path)	
+		current = dir.get_next()
+	
+	return
+
 func load_plugin(path:String) -> int:
 	var plugin_config = PluginConfig.load_file(path)
 	if !plugin_config:
 		return -1
 	
-	var id = plugins.size()
+	var id = get_child_count()
 	
 	var pi = plugin_config.plugin_script.new()
 	
 	if pi is not GBEditPlugin:
-		printerr('Not a plugin script.')
+		printerr('Not a plugin script. path: ', path)
 		return 0
 	
-	plugins.append(pi)
 	add_child(pi)
 	
 	return id
 
 func remove_plugin(idx:int):
-	plugins[idx].queue_free()
+	get_child(idx).queue_free()
 
 func register_system_preset(preset:Dictionary):
 	_system_presets.append(preset)

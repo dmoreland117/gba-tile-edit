@@ -296,7 +296,6 @@ filters = PackedStringArray("")
 
 [node name="settings_Window" parent="popups" instance=ExtResource("9_kek77")]
 unique_name_in_owner = true
-visible = true
 
 [connection signal="pressed" from="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/new_project_btn" to="popups/welcome_popup" method="_on_new_project_btn_pressed"]
 [connection signal="pressed" from="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="popups/welcome_popup" method="_on_button_2_pressed"]
