@@ -20,10 +20,13 @@ var _system_presets:Array[Dictionary] = [
 ]
 
 func load_plugin(path:String) -> int:
-	var p = load(path)
+	var plugin_config = PluginConfig.load_file(path)
+	if !plugin_config:
+		return -1
+	
 	var id = plugins.size()
 	
-	var pi = p.new()
+	var pi = plugin_config.plugin_script.new()
 	
 	if pi is not GBEditPlugin:
 		printerr('Not a plugin script.')
