@@ -48,15 +48,29 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 6
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="palette_grid" type="VBoxContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="palette_grid" type="VBoxContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="palette_name_input" type="LineEdit" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Palette name..."
+flat = true
 
 [node name="vbox" type="VBoxContainer" parent="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -182,6 +196,7 @@ visible = false
 layout_mode = 2
 script = ExtResource("9_kop0x")
 
+[connection signal="text_submitted" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/palette_name_input" to="." method="_on_palette_name_input_text_submitted"]
 [connection signal="pressed" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer/import_palette_btn" to="." method="_on_import_palette_btn_pressed"]
 [connection signal="pressed" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer/export_palette_btn" to="." method="_on_export_palette_btn_pressed"]
 [connection signal="pressed" from="HSplitContainer/vbox/PanelContainer/VBoxContainer/HBoxContainer/vbox/VBoxContainer2/add_color_btn3" to="." method="_on_add_color_btn_3_pressed"]

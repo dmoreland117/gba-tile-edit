@@ -5,7 +5,6 @@ extends Control
 
 func _ready() -> void:
 	
-	var p = PluginConfig.load_file('res://plugin_test.cfg')
 	Project.create_initail_project()
 	
 	Settings.load()
@@ -36,7 +35,7 @@ func _ready() -> void:
 	
 	Ui.get_container(Ui.TOP_RIGHT_CONTIANER).add_child(save_btn)
 	
-	PluginManager.scan_plugins_dir()
+	PluginManager.scan_dir_paths()
 	
 	#PluginManager.load_plugin("res://plugin_test.cfg")
 	#PluginManager.load_plugin("res://plugins/tile_editor/tile_editor_plugin.gd")
@@ -59,7 +58,8 @@ func save_proj():
 	else:
 		path = Project.last_save_path
 	
-	Project.save(path)
+	#Project.save(path)
+	ProjectSaver.save_project_file(path)
 	
 	return true
 

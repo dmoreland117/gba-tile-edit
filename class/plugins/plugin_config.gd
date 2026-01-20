@@ -17,7 +17,7 @@ static func load_file(path:String) -> PluginConfig:
 	var p = PluginConfig.new()
 	p.label = config.get_value('gbplugin', 'label')
 	
-	var script_path = config.get_value('gbplugin', 'script_path')
+	var script_path:String = config.get_value('gbplugin', 'script_path')
 	if !script_path:
 		return
 	

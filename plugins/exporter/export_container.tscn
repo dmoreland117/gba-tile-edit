@@ -21,6 +21,11 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 3
 
+[node name="export_palette_opt" type="OptionButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 3
+
 [node name="export_plugin_opt" type="OptionButton" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -45,5 +50,6 @@ text = "Export"
 icon = ExtResource("3_53xte")
 
 [connection signal="item_selected" from="VBoxContainer/export_type_opt" to="." method="_on_export_type_opt_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/export_palette_opt" to="." method="_on_export_type_opt_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/export_plugin_opt" to="." method="_on_export_plugin_opt_item_selected"]
 [connection signal="pressed" from="VBoxContainer/export_btn" to="." method="_on_export_btn_pressed"]

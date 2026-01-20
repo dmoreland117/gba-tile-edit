@@ -1,6 +1,8 @@
 extends Node
 
 
+const SETTINGS_API_VERSION = 1.0
+
 var _settings:Dictionary = {}
 
 
@@ -76,6 +78,7 @@ func save():
 		return
 	
 	var settings_dict = _settings
+	settings_dict['version'] = SETTINGS_API_VERSION
 	file.store_string(str(settings_dict))
 	file.close()
 
@@ -84,9 +87,11 @@ func load():
 	if settings_str.is_empty():
 		return
 	
-	var settings_dict = JSON.parse_string(settings_str)
+	var settings_dict:Dictionary = JSON.parse_string(settings_str)
 	if !settings_dict:
 		return
+	
+	settings_dict.erase('version')
 	
 	_settings = settings_dict
 	

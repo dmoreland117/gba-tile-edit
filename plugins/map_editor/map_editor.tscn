@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b60wc5mnlvqpb"]
 
-[ext_resource type="Script" uid="uid://mmo8ro564a0d" path="res://plugins/map_editor/map_editor.gd" id="1_5x2ld"]
+
 [ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="2_5x2ld"]
 [ext_resource type="Texture2D" uid="uid://coylvar1xkb1r" path="res://assets/icons/pencil_24x.svg" id="2_8sb7y"]
 [ext_resource type="Texture2D" uid="uid://dabsryctmg1g6" path="res://assets/icons/swap_horiz_24x.svg" id="3_x1jh8"]
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_5x2ld")
+
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

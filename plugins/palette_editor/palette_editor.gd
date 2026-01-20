@@ -11,6 +11,7 @@ const PALETTE_BANK = preload("uid://c104ob4n4fthl")
 @onready var banked_btn: Button = %banked_btn
 @onready var fixed_color_picker: FixedColorPicker = %fixed_color_picker
 @onready var fixed_mode_btn: Button = %fixed_mode_btn
+@onready var palette_name_input: LineEdit = %palette_name_input
 
 
 var banked = false : set=set_banked
@@ -20,13 +21,16 @@ func _ready() -> void:
 	_draw_colors()
 	
 	color_picker.color = Project.palette.get_color(
-		Project.palette.selected_palette_idx
+		Context.selected_palette_index
 	)
 	
-	Project.palette.selected_palette_idx_changed.connect(_on_context_selected_color_changed)
+	Context.selected_palette_index_changed.connect(_on_context_selected_color_changed)
 	Project.palette.palette_updated.connect(_draw_colors)
 	Project.palette.palette_mode_changed.connect(_on_palette_mode_changed)
 	Project.palette.fixed_colors_registered.connect(fixed_color_picker.draw_colors)
+	Project.palette.palette_name_changed.connect(_on_palette_name_changed)
+	
+	palette_name_input.text = Project.palette.palette_name
 	
 	_on_palette_mode_changed(Project.palette.mode)
 	
@@ -67,9 +71,9 @@ func _draw_colors():
 			)
 
 			flow_container.add_child(c)
-			c.button_pressed = c.get_index() == GBPaletteData.bank_and_idx_to_main_idx(
-															Project.palette.selected_palette_bank,
-															Project.palette.selected_palette_idx)
+			c.button_pressed = c.get_index() == Project.palette.bank_and_idx_to_main_idx(
+															Context.selected_palette_bank,
+															Context.selected_palette_index)
 
 func set_banked(new_banked:bool):
 	banked = new_banked
@@ -81,9 +85,9 @@ func select_color(bank:int, idx:int):
 
 func _on_context_selected_color_changed(idx):
 	color_picker.color = Project.palette.get_color(
-		GBPaletteData.bank_and_idx_to_main_idx(
-			Project.palette.selected_palette_bank,
-			Project.palette.selected_palette_idx
+		Project.palette.bank_and_idx_to_main_idx(
+			Context.selected_palette_bank,
+			Context.selected_palette_index
 		)
 	)
 	_draw_colors()
@@ -92,8 +96,8 @@ func _on_color_picker_color_changed(color: Color) -> void:
 	CommandPalette.call_command(
 		'setcolor',
 		color.r8, color.g8, color.b8,
-		Project.palette.selected_palette_idx,
-		Project.palette.selected_palette_bank
+		Context.selected_palette_index,
+		Context.selected_palette_bank
 	)
 
 func _on_import_palette_btn_pressed() -> void:
@@ -108,8 +112,8 @@ func _on_add_color_btn_3_pressed() -> void:
 func _on_remove_color_btn_4_pressed() -> void:
 	CommandPalette.call_command(
 		'removecolor', 
-		Project.palette.selected_palette_idx, 
-		Project.palette.selected_palette_bank
+		Context.selected_palette_index, 
+		Context.selected_palette_bank
 	)
 
 func _on_move_up_btn_pressed() -> void:
@@ -139,8 +143,14 @@ func _on_fixed_mode_btn_toggled(toggled_on: bool) -> void:
 func _on_fixed_color_picker_selected_color_changed(idx: Variant) -> void:
 	Project.palette.set_color(
 		Project.palette.bank_and_idx_to_main_idx(
-			Project.palette.selected_palette_bank,
-			Project.palette.selected_palette_idx,
+			Context.selected_palette_bank,
+			Context.selected_palette_index,
 		),
 		idx
 	)
+
+func _on_palette_name_changed(new_name:String):
+	palette_name_input.text = new_name
+
+func _on_palette_name_input_text_submitted(new_text: String) -> void:
+	Project.palette.set_palette_name(new_text)

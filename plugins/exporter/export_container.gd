@@ -4,6 +4,7 @@ extends ScrollContainer
 
 @onready var export_type_opt: OptionButton = %export_type_opt
 @onready var export_plugin_opt: OptionButton = %export_plugin_opt
+@onready var export_palette_opt: OptionButton = %export_palette_opt
 @onready var export_param_container: ExportPropContainer = %export_param_container
 
 var selected_exporter_idx:int = 0:
@@ -63,3 +64,9 @@ func _on_export_btn_pressed() -> void:
 
 func _on_export_type_opt_item_selected(index: int) -> void:
 	Exporter.export_type = index
+	if index != Exporter.EXPORT_PALETTE:
+		export_palette_opt.hide()
+		return
+	
+	export_palette_opt.show()
+	

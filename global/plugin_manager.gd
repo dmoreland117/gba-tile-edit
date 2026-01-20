@@ -4,7 +4,8 @@ extends Node
 const PALETTE_TYPE_FIXED = 'fixed'
 const PALETTE_TYPE_RGB = 'rgb'
 const SCAN_PATHS = [
-	'res://plugins'
+	'res://plugins',
+	'user://plugins'
 ]
 
 signal system_presets_changed()
@@ -22,15 +23,23 @@ var _system_presets:Array[Dictionary] = [
 ]
 
 
-func scan_plugins_dir():
-	var dir = DirAccess.open('res://plugins')
+func scan_dir_paths():
+	for path in SCAN_PATHS:
+		scan_plugins_dir(path)
+
+func scan_plugins_dir(dir_path:String):
+	var dir = DirAccess.open(dir_path)
 	dir.list_dir_begin()
 	
 	var current = dir.get_next()
 	while current != '':
-		var current_path = 'res://plugins/' + current + '/' + 'plugin.cfg'
+		if !dir.current_is_dir():
+			current = dir.get_next()
+			continue
+		
+		var current_path = dir_path + '/' + current + '/' + 'plugin.cfg'
 		if !FileAccess.file_exists(current_path):
-			printerr('No plugin.cfg found.')
+			printerr('No plugin.cfg found. path: ', current_path)
 			current = dir.get_next()
 			
 			continue
@@ -46,6 +55,10 @@ func load_plugin(path:String) -> int:
 		return -1
 	
 	var id = get_child_count()
+	
+	if !plugin_config.plugin_script:
+		printerr('Could not load script', )
+		return -1
 	
 	var pi = plugin_config.plugin_script.new()
 	

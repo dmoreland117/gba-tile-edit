@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=32 format=3 uid="uid://5tmknl2gspks"]
+[gd_resource type="Theme" load_steps=33 format=3 uid="uid://5tmknl2gspks"]
 
 [ext_resource type="Texture2D" uid="uid://btkb5msbheua6" path="res://assets/add_24x.svg" id="1_110ce"]
 [ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="2_05tig"]
@@ -79,6 +79,9 @@ expand_margin_left = 4.0
 expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_05tig"]
+color = Color(0.13517916, 0.13517916, 0.13517916, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6q1gq"]
 content_margin_left = 12.0
@@ -312,6 +315,7 @@ Button/styles/normal = SubResource("StyleBoxFlat_110ce")
 Button/styles/pressed = SubResource("StyleBoxFlat_05tig")
 ColorPickerButton/styles/normal = SubResource("StyleBoxFlat_howt0")
 ColorPickerButton/styles/pressed = SubResource("StyleBoxFlat_0ceoj")
+HSeparator/styles/separator = SubResource("StyleBoxLine_05tig")
 Icons/icons/add = ExtResource("1_110ce")
 Icons/icons/export_file = ExtResource("2_05tig")
 Icons/icons/open_file = ExtResource("3_1rmny")

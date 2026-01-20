@@ -4,8 +4,8 @@ extends Node
 signal Preset_idx_changed(idx:int)
 
 var proj_name = 'Untitled'
-var needs_save:bool = false
 var last_save_path:String = ''
+var last_save_timestamp:int = 0
 var preset_idx:int = 0:
 	set(val):
 		preset_idx = val
@@ -16,20 +16,7 @@ var tiles:GBTileSet = GBTileSet.new()
 var map:GBMapData = GBMapData.new()
 
 func create_initail_project():
-	var preset = PluginManager.get_system_presets()[0]
-	
-	if preset['palette_type'] == PluginManager.PALETTE_TYPE_FIXED:
-		palette.mode = palette.PALETTE_MODE_FIXED
-		palette.register_fixed_palette(preset['fixed_palette_colors'])
-		
-	if preset['palette_type'] == PluginManager.PALETTE_TYPE_RGB:
-		palette.mode = palette.PALETTE_MODE_RGB
-	
-	for i in range(preset['initial_color_count']):
-		palette.add_color()
-	
-	palette.bank_size = preset.get('palette_bank_size', 16)
-	tiles.add_tile()
+	create_new_project(0)
 
 func create_new_project(preset_id:int):
 	preset_idx = preset_id
@@ -54,36 +41,7 @@ func create_new_project(preset_id:int):
 		palette.add_color()
 	
 	palette.bank_size = preset.get('palette_bank_size', 16)
+	
 	Exporter.default_exporter = preset.get('default_export_plugin_idx', 0)
+	
 	tiles.add_tile()
-
-func save(path:String):
-	var dict = {
-		'name': proj_name,
-		'save_path': path,
-		'palette': palette.to_dict(),
-		'tileset': tiles.to_dict(),
-		'map': map.to_dict()
-	}
-	
-	last_save_path = path
-	
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	if !file:
-		return
-	
-	file.store_string(str(dict))
-	
-	file.close()
-
-func load(path:String):
-	var dict_String = FileAccess.get_file_as_string(path)
-	if dict_String.is_empty():
-		return
-	
-	var dict = JSON.parse_string(dict_String)
-	proj_name = dict.get('name', 'Untitled')
-	last_save_path = path
-	GBPaletteData.from_dict(dict['palette'], palette)
-	GBTileSet.from_dict(dict['tileset'], tiles)
-	GBMapData.from_dict(dict['map'], map)

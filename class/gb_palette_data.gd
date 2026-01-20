@@ -5,21 +5,17 @@ class_name GBPaletteData
 enum {PALETTE_MODE_FIXED, PALETTE_MODE_RGB}
 
 signal palette_updated()
-signal palette_idx_updated(idx:int)
 signal palette_mode_changed(mode:int)
-signal selected_palette_idx_changed(idx:int)
-signal selected_palette_bank_changed(bank:int)
 signal fixed_colors_registered()
+signal palette_name_changed(new_name:String)
 
-var palette_name:String = 'Untitled'
+var palette_name:String = 'Untitled' : set=set_palette_name
 var colors:Array[GBPaletteColor] = []
 var fixed_color_palette:Array[Color] = []
 
 var mode:int = PALETTE_MODE_RGB : set=set_palette_mode
-var selected_palette_bank:int = 0 : set=set_selected_palette_bank
-var selected_palette_idx:int = 0 : set=set_selected_palette_idx
 
-static var bank_size:int = 16
+var bank_size:int = 16
 
 func add_color():
 	if mode == PALETTE_MODE_RGB:
@@ -100,12 +96,12 @@ func to_dict() -> Dictionary:
 		'name': palette_name,
 	}
 
-	var colors_bgr5 = []
+	var colors_rgb8 = []
 	for i in range(colors.size()):
-		colors_bgr5.append(colors[i].get_bgr5())
-
-	ret['colors_bgr5'] = colors_bgr5
-
+		colors_rgb8.append(colors[i].get_rgb8())
+	
+	ret['colors_rgb8'] = colors_rgb8
+	
 	return ret
 
 func set_palette_mode(m:int):
@@ -117,15 +113,17 @@ func set_palette_mode(m:int):
 	palette_mode_changed.emit(mode)
 
 func set_selected_palette_bank(bank:int):
-	if bank == selected_palette_bank:
+	if bank == Context.selected_palette_bank:
 		return
 		
-	selected_palette_bank = bank
-	selected_palette_bank_changed.emit(bank)
+	Context.selected_palette_bank = bank
 
 func set_selected_palette_idx(idx:int):
-	selected_palette_idx = idx
-	selected_palette_idx_changed.emit(idx)
+	Context.selected_palette_idx = idx
+
+func set_palette_name(new_name:String):
+	palette_name = new_name
+	palette_name_changed.emit(new_name)
 
 static func from_bgr5_array(arr:Array[int]) -> GBPaletteData:
 	var p = GBPaletteData.new()
@@ -139,7 +137,7 @@ static func from_dict(dict:Dictionary, old_palette:GBPaletteData = null) -> GBPa
 		old_palette.palette_name = dict['name']
 		old_palette.clear()
 		for col in dict['colors_bgr5']:
-			old_palette.colors.append(GBPaletteColor.from_rgb5(col))
+			old_palette.colors.append(GBPaletteColor.from_rgb8(col))
 		
 		old_palette.palette_updated.emit()
 		
@@ -153,7 +151,7 @@ static func from_dict(dict:Dictionary, old_palette:GBPaletteData = null) -> GBPa
 	
 	return p
 
-static func bank_and_idx_to_main_idx(bank:int, idx:int) -> int:
+func bank_and_idx_to_main_idx(bank:int, idx:int) -> int:
 	if bank == 0:
 		return idx
 	

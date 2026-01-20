@@ -235,7 +235,8 @@ unique_name_in_owner = true
 transparent_bg = false
 oversampling_override = 1.0
 title = "Welcome"
-size = Vector2i(800, 600)
+size = Vector2i(1200, 600)
+wrap_controls = false
 transient_to_focused = true
 transparent = false
 force_native = true
@@ -245,7 +246,7 @@ script = ExtResource("8_5vw27")
 [node name="VBoxContainer" type="VBoxContainer" parent="popups/command_palette_popup"]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 396.0
+offset_right = 596.0
 offset_bottom = 296.0
 
 [node name="Label" type="Label" parent="popups/command_palette_popup/VBoxContainer"]
