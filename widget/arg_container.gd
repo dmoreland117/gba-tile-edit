@@ -15,7 +15,8 @@ func _ready() -> void:
 func type_enum_to_type_String(type:int):
 	var types = {
 		TYPE_INT: 'int',
-		TYPE_STRING: 'string'
+		TYPE_STRING: 'string',
+		TYPE_VECTOR2I: 'vec2i'
 	}
 	
 	return types.get(type, '')

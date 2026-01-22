@@ -38,6 +38,17 @@ func _get_typed_args_array(cmd_args:Array[Dictionary], passed_args):
 				ret.append(int(passed_args[i]))
 			TYPE_STRING:
 				ret.append(str(passed_args[i]))
+			TYPE_VECTOR2I:
+				var arg:String = str(passed_args[i]).remove_chars(' ')
+				var arg_split:Array = arg.remove_chars('()').split(',')
+				var vec2_xy_arr = arg_split.map(
+					func(e):
+						return int(e)
+				)
+				
+				ret.append(Vector2i(
+					vec2_xy_arr[0], vec2_xy_arr[1]
+				))
 	
 	return ret
 

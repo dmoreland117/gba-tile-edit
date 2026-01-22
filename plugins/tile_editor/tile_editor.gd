@@ -40,7 +40,7 @@ func _ready() -> void:
 	
 	Context.selected_palette_bank_changed.connect(_on_context_bank_changed)
 	Context.selected_tile_changed.connect(_draw_tile_textures)
-	Project.tiles.tiles_updated.connect(_draw_tile_textures)
+	Project.get_tileset(Context.selected_tileset_index).tiles_updated.connect(_draw_tile_textures)
 
 func set_tile_count(count:TileMode):
 	mode = count
@@ -75,12 +75,12 @@ func _draw_tile_textures():
 	for i in range(mode):
 		var inst:TileTexture = TILE_TEXTURE.instantiate()
 		
-		var tile_data = Project.tiles.get_tile(Context.selected_tile_index + i)
+		var tile_data = Project.get_tileset(Context.selected_tileset_index).get_tile(Context.selected_tile_index + i)
 		if !tile_data:
 			return
 		
 		inst.tile = tile_data
-		inst.palette_bank = Context.selected_palette_bank
+		inst.palette_bank = Context.selected_palette_bank_index
 		inst.custom_minimum_size = Vector2(TILE_SIZE * tile_scale, TILE_SIZE * tile_scale)
 		inst.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		inst.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -123,7 +123,7 @@ func _process(delta: float) -> void:
 		_hovered_tile_data.set_color_index(
 			_mouse_pos.x,
 			_mouse_pos.y,
-			Context.selected_palette_index
+			Context.selected_palette_color_index
 		)
 	
 	if Input.is_action_just_pressed('zoom_in'):
@@ -140,8 +140,8 @@ func _get_hovered_tile():
 			continue
 		
 		_mouse_pos = child_mouse_pos
-		_mouse_pos.x = int(_mouse_pos.x / (child.size.x / GBTileData.TILE_SIZE))
-		_mouse_pos.y = int(_mouse_pos.y / (child.size.y / GBTileData.TILE_SIZE))
+		_mouse_pos.x = int(_mouse_pos.x / (child.size.x / Project.get_tileset(Context.selected_tileset_index).tile_size.x))
+		_mouse_pos.y = int(_mouse_pos.y / (child.size.y / Project.get_tileset(Context.selected_tileset_index).tile_size.y))
 		
 		if _hovered_tile_data != child.tile:
 			_hovered_tile_data = child.tile
@@ -151,7 +151,7 @@ func _setup_menubar():
 	for i in range(16):
 		palette_bank_opt.add_item('Bank ' + str(i))
 	
-	palette_bank_opt.select(Context.selected_palette_bank)
+	palette_bank_opt.select(Context.selected_palette_bank_index)
 	
 	tile_count_opt.select(tile_count_opt.get_item_index(mode))
 

@@ -16,50 +16,69 @@ enum {
 @onready var mouse_pos_label: Label = %mouse_pos_label
 @onready var scroll_container: ScrollContainer = $PanelContainer/ScrollContainer
 @onready var mode_btns: HBoxContainer = %mode_btns
+@onready var selected_map_opt: OptionButton = %selected_map_opt
 
 var tile_scale:float = 1.0 : set=set_tile_scale
 var tile_spacing:int = 2 : set=set_tile_spacing
 var mode:int = MODE_DRAW
 
 var _mouse_pos:Vector2 = Vector2.ZERO
-var _start_tile_pos:Vector2 = Vector2.ZERO
-var _tile_pos:Vector2 = Vector2.ZERO : set=set_tile_pos
+var _start_tile_pos:Vector2i = Vector2.ZERO
+var _tile_pos:Vector2i = Vector2i.ZERO : set=set_tile_pos
 var _mouse_inside:bool = false
 var _drawing:bool = false
 
 
 func _ready() -> void:
 	_populate_tile_grid()
+	_populate_selected_map_opt()
 	_init_tile_scale_spinbox()
 	_init_tile_spacing_spinbox()
 	_init_mode_btn_signals()
 	set_mode(0)
 	set_tile_scale(0.8)
 	set_tile_spacing(2)
-	Project.tiles.tiles_updated.connect(_populate_tile_grid)
-	Project.map.tile_attrib_updated.connect(_populate_tile_grid)
+	Project.get_tileset(Context.selected_tileset_index).tiles_updated.connect(_populate_tile_grid)
+	Project.get_map(Context.selected_map_index).tile_attrib_updated.connect(_populate_tile_grid)
+	
+	Context.Selected_map_index_changed.connect(_on_context_selected_map_changed)
+	Project.maps_updated.connect(_populate_selected_map_opt)
+
+func _on_context_selected_map_changed(idx:int):
+	Project.get_map(idx).tile_attrib_updated.connect(_populate_tile_grid)
+	
+	_populate_tile_grid()
+	_populate_selected_map_opt()
+
+func _populate_selected_map_opt():
+	selected_map_opt.clear()
+	
+	for map in Project.get_maps():
+		selected_map_opt.add_item(map.map_name)
+	
+	selected_map_opt.selected = Context.selected_map_index
 
 func _process(delta: float) -> void:
 	if !_mouse_inside:
 		return
 	
 	_mouse_pos = scroll_container.get_local_mouse_position()
-	_tile_pos = Vector2(
+	_tile_pos = Vector2i(
 		int((_mouse_pos.x + scroll_container.scroll_horizontal) / ((MAP_TILE_SIZE * tile_scale) + tile_spacing_input.value)),
 		int((_mouse_pos.y + scroll_container.scroll_vertical) / ((MAP_TILE_SIZE * tile_scale) + tile_spacing_input.value)),
 	)
 	
 	if _drawing:
 		if mode == MODE_DRAW:
-			Project.map.set_tile(_tile_pos.x, _tile_pos.y, Context.selected_tile_index)
+			Project.get_map(Context.selected_map_index).set_tile(_tile_pos.x, _tile_pos.y, Context.selected_tile_index)
 		if mode == MODE_HFLIP:
 			var flip = !Project.map.get_tile_h_flip(_tile_pos.x, _tile_pos.y)
 			
-			Project.map.set_tile_h_flip(_tile_pos.x, _tile_pos.y, flip)
+			Project.get_map(Context.selected_map_index).set_tile_h_flip(_tile_pos.x, _tile_pos.y, flip)
 		if mode == MODE_VFLIP:
 			var flip = !Project.map.get_tile_v_flip(_tile_pos.x, _tile_pos.y)
 			
-			Project.map.set_tile_v_flip(_tile_pos.x, _tile_pos.y, flip)
+			Project.get_map(Context.selected_map_index).set_tile_v_flip(_tile_pos.x, _tile_pos.y, flip)
 		
 	#queue_redraw()
 
@@ -104,14 +123,15 @@ func _init_mode_btn_signals():
 		child.pressed.connect(set_mode.bind(child.get_index()))
 
 func _populate_tile_grid():
-	grid_container.columns = Project.map.size.x
+	var s = Project.get_map(Context.selected_map_index).size.x
+	grid_container.columns = Project.get_map(Context.selected_map_index).size.x
 	
 	for child in grid_container.get_children():
 		child.queue_free()
 	
-	for tile in Project.map.get_tile_attribs():
+	for tile in Project.get_map(Context.selected_map_index).get_tile_attribs():
 		var tile_tex:TileTexture = TILE_TEXTURE.instantiate()
-		tile_tex.tile = Project.tiles.get_tile(tile.tile_index)
+		tile_tex.tile = Project.get_tileset(Context.selected_tileset_index).get_tile(tile.tile_index)
 		tile_tex.palette_bank = tile.palette_bank_index
 		tile_tex.custom_minimum_size = Vector2(MAP_TILE_SIZE * tile_scale, MAP_TILE_SIZE * tile_scale)
 		tile_tex.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -142,3 +162,6 @@ func set_tile_pos(new_pos):
 	_tile_pos = new_pos
 	if mouse_pos_label:
 		mouse_pos_label.text = str(new_pos)
+
+func _on_selected_map_opt_item_selected(index: int) -> void:
+	Context.selected_map_index = index

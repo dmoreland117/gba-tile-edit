@@ -5,11 +5,15 @@ signal tiles_updated()
 
 var tileset_name = 'Untitled'
 var tile_datas:Array[GBTileData] = []
+var tile_size:Vector2i = Vector2(8, 8)
 
+
+func _init(size:Vector2) -> void:
+	tile_size = size
 
 func add_tile(tile:GBTileData = null):
 	if !tile:
-		tile_datas.append(GBTileData.new())
+		tile_datas.append(GBTileData.new(tile_size))
 		tiles_updated.emit()
 		return
 	
@@ -78,7 +82,7 @@ static func from_dict(dict:Dictionary, old_tiles:GBTileSet):
 	old_tiles.tileset_name = dict['name']
 	old_tiles.clear()
 	for data:Array in dict['tiles']:
-		var t = GBTileData.new()
+		var t = GBTileData.new(Vector2(8, 8))
 		t.data.clear()
 		for i in data:
 			t.data.append(int(i))

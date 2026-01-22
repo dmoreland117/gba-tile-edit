@@ -9,7 +9,25 @@ func _enter_tree() -> void:
 	
 	_register_commands()
 
-
-
 func _register_commands():
-	pass
+	register_command(
+		'addmap',
+		[
+			{
+				'name': 'name',
+				'type': TYPE_STRING
+			},
+			{
+				'name': 'size',
+				'type': TYPE_VECTOR2I
+			},
+		],
+		_add_map
+	)
+	
+func _add_map(map_name:String = '', size:Vector2i = Vector2i(32, 32)):
+	var new_map = GBMapData.new(size)
+	new_map.map_name = name
+	Project.add_map(new_map)
+	
+	return true

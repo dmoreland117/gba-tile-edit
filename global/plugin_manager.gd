@@ -1,8 +1,12 @@
 extends Node
 
 
-const PALETTE_TYPE_FIXED = 'fixed'
-const PALETTE_TYPE_RGB = 'rgb'
+
+enum {
+	PALETTE_MODE_FIXED,
+	PALETTE_MODE_RGB
+}
+
 const SCAN_PATHS = [
 	'res://plugins',
 	'user://plugins'
@@ -13,7 +17,7 @@ signal system_presets_changed()
 var _system_presets:Array[Dictionary] = [
 	{
 		'name': 'Nintendo Game Boy Advanced (GBA)',
-		'palette_type': 'rgb',
+		'palette_mode': PALETTE_MODE_RGB,
 		'palette_bank_size': 16,
 		'initial_color_count': 4,
 		'initial_map_size': {'x': 32, 'y': 32},
@@ -25,6 +29,7 @@ var _system_presets:Array[Dictionary] = [
 
 func scan_dir_paths():
 	for path in SCAN_PATHS:
+		Log.pr('Scanning for plugins at path', path)
 		scan_plugins_dir(path)
 
 func scan_plugins_dir(dir_path:String):
@@ -67,6 +72,8 @@ func load_plugin(path:String) -> int:
 		return 0
 	
 	add_child(pi)
+	
+	Log.pr('loaded plugin with name', plugin_config.label)
 	
 	return id
 

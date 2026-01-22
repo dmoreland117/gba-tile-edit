@@ -43,6 +43,17 @@ func get_categories() -> PackedStringArray:
 	
 	return ret
 
+func get_sub_category_settings(category:String, sub_category:String = '.') -> Dictionary:
+	var sub_cats:Dictionary = _settings.get(category)
+	if !sub_cats:
+		return {}
+	
+	var sub_cat = sub_cats.get(sub_category)
+	if !sub_cat:
+		return {}
+	
+	return sub_cat
+
 func get_sub_categories(category:String) -> PackedStringArray:
 	var ret = PackedStringArray()
 	

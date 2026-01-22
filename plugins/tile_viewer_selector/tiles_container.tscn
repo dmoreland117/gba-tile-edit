@@ -45,6 +45,10 @@ size_flags_horizontal = 6
 size_flags_vertical = 3
 columns = 2
 
+[node name="selected_tileset_opt" type="OptionButton" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="hbox" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
@@ -112,6 +116,7 @@ theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("8_6max0")
 icon_alignment = 1
 
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/selected_tileset_opt" to="." method="_on_selected_tileset_opt_item_selected"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer/import_palette_btn" to="." method="_on_import_palette_btn_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer2/add_color_btn3" to="." method="_on_add_color_btn_3_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer2/remove_tile_btn4" to="." method="_on_remove_tile_btn_4_pressed"]

@@ -82,26 +82,39 @@ func _register_commands():
 		],
 		_set_palette_mode
 	)
+	register_command(
+		'addpalette',
+		[],
+		_add_palette
+	)
 	
 func _set_palette_mode(mode:String):
 	if mode == 'n':
 		palette_editor.mode = palette_editor.PaletteMode.NORMAL
 	if mode == 'b':
 		palette_editor.mode = palette_editor.PaletteMode.BANKED
+	
+	return true
 
 func _select_color(id:int, bank:int):
-	Context.selected_palette_index = id
-	Context.selected_palette_bank = bank
+	Context.selected_palette_color_index = id
+	Context.selected_palette_bank_index = bank
+	
+	return true
 
 func _remove_color(id:int, bank:int):
-	Project.palette.remove_color(
-		Project.palette.bank_and_idx_to_main_idx(
+	Project.get_selected_palette().remove_color(
+		Project.get_selected_palette().bank_and_idx_to_main_idx(
 			bank, id
 		)
 	)
+	
+	return true
 
 func _add_color():
-	Project.palette.add_color()
+	Project.get_selected_palette().add_color()
+	
+	return true
 
 func _set_color(r:int, g:int, b:int, id:int = -1, bank:int = -1):
 	var c = Color()
@@ -109,9 +122,14 @@ func _set_color(r:int, g:int, b:int, id:int = -1, bank:int = -1):
 	c.g8 = g
 	c.b8 = b
 	
-	Project.palette.set_color(
-		Project.palette.bank_and_idx_to_main_idx(bank, id),
+	Project.get_selected_palette().set_color(
+		Project.get_selected_palette().bank_and_idx_to_main_idx(bank, id),
 		c
 	)
+	
+	return true
+
+func _add_palette():
+	Project.add_palette(GBPaletteData.new())
 	
 	return true

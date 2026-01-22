@@ -35,7 +35,7 @@ func _draw_colors():
 				cb.get_popup().hide()
 		)
 		
-		if bank == Context.selected_palette_bank and color_idx == Context.selected_palette_index:
+		if bank == Context.selected_palette_bank_index and color_idx == Context.selected_palette_color_index:
 			cb.button_pressed = true
 			
 		color_container.add_child(cb)

@@ -1,0 +1,107 @@
+{
+    "version": "v1.0",
+    "name": "Untitled",
+    "system_id": "",
+    "palettes": [
+        {
+            "name": "Untitled",
+            "mode": "rgb",
+            "bank_size": 16,
+            "colors": [
+                13000286,
+                16777215,
+                16777215,
+                16777215
+            ]
+        }
+    ],
+    "tilesets": [
+        {
+            "name": "Untitled",
+            "tile_size": {
+                "x": 8.0,
+                "y": 8.0
+            },
+            "tiles": [
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            ]
+        }
+    ],
+    "tilemaps": [],
+    "context": {
+        "selected_palette_index": 0,
+        "selected_palette_color_index": 0,
+        "Context.selected_palette_bank_index": 0,
+        "selected_tile_index": 0,
+        "selected_tabs": {
+            "left_panel": 0,
+            "right_panel": 0,
+            "main_panel": 0
+        }
+    }
+}

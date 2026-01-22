@@ -113,10 +113,10 @@ func set_palette_mode(m:int):
 	palette_mode_changed.emit(mode)
 
 func set_selected_palette_bank(bank:int):
-	if bank == Context.selected_palette_bank:
+	if bank == Context.selected_palette_bank_index:
 		return
 		
-	Context.selected_palette_bank = bank
+	Context.selected_palette_bank_index = bank
 
 func set_selected_palette_idx(idx:int):
 	Context.selected_palette_idx = idx

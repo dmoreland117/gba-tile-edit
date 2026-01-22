@@ -57,10 +57,14 @@ func get_exporters() -> Array[ExportPlugin]:
 func export_tiles(plugin_idx:int, params:Dictionary):
 	var path = await Popups.show_save_file_popup(exporters[plugin_idx]._get_filters())
 	exporters[plugin_idx]._export_tiles(Project.tiles.tile_datas, path, params)
+	
+	return true
 
 func export_palette(plugin_idx:int, params:Dictionary):
 	var path = await Popups.show_save_file_popup(exporters[plugin_idx]._get_filters())
 	exporters[plugin_idx]._export_palette(Project.palette.colors, path, params)
+	
+	return true
 
 func export_map(plugin_idx:int, params:Dictionary):
 	var path = await Popups.show_save_file_popup(exporters[plugin_idx]._get_filters())

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dkpttseek6jfw"]
+[gd_scene load_steps=14 format=3 uid="uid://dkpttseek6jfw"]
 
 [ext_resource type="Theme" uid="uid://5tmknl2gspks" path="res://theme.tres" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://co1sr23jinggc" path="res://main.gd" id="1_h2yge"]
@@ -10,6 +10,7 @@
 [ext_resource type="LabelSettings" uid="uid://dxvhmchtcry6m" path="res://resources/label/body_lg.tres" id="7_272bh"]
 [ext_resource type="Script" uid="uid://cnn1ope3p6cyu" path="res://popups/command_palette_popup.gd" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://8efh3ipu4r1e" path="res://popups/settings_window.tscn" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://qrwcvcba7a84" path="res://create_tileset_window.tscn" id="11_efxa6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c57u"]
 content_margin_left = 4.0
@@ -297,6 +298,8 @@ filters = PackedStringArray("")
 
 [node name="settings_Window" parent="popups" instance=ExtResource("9_kek77")]
 unique_name_in_owner = true
+
+[node name="create_tileset_window" parent="popups" instance=ExtResource("11_efxa6")]
 
 [connection signal="pressed" from="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/new_project_btn" to="popups/welcome_popup" method="_on_new_project_btn_pressed"]
 [connection signal="pressed" from="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="popups/welcome_popup" method="_on_button_2_pressed"]

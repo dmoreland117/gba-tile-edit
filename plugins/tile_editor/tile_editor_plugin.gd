@@ -33,5 +33,8 @@ func _add_settings():
 		Settings.set_setting(true, 'show_grid', 'tile_editor')
 	if !Settings.has_setting('tile_mode', 'tile_editor'):
 		Settings.set_setting(1, 'tile_mode', 'tile_editor')
+
 func set_selected_bank(bank:int):
-	Project.palette.selected_palette_bank = bank
+	Project.palette.Context.selected_palette_bank_index = bank
+	
+	return true

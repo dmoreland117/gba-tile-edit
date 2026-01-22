@@ -20,7 +20,7 @@ var _tile_image:Image
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	
-	Project.palette.palette_updated.connect(draw_tile)
+	Project._palettes[0].palette_updated.connect(draw_tile)
 	
 	if tile and !tile.is_connected('tile_updated', draw_tile):
 		tile.tile_updated.connect(draw_tile)
@@ -46,10 +46,10 @@ func draw_tile():
 	if !tile:
 		return
 	
-	for x in range(GBTileData.TILE_SIZE):
-		for y in range(GBTileData.TILE_SIZE):
-			var color = Project.palette.get_color(
-				Project.palette.bank_and_idx_to_main_idx(
+	for x in range(tile.size.x):
+		for y in range(tile.size.y):
+			var color = Project._palettes[0].get_color(
+				Project._palettes[0].bank_and_idx_to_main_idx(
 					palette_bank, tile.get_color_index(x, y)))
 			_tile_image.set_pixel(x, y, color)
 	
