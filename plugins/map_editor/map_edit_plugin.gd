@@ -27,7 +27,7 @@ func _register_commands():
 	
 func _add_map(map_name:String = '', size:Vector2i = Vector2i(32, 32)):
 	var new_map = GBMapData.new(size)
-	new_map.map_name = name
+	new_map.map_name = map_name
 	Project.add_map(new_map)
 	
 	return true

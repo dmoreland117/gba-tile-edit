@@ -10,11 +10,14 @@ func _enter_tree() -> void:
 	Ui.get_container(Ui.MAIN_CONTAINER).add_child(tile_editor)
 	
 	var tm = Settings.get_setting('tile_mode', 'tile_editor')
-	tile_editor.mode = tm
-	var sg = Settings.get_setting('show_grid', 'tile_editor', '.', false)
-	tile_editor.show_grid = sg
 	
 	_register_commands()
+
+func _connect_signals():
+	Context.selected_tile_changed.connect(
+		func(idx):
+			tile_editor.tile_idx = idx
+	)
 
 func _register_commands():
 	CommandPalette.register_command(

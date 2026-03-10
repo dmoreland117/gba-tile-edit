@@ -74,8 +74,6 @@ func _enter_tree() -> void:
 	Ui.get_container(Ui.LEFT_CONTAINER).add_child(exporter)
 	
 	_register_commands()
-	register_exporter_plugin(GBAExporter.new())
-	register_exporter_plugin(PNGExporter.new())
 	
 	register_system_preset(
 		{

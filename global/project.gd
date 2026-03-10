@@ -21,6 +21,11 @@ var _palettes:Array[GBPaletteData] = []
 var _tilesets:Array[GBTileSet] = []
 var _maps:Array[GBMapData] = []
 
+var _grids:Array[GridData] = [
+	GridData.new()
+]
+
+
 func create_initail_project():
 	Log.pr('Creating initail Project')
 	create_new_project(0)
@@ -46,7 +51,7 @@ func create_new_project(preset_id:int):
 	
 	Context.selected_map_index = 0
 	Context.selected_tileset_index = 0
-	Context.selected_tile_index = 0
+	Context.selected_tileset_tile_index = 0
 	Context.selected_palette_index = 0
 	Context.selected_palette_bank_index = 0
 	Context.selected_palette_color_index = 0
@@ -63,13 +68,13 @@ func create_new_project(preset_id:int):
 	
 	_palettes[Context.selected_palette_index].bank_size = preset.get('palette_bank_size', 16)
 	
-	Exporter.default_exporter = preset.get('default_export_plugin_idx', 0)
+	#Exporter.default_exporter = preset.get('default_export_plugin_idx', 0)
 	
 	_tilesets[0].add_tile()
 
 func clear():
+	_maps.clear()
 	_tilesets.clear()
-	
 	_palettes.clear()
 	
 	proj_name = ''
@@ -88,11 +93,14 @@ func add_palette(new_palette:GBPaletteData):
 	_palettes.append(new_palette)
 	palettes_updated.emit()
 
-func get_tileset(idx:int):
+func get_tileset(idx:int) ->GBTileSet:
 	if _tilesets.is_empty():
 		return
 	
-	return _tilesets[idx]
+	return _tilesets.get(idx)
+
+func get_selected_tileset() -> GBTileSet:
+	return _tilesets.get(Context.selected_tileset_index)
 
 func get_tilesets() -> Array[GBTileSet]:
 	return _tilesets
@@ -109,5 +117,4 @@ func get_map(idx:int) -> GBMapData:
 	return _maps[idx]
 
 func get_maps() -> Array[GBMapData]:
-	Log.debug('Maps:', _maps)
 	return _maps

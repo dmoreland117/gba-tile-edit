@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dq1so4787omkk"]
+
+[node name="VBoxContainer" type="VBoxContainer" unique_id=1666166649]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1328848454]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1665805092]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Spacing x"
+
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer" unique_id=168410700]
+layout_mode = 2
+suffix = "px"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1425183459]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2" unique_id=303785753]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Spacing y"
+
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer2" unique_id=1243479592]
+layout_mode = 2
+suffix = "px"

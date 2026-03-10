@@ -1,7 +1,10 @@
 class_name ExportPropContainer
 extends VBoxContainer
 
+
 const TYPE_ENUM = 10000
+
+signal params_updated()
 
 var params:Dictionary = {} :
 	set(val):
@@ -29,12 +32,13 @@ func _draw_param_controls():
 		
 		var l = Label.new()
 		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		l.text = param
+		l.text = param.capitalize()
 		
 		hbox.add_child(l)
 		match params[param].type:
 			TYPE_ENUM:
 				c = OptionButton.new()
+				c.fit_to_longest_item = false
 				for opt in params[param].options:
 					c.add_item(opt)
 				
@@ -47,7 +51,8 @@ func _draw_param_controls():
 						if on_changed:
 							on_changed.call(idx)
 						
-						parsed_params[param] = idx
+						set_parsed_param(param, idx)
+
 				)
 				
 			TYPE_INT:
@@ -62,7 +67,7 @@ func _draw_param_controls():
 						if on_changed:
 							on_changed.call(val)
 						
-						parsed_params[param] = int(val)
+						set_parsed_param(param, int(val))
 				)
 				
 			TYPE_STRING:
@@ -77,12 +82,17 @@ func _draw_param_controls():
 						if on_changed:
 							on_changed.call(val)
 						
-						parsed_params[param] = val
+						set_parsed_param(param, val)
 				)
 		
 		c.custom_minimum_size = Vector2(180, 0)
 		hbox.add_child(c)
 		add_child(hbox)
+
+func set_parsed_param(param:String, value):
+	parsed_params[param] = value
+	
+	params_updated.emit()
 
 func get_parsed_params() -> Dictionary:
 	return parsed_params

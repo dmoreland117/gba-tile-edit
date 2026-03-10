@@ -1,7 +1,7 @@
 extends Node
 
 
-func int_array_to_c_char_array(values: PackedByteArray, name: String = "data", prefix_lines:PackedStringArray = []) -> String:
+func int_array_to_c_char_array(values: PackedByteArray, name: String = "data", type:String = 'char', prefix_lines:PackedStringArray = [], line_width:int = 16) -> String:
 	var result := ""
 	var line := ""
 	
@@ -10,7 +10,7 @@ func int_array_to_c_char_array(values: PackedByteArray, name: String = "data", p
 	
 	result += '\n'
 	
-	result += "const char " + name + "[" + str(values.size()) + "] = {\n"
+	result += "const " + type + ' ' + name + " [" + str(values.size()) + "] = {\n"
 	
 	for i in range(values.size()):
 		# Ensure the value fits in 8 bits
@@ -22,7 +22,7 @@ func int_array_to_c_char_array(values: PackedByteArray, name: String = "data", p
 			line += ", "
 		
 		# Wrap every 16 values for readability
-		if (i + 1) % 16 == 0:
+		if (i + 1) % line_width == 0:
 			result += "\t" + line + "\n"
 			line = ""
 	

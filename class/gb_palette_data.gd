@@ -76,7 +76,7 @@ func clear():
 	palette_updated.emit()
 
 func get_bgr5_array() -> Array[int]:
-	var ret = []
+	var ret:Array[int] = []
 	for color in colors:
 		ret.append(color.get_bgr5())
 	

@@ -84,7 +84,16 @@ func _register_commands():
 	)
 	register_command(
 		'addpalette',
-		[],
+		[
+			{
+				'name': 'name',
+				'type': TYPE_STRING
+			},
+			{
+				'name': 'mode',
+				'type': TYPE_INT
+			}
+		],
 		_add_palette
 	)
 	
@@ -129,7 +138,10 @@ func _set_color(r:int, g:int, b:int, id:int = -1, bank:int = -1):
 	
 	return true
 
-func _add_palette():
-	Project.add_palette(GBPaletteData.new())
+func _add_palette(name:String, mode:int):
+	var data = GBPaletteData.new()
+	data.palette_name = name
+	data.mode = mode
+	Project.add_palette(data)
 	
 	return true

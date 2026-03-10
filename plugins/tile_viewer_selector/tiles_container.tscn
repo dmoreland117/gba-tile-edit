@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://btej4pvrnpkp2"]
+[gd_scene format=3 uid="uid://btej4pvrnpkp2"]
 
-[ext_resource type="LabelSettings" uid="uid://dxvhmchtcry6m" path="res://resources/label/body_lg.tres" id="1_1p1aq"]
 [ext_resource type="Script" uid="uid://bhbt0khy226aw" path="res://plugins/tile_viewer_selector/tiles_container.gd" id="1_jfr2n"]
+[ext_resource type="Texture2D" uid="uid://dc7441xxsnysw" path="res://assets/icons/more_x24.svg" id="2_kvb4r"]
 [ext_resource type="Texture2D" uid="uid://bes2ngv3a52pp" path="res://assets/file_open_24x.svg" id="3_kvb4r"]
 [ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="4_wyh5i"]
 [ext_resource type="Texture2D" uid="uid://btkb5msbheua6" path="res://assets/add_24x.svg" id="5_5y12a"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://wd2jhldebdhj" path="res://assets/up_24x.svg" id="7_bi7cb"]
 [ext_resource type="Texture2D" uid="uid://cu5qigo75mrmq" path="res://assets/down_24x.svg" id="8_6max0"]
 
-[node name="tiles_container" type="VBoxContainer"]
+[node name="Tiles Containers" type="VBoxContainer" unique_id=1593239150]
 custom_minimum_size = Vector2(160, 0)
 offset_right = 160.0
 offset_bottom = 958.0
@@ -18,46 +18,46 @@ size_flags_vertical = 3
 theme_type_variation = &"inner_panel"
 script = ExtResource("1_jfr2n")
 
-[node name="Label" type="Label" parent="."]
-custom_minimum_size = Vector2(0, 42)
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=875557492]
 layout_mode = 2
-text = "Tiles"
-label_settings = ExtResource("1_1p1aq")
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=331554609]
+layout_mode = 2
+size_flags_horizontal = 10
+icon = ExtResource("2_kvb4r")
+flat = true
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=949564654]
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"widget_container_panel"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1330263856]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer" unique_id=641517777]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="tile_grid" type="GridContainer" parent="PanelContainer/VBoxContainer/ScrollContainer"]
+[node name="tile_grid" type="GridContainer" parent="PanelContainer/VBoxContainer/ScrollContainer" unique_id=231528077]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 columns = 2
 
-[node name="selected_tileset_opt" type="OptionButton" parent="PanelContainer/VBoxContainer"]
+[node name="selected_tileset_opt" type="OptionButton" parent="." unique_id=1824368252]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="hbox" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="hbox" type="HBoxContainer" parent="." unique_id=227253579]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="VBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/hbox"]
+[node name="VBoxContainer" type="HBoxContainer" parent="hbox" unique_id=2093857133]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="import_palette_btn" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer"]
+[node name="import_palette_btn" type="Button" parent="hbox/VBoxContainer" unique_id=1622894426]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Import a Tileset file"
@@ -65,7 +65,7 @@ theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("3_kvb4r")
 icon_alignment = 1
 
-[node name="export_palette_btn" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer"]
+[node name="export_palette_btn" type="Button" parent="hbox/VBoxContainer" unique_id=232527900]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -74,11 +74,10 @@ theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("4_wyh5i")
 icon_alignment = 1
 
-[node name="VBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/hbox"]
+[node name="VBoxContainer2" type="HBoxContainer" parent="hbox" unique_id=1446977555]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="add_color_btn3" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer2"]
+[node name="add_color_btn3" type="Button" parent="hbox/VBoxContainer2" unique_id=831066604]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "add Tile"
@@ -86,7 +85,7 @@ theme_type_variation = &"green_button"
 icon = ExtResource("5_5y12a")
 icon_alignment = 1
 
-[node name="remove_tile_btn4" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer2"]
+[node name="remove_tile_btn4" type="Button" parent="hbox/VBoxContainer2" unique_id=1594054923]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "remove selected Tile"
@@ -94,11 +93,10 @@ theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("6_h7s2i")
 icon_alignment = 1
 
-[node name="VBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/hbox"]
+[node name="VBoxContainer3" type="HBoxContainer" parent="hbox" unique_id=746235933]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="move_up_btn" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer3"]
+[node name="move_up_btn" type="Button" parent="hbox/VBoxContainer3" unique_id=1796868686]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -107,7 +105,7 @@ theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("7_bi7cb")
 icon_alignment = 1
 
-[node name="move_down_btn" type="Button" parent="PanelContainer/VBoxContainer/hbox/VBoxContainer3"]
+[node name="move_down_btn" type="Button" parent="hbox/VBoxContainer3" unique_id=1695074601]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -116,7 +114,7 @@ theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("8_6max0")
 icon_alignment = 1
 
-[connection signal="item_selected" from="PanelContainer/VBoxContainer/selected_tileset_opt" to="." method="_on_selected_tileset_opt_item_selected"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer/import_palette_btn" to="." method="_on_import_palette_btn_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer2/add_color_btn3" to="." method="_on_add_color_btn_3_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/hbox/VBoxContainer2/remove_tile_btn4" to="." method="_on_remove_tile_btn_4_pressed"]
+[connection signal="item_selected" from="selected_tileset_opt" to="." method="_on_selected_tileset_opt_item_selected"]
+[connection signal="pressed" from="hbox/VBoxContainer/import_palette_btn" to="." method="_on_import_palette_btn_pressed"]
+[connection signal="pressed" from="hbox/VBoxContainer2/add_color_btn3" to="." method="_on_add_color_btn_3_pressed"]
+[connection signal="pressed" from="hbox/VBoxContainer2/remove_tile_btn4" to="." method="_on_remove_tile_btn_4_pressed"]

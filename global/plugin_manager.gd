@@ -34,6 +34,10 @@ func scan_dir_paths():
 
 func scan_plugins_dir(dir_path:String):
 	var dir = DirAccess.open(dir_path)
+	if dir == null:
+		Log.warn('dir does not exist, path:', dir_path)
+		return
+	
 	dir.list_dir_begin()
 	
 	var current = dir.get_next()

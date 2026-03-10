@@ -3,6 +3,7 @@ extends Node
 
 var _menubar:MenuBar
 var _tab_bar:TabBar
+var _tile_editor:TileEditor
 
 var containers = []
 
@@ -26,6 +27,12 @@ func register_container(container:int, node:Control):
 		containers[container].tab_changed.connect(_update_context_selected_tabs)
 	if container == RIGHT_CONTAINER:
 		containers[container].tab_changed.connect(_update_context_selected_tabs)
+
+func register_tile_editor(t:TileEditor):
+	_tile_editor = t
+
+func get_tile_editor() -> TileEditor:
+	return _tile_editor
 
 func _update_main_tabbar():
 	_tab_bar.clear_tabs()

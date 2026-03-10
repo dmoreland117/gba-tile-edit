@@ -1,3 +1,4 @@
+extends Resource
 class_name GBTileData
 
 
@@ -7,9 +8,9 @@ const EIGHT_BPP_TILE_DATA_SIZE := 64  # 8×8×8 bits
 signal tile_updated()
 
 var data: Array = []
-var size:Vector2 = Vector2.ZERO
+var size:Vector2i = Vector2.ZERO
 
-func _init(tile_size:Vector2) -> void:
+func _init(tile_size:Vector2 = Vector2(8, 8)) -> void:
 	size = tile_size
 	data.resize(size.x * size.y)
 	data.fill(0)
@@ -31,8 +32,8 @@ func get_color_index(x: int, y: int) -> int:
 
 	return data[(y * size.x) + x] 
 
-func get_8bpp_array() -> PackedByteArray:
-	return PackedByteArray(data)
+func get_8bpp_array() -> Array:
+	return data
 
 func get_4bpp_array() -> PackedByteArray:
 	var ret = PackedByteArray()

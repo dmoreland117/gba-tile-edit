@@ -15,9 +15,11 @@ func set_setting(value, setting_name:String, category:String, sub_category:Strin
 	if !sub_cat:
 		_settings[category][sub_category] = {}
 	
-	_settings[category][sub_category][setting_name] = value
+	_settings[category][sub_category][setting_name] = {
+		'value': value
+	}
 
-func get_setting(setting_name:String, category:String, sub_category:String = '.', default = null):
+func get_setting(setting_name:String, category:String, sub_category:String = '.', default = null) -> Dictionary:
 	var cat = _settings.get(category)
 	if !cat:
 		printerr('Category does not exist. ', category)
@@ -39,6 +41,9 @@ func get_categories() -> PackedStringArray:
 	var ret = PackedStringArray()
 	
 	for cat in _settings.keys():
+		if cat == 'version':
+			continue
+		
 		ret.append(cat)
 	
 	return ret

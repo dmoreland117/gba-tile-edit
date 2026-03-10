@@ -35,14 +35,14 @@ func _draw_tile_items(_id=0):
 		tile_grid.add_child(inst)
 		inst.pressed.connect(
 			func():
-				Context.selected_tile_index = inst.get_index()
+				Context.selected_tileset_tile_index = inst.get_index()
 		)
 
 func _on_add_color_btn_3_pressed() -> void:
 	Project.get_tileset(Context.selected_tileset_index).add_tile()
 
 func _on_remove_tile_btn_4_pressed() -> void:
-	Project.get_tileset(Context.selected_tileset_index).remove_tile(Context.selected_tile_index)
+	Project.get_tileset(Context.selected_tileset_index).remove_tile(Context.selected_tileset_tile_index)
 
 
 func _on_selected_tileset_opt_item_selected(index: int) -> void:

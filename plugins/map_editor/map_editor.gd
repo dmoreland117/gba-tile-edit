@@ -22,6 +22,7 @@ var tile_scale:float = 1.0 : set=set_tile_scale
 var tile_spacing:int = 2 : set=set_tile_spacing
 var mode:int = MODE_DRAW
 
+var _can_draw = false
 var _mouse_pos:Vector2 = Vector2.ZERO
 var _start_tile_pos:Vector2i = Vector2.ZERO
 var _tile_pos:Vector2i = Vector2i.ZERO : set=set_tile_pos
@@ -43,6 +44,12 @@ func _ready() -> void:
 	
 	Context.Selected_map_index_changed.connect(_on_context_selected_map_changed)
 	Project.maps_updated.connect(_populate_selected_map_opt)
+	
+	visibility_changed.connect(
+		func():
+			_can_draw = visible
+			_populate_tile_grid()
+	)
 
 func _on_context_selected_map_changed(idx:int):
 	Project.get_map(idx).tile_attrib_updated.connect(_populate_tile_grid)
@@ -69,16 +76,18 @@ func _process(delta: float) -> void:
 	)
 	
 	if _drawing:
+		var map = Project.get_map(Context.selected_map_index)
+		
 		if mode == MODE_DRAW:
-			Project.get_map(Context.selected_map_index).set_tile(_tile_pos.x, _tile_pos.y, Context.selected_tile_index)
+			map.set_tile(_tile_pos.x, _tile_pos.y, Context.selected_tileset_tile_index)
 		if mode == MODE_HFLIP:
-			var flip = !Project.map.get_tile_h_flip(_tile_pos.x, _tile_pos.y)
+			var flip = !map.get_tile_h_flip(_tile_pos.x, _tile_pos.y)
 			
-			Project.get_map(Context.selected_map_index).set_tile_h_flip(_tile_pos.x, _tile_pos.y, flip)
+			map.set_tile_h_flip(_tile_pos.x, _tile_pos.y, flip)
 		if mode == MODE_VFLIP:
-			var flip = !Project.map.get_tile_v_flip(_tile_pos.x, _tile_pos.y)
+			var flip = !map.get_tile_v_flip(_tile_pos.x, _tile_pos.y)
 			
-			Project.get_map(Context.selected_map_index).set_tile_v_flip(_tile_pos.x, _tile_pos.y, flip)
+			map.set_tile_v_flip(_tile_pos.x, _tile_pos.y, flip)
 		
 	#queue_redraw()
 
@@ -123,6 +132,9 @@ func _init_mode_btn_signals():
 		child.pressed.connect(set_mode.bind(child.get_index()))
 
 func _populate_tile_grid():
+	if !_can_draw:
+		return
+	
 	var s = Project.get_map(Context.selected_map_index).size.x
 	grid_container.columns = Project.get_map(Context.selected_map_index).size.x
 	
@@ -131,7 +143,7 @@ func _populate_tile_grid():
 	
 	for tile in Project.get_map(Context.selected_map_index).get_tile_attribs():
 		var tile_tex:TileTexture = TILE_TEXTURE.instantiate()
-		tile_tex.tile = Project.get_tileset(Context.selected_tileset_index).get_tile(tile.tile_index)
+		tile_tex.tiles = [Project.get_selected_tileset().get_tile(tile.tile_index)]
 		tile_tex.palette_bank = tile.palette_bank_index
 		tile_tex.custom_minimum_size = Vector2(MAP_TILE_SIZE * tile_scale, MAP_TILE_SIZE * tile_scale)
 		tile_tex.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -142,7 +154,7 @@ func _populate_tile_grid():
 
 func _init_tile_scale_spinbox():
 	tile_scale_input.value = tile_scale
-
+	
 func _on_spin_box_value_changed(value: float) -> void:
 	tile_scale = value
 

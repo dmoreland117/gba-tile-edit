@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://soyhgvhpjnjj"]
+
+[ext_resource type="Script" uid="uid://ftu6vucqbfft" path="res://plugins/tile_editor/dropdown__button.gd" id="1_pivpk"]
+[ext_resource type="Texture2D" uid="uid://cpnbt8yxfr4me" path="res://assets/grid_x24.svg" id="2_2kprx"]
+[ext_resource type="Texture2D" uid="uid://cu5qigo75mrmq" path="res://assets/down_24x.svg" id="3_0wdrq"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_jsdjg"]
+color = Color(0.2625, 0.2625, 0.2625, 1)
+grow_begin = 0.0
+grow_end = 0.0
+vertical = true
+
+[node name="dropdown__button" type="HBoxContainer" unique_id=68802493]
+theme_override_constants/separation = 0
+script = ExtResource("1_pivpk")
+
+[node name="main_button" type="Button" parent="." unique_id=907322227]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"dropdown_button_left"
+icon = ExtResource("2_2kprx")
+
+[node name="VSeparator" type="VSeparator" parent="." unique_id=913714993]
+layout_mode = 2
+theme_override_constants/separation = 1
+theme_override_styles/separator = SubResource("StyleBoxLine_jsdjg")
+
+[node name="dropdown_button" type="Button" parent="." unique_id=1705467305]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"dropdown_button_right"
+icon = ExtResource("3_0wdrq")
+
+[node name="PopupPanel" type="PopupPanel" parent="." unique_id=539424585]
+unique_name_in_owner = true
+oversampling_override = 1.0
+
+[connection signal="pressed" from="main_button" to="." method="_on_main_button_pressed"]
+[connection signal="toggled" from="main_button" to="." method="_on_main_button_toggled"]
+[connection signal="pressed" from="dropdown_button" to="." method="_on_dropdown_button_pressed"]

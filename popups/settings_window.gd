@@ -55,7 +55,7 @@ func _populate_settings_list():
 		lbl.text = setting
 		var line_edit = LineEdit.new()
 		line_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		line_edit.text = str(settings_dict[setting])
+		line_edit.text = str(settings_dict[setting].value)
 		hbox.add_child(lbl)
 		hbox.add_child(line_edit)
 		

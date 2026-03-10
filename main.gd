@@ -82,6 +82,7 @@ func _ready() -> void:
 	Popups.show_welcome_popup()
 	
 	var w:Window = get_window()
+	w.content_scale_factor = 1
 	pass
 
 func _process(delta: float) -> void:

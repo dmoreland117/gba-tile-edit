@@ -15,12 +15,12 @@ var selected_tileset_index:int = 0 :
 		Log.pr('set tileset index:', val)
 		selected_tileset_index = val
 		selected_tileset_index_changed.emit(val)
-var selected_tile_index:int = 0 :
+var selected_tileset_tile_index:int = 0 :
 	set(val):
 		Log.pr('set tile index:', val)
 		
-		selected_tile_index = val
-		selected_tile_changed.emit()
+		selected_tileset_tile_index = val
+		selected_tile_changed.emit(val)
 
 var selected_palette_index:int = 0 :
 	set(val):
