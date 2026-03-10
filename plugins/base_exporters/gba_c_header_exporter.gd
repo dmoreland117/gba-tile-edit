@@ -89,8 +89,14 @@ func get_preview(type:String, params) -> Control:
 	cb.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	
 	if type == 'palettes':
-		var data = Project._palettes[params.get('palette', 0)].get_bgr5_array()
+		var colors = Project._palettes[params.get('palette', 0)].colors
+		var data = []
+		for color in colors:
+			data.append(color.)
+		
 		cb.text = palette_array_to_c_array(data, params.get('array_name', 'dd'))
+	
+	
 	if type == 'tilesets':
 		var tileset = Project.get_tileset(params.get('tileset', 0))
 		var data = tileset.get_indexes_array()
