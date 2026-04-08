@@ -1,49 +1,59 @@
 class_name TileContainer
 extends VBoxContainer
 
-const TILE_CONTAINER_ITEM = preload("uid://daahiu68kj761")
+signal selection_updated()
 
-@onready var tile_grid: GridContainer = %tile_grid
-@onready var selected_tileset_opt: OptionButton = %selected_tileset_opt
+@onready var tile_viewer:TileViewer = %tile_viewer
+@onready var selection_info_label:TemplateLabel = %selection_info_label
+
+var tileset:GBTileSet : set=set_tileset
+var selection:Dictionary = {} : set=_set_selection
+
+
+func _set_selection(new_sel):
+	selection = new_sel
+	selection_updated.emit()
+
+func set_tileset(new_tileset):
+	tileset = new_tileset
+	if tile_viewer and tileset:
+		tile_viewer.tiles = tileset.get_tiles()
+		_set_up_selected_tileset_signals()
+
+func _update_selection(sel:Dictionary, cells:Array[Vector2i], ids:Array[int]):
+	var new_sel = {
+		
+	}
+	
+	new_sel['rect'] = sel
+	new_sel['cells'] = cells
+	new_sel['ids'] = ids
+	
+	selection = new_sel
+	
+	if selection_info_label:
+		selection_info_label.replace['start_tile'] = str(sel.position)
+		selection_info_label.replace['selection_size'] = str(sel.size)
+		selection_info_label.replace_text()
+
+func _set_up_selected_tileset_signals():
+	tileset.tiles_updated.connect(
+		func():
+			tile_viewer.tiles = tileset.get_tiles()
+	)
 
 func _ready() -> void:
-	_draw_tile_items()
-	Project.get_tileset(Context.selected_tileset_index).tiles_updated.connect(_draw_tile_items)
-	_populate_selected_tileset_opt()
+	set_tileset(tileset)
 	
-	Context.selected_tileset_index_changed.connect(_on_context_tileset_index_updated)
-	Project.tilesets_updated.connect(_populate_selected_tileset_opt)
+	_on_tile_viewer_selection_updated()
 
-func _on_context_tileset_index_updated(idx:int):
-	_draw_tile_items()
-	Project.get_tileset(idx).tiles_updated.connect(_draw_tile_items)
-
-func _populate_selected_tileset_opt():
-	selected_tileset_opt.clear()
+func _on_tile_viewer_selection_updated() -> void:
+	var s = tile_viewer.get_selection()
+	var c = tile_viewer.get_selected_cells()
+	var ids = tile_viewer.get_selected_ids()
 	
-	for tileset in Project.get_tilesets():
-		selected_tileset_opt.add_item(tileset.tileset_name)
+	_update_selection(s, c, ids)
+	pass
 
-func _draw_tile_items(_id=0):
-	for child in tile_grid.get_children():
-		tile_grid.remove_child(child)
-		child.queue_free()
-	
-	for tile in Project.get_tileset(Context.selected_tileset_index).get_tiles():
-		var inst:Button = TILE_CONTAINER_ITEM.instantiate()
-		inst.tile = tile
-		tile_grid.add_child(inst)
-		inst.pressed.connect(
-			func():
-				Context.selected_tileset_tile_index = inst.get_index()
-		)
-
-func _on_add_color_btn_3_pressed() -> void:
-	Project.get_tileset(Context.selected_tileset_index).add_tile()
-
-func _on_remove_tile_btn_4_pressed() -> void:
-	Project.get_tileset(Context.selected_tileset_index).remove_tile(Context.selected_tileset_tile_index)
-
-
-func _on_selected_tileset_opt_item_selected(index: int) -> void:
-	Context.selected_tileset_index = index
+func _on_add_color_btn_pressed() -> void:
+	Project.get_selected_tileset().add_tile(GBTileData.new())

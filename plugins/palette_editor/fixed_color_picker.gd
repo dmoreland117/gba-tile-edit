@@ -2,26 +2,29 @@ class_name FixedColorPicker
 extends HFlowContainer
 
 
-signal selected_color_changed(idx)
+signal color_changed(idx)
 
 
 var selected_color_idx:int = 0
+var colors = [] : set=set_colors
 
+
+func set_colors(new_colors):
+	colors = new_colors
+	
+	draw_colors()
 
 func _ready() -> void:
 	draw_colors()
 
 func draw_colors():
-	if Project._palettes[0].mode == GBPaletteData.PALETTE_MODE_RGB:
-		return
-	
-	for color in Project.palette.fixed_color_palette:
+	for color in colors:
 		var cb = ColorPickerButton.new()
 		cb.custom_minimum_size = Vector2(32, 32)
 		cb.color = color
 		add_child(cb)
 		cb.pressed.connect(
 			func():
-				selected_color_changed.emit(cb.get_index())
+				color_changed.emit(cb.get_index())
 		)
 	

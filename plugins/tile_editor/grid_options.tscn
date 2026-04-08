@@ -1,8 +1,25 @@
 [gd_scene format=3 uid="uid://dq1so4787omkk"]
 
-[node name="VBoxContainer" type="VBoxContainer" unique_id=1666166649]
+[ext_resource type="Script" uid="uid://dxv1g6piyrylg" path="res://plugins/tile_editor/grid_options.gd" id="1_lwhuw"]
+
+[node name="grid_options" type="VBoxContainer" unique_id=1666166649]
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_lwhuw")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="." unique_id=2089263343]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer3" unique_id=170954623]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Color"
+
+[node name="grid_colorpicker_btn" type="ColorPickerButton" parent="HBoxContainer3" unique_id=1323965383]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1328848454]
 layout_mode = 2
@@ -12,7 +29,8 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Spacing x"
 
-[node name="SpinBox" type="SpinBox" parent="HBoxContainer" unique_id=168410700]
+[node name="spacing_x_input" type="SpinBox" parent="HBoxContainer" unique_id=168410700]
+unique_name_in_owner = true
 layout_mode = 2
 suffix = "px"
 
@@ -24,6 +42,11 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Spacing y"
 
-[node name="SpinBox" type="SpinBox" parent="HBoxContainer2" unique_id=1243479592]
+[node name="spacing_y_input" type="SpinBox" parent="HBoxContainer2" unique_id=1243479592]
+unique_name_in_owner = true
 layout_mode = 2
 suffix = "px"
+
+[connection signal="color_changed" from="HBoxContainer3/grid_colorpicker_btn" to="." method="_on_grid_colorpicker_btn_color_changed"]
+[connection signal="value_changed" from="HBoxContainer/spacing_x_input" to="." method="_on_spacing_x_input_value_changed"]
+[connection signal="value_changed" from="HBoxContainer2/spacing_y_input" to="." method="_on_spacing_y_input_value_changed"]

@@ -12,11 +12,17 @@ func _enter_tree() -> void:
 	var tm = Settings.get_setting('tile_mode', 'tile_editor')
 	
 	_register_commands()
+	_connect_signals()
 
 func _connect_signals():
 	Context.selected_tile_changed.connect(
 		func(idx):
 			tile_editor.tile_idx = idx
+	)
+	
+	Project.palettes_updated.connect(
+		func():
+			tile_editor.set_palette(Context.selected_palette_index)
 	)
 
 func _register_commands():

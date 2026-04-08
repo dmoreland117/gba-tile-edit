@@ -80,6 +80,30 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb1ns"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ybu1x"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.31972584, 0.32952657, 0.36872965, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.12156863)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkfjj"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.13430001, 0.14203501, 0.17, 0)
+
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_05tig"]
 color = Color(0.13517916, 0.13517916, 0.13517916, 1)
 
@@ -324,20 +348,6 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ybu1x"]
-content_margin_left = 6.0
-content_margin_top = 6.0
-content_margin_right = 6.0
-content_margin_bottom = 6.0
-bg_color = Color(0.31972584, 0.32952657, 0.36872965, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_color = Color(0, 0, 0, 0.12156863)
-shadow_size = 4
-shadow_offset = Vector2(0, 2)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsxoa"]
 content_margin_left = 6.0
 content_margin_top = 6.0
@@ -368,6 +378,11 @@ Button/styles/normal = SubResource("StyleBoxFlat_110ce")
 Button/styles/pressed = SubResource("StyleBoxFlat_05tig")
 ColorPickerButton/styles/normal = SubResource("StyleBoxFlat_howt0")
 ColorPickerButton/styles/pressed = SubResource("StyleBoxFlat_0ceoj")
+FoldableContainer/styles/panel = SubResource("StyleBoxFlat_rb1ns")
+FoldableContainer/styles/title_collapsed_hover_panel = SubResource("StyleBoxFlat_ybu1x")
+FoldableContainer/styles/title_collapsed_panel = SubResource("StyleBoxFlat_bkfjj")
+FoldableContainer/styles/title_hover_panel = SubResource("StyleBoxFlat_ybu1x")
+FoldableContainer/styles/title_panel = SubResource("StyleBoxFlat_bkfjj")
 HSeparator/constants/separation = 2
 HSeparator/styles/separator = SubResource("StyleBoxLine_05tig")
 HSplitContainer/constants/separation = 2

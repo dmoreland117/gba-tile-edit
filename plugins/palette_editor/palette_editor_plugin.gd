@@ -7,8 +7,14 @@ var palette_editor:PaletteEditor
 func _enter_tree() -> void:
 	_register_commands()
 	
+	Project.palettes_updated.connect(
+		func():
+			palette_editor.palette = Project.get_selected_palette()
+	)
+	
 	palette_editor = PALETTE_EDITOR.instantiate()
 	Ui.get_container(Ui.LEFT_CONTAINER).add_child(palette_editor)
+	palette_editor.palette = Project.get_selected_palette()
 
 func _exit_tree() -> void:
 	pass
@@ -139,7 +145,7 @@ func _set_color(r:int, g:int, b:int, id:int = -1, bank:int = -1):
 	return true
 
 func _add_palette(name:String, mode:int):
-	var data = GBPaletteData.new()
+	var data = RGBPaletteData.new()
 	data.palette_name = name
 	data.mode = mode
 	Project.add_palette(data)

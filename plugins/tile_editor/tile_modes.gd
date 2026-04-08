@@ -15,6 +15,7 @@ enum TileCount {
 
 signal tile_mode_changed(mode:TileMode)
 signal tile_count_changed(count:TileCount)
+signal repeat_selected_tile_set(is_set:bool)
 
 @onready var tile_count_opt: OptionButton = %tile_count_opt
 @onready var repeat_tile_btn: CheckButton = %repeat_tile_btn
@@ -58,6 +59,8 @@ func _ready() -> void:
 	
 	set_tile_mode(tile_mode)
 	
+	repeat_selected_tile = repeat_tile_btn.button_pressed
+	
 	TILE_MODE_BTN_GROUP.pressed.connect(_on_tile_mode_btn_group_pressed)
 
 func _on_tile_mode_btn_group_pressed(btn:BaseButton):
@@ -75,3 +78,4 @@ func _on_tile_count_opt_item_selected(index: int) -> void:
 
 func _on_check_button_toggled(toggled_on: bool) -> void:
 	repeat_selected_tile = toggled_on
+	repeat_selected_tile_set.emit(toggled_on)

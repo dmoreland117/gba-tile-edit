@@ -89,10 +89,11 @@ func get_preview(type:String, params) -> Control:
 	cb.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	
 	if type == 'palettes':
-		var colors = Project._palettes[params.get('palette', 0)].colors
-		var data = []
+		var colors = Project.get_palette(params.get('palette', 0)).get_colors()
+		var data:Array[int] = []
+		
 		for color in colors:
-			data.append(color.)
+			data.append(get_bgr5(color))
 		
 		cb.text = palette_array_to_c_array(data, params.get('array_name', 'dd'))
 	
@@ -123,6 +124,13 @@ func get_preview(type:String, params) -> Control:
 		cb.text = tilemap_array_to_c_array(bytes, params.get('array_name', 'dd'))
 	return cb
 
+func get_bgr5(color:Color) -> int:
+	var r5 = clamp(int(color.r8 >> 3), 0, 31)
+	var g5 = clamp(int(color.g8 >> 3), 0, 31)
+	var b5 = clamp(int(color.b8 >> 3), 0, 31)
+	var ret = 0
+	ret = (b5 << 10) | (g5 << 5) | r5
+	return ret
 
 func tilset_array_to_16_color_c_array(values: PackedByteArray, name: String = "data", prefix_lines: PackedStringArray = []) -> String:
 	var result := ""
@@ -169,7 +177,7 @@ func tilset_array_to_16_color_c_array(values: PackedByteArray, name: String = "d
 	result += "};\n"
 	return result
 
-func palette_array_to_c_array(values: PackedByteArray, name: String = "data", prefix_lines: PackedStringArray = []) -> String:
+func palette_array_to_c_array(values: Array[int], name: String = "data", prefix_lines: PackedStringArray = []) -> String:
 	var result := ""
 	
 	for prefix in prefix_lines:
@@ -181,15 +189,10 @@ func palette_array_to_c_array(values: PackedByteArray, name: String = "data", pr
 	var words_on_line := 0
 	var line_count := 0
 	
-	for i in range(0, values.size(), 2):
-		if i + 1 >= values.size():
-			break
+	for i in values:
+		var p0: int = i
 		
-		var p0: int = values[i] & 0xFF
-		var p1: int = values[i + 1] & 0xFF
-		
-		# 8bpp packing (little endian)
-		var packed: int = p0 | (p1 << 8)
+		var packed: int = p0
 		
 		result += "\t0x%04X" % packed
 		

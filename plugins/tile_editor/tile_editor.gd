@@ -8,6 +8,7 @@ const BASE_SCALE = 12.0
 @onready var zoom_control: PanelContainer = %zoom_control
 @onready var tile_modes: TileModeSelector = %tile_modes
 @onready var grid_dripdown: HBoxContainer = %grid_dropdown
+@onready var grid_viewer: Control = %grid_viewer
 
 var tile_bank:int = 0
 var tile_idx:int = 0 : set=set_tile_idx
@@ -28,21 +29,31 @@ var _mouse_pixel_pos:Vector2i
 var _drawing:bool = false
 
 
+func set_palette(id:int):
+	if !tile_texture:
+		return
+	
+	tile_texture.palette = Project.get_palette(id)
+
 func set_tile_count(count:int):
 	tile_count = count
 	
 	if !tile_texture:
 		return
 	
+	var tiles:Array[GBTileData] = []
 	if tile_modes.repeat_selected_tile:
-		var tiles:Array[GBTileData] = []
 		
 		for i in range(count):
 			tiles.append(Project.get_selected_tileset().get_tile(tile_idx))
-			
-		tile_texture.tiles = tiles
 		
+		tile_texture.tiles = tiles
 		return
+	
+	tiles = Project.get_selected_tileset().get_tile_range(tile_idx, tile_count)
+	
+	tile_texture.tiles = tiles
+	
 
 func set_tile_cols(cols:int):
 	tile_cols = cols
@@ -123,23 +134,23 @@ func _process(delta: float) -> void:
 		_drawing = true
 	
 	if _drawing:
-		var p = Project.get_selected_palette()
-		
 		set_pixelv(
 			_mouse_pixel_pos,
-			p.bank_and_idx_to_main_idx(
-				Context.selected_palette_bank_index,
-				Context.selected_palette_color_index
-			)
+			Context.selected_palette_color_index
 		)
 
 func _ready() -> void:
-	grid_dripdown.get_popup().add_child(GRID_OPTIONS_MENU.instantiate())
+	var grid_opt_popup = GRID_OPTIONS_MENU.instantiate()
+	grid_opt_popup.grid_data = grid_viewer.data
+	grid_dripdown.get_popup().add_child(grid_opt_popup)
 	
+	grid_viewer.data.show_grid = true
+	
+	tile_texture.palette = Project.get_selected_palette()
 	tile_texture.tiles_set.connect(_on_tile_texture_tiles_set)
 	set_tile_idx(tile_idx)
-
-	Context.selected_tile_changed.connect(set_tile_idx)
+	
+	Ui.register_tile_editor(self)
 
 func _on_zoom_slider_value_changed(new_value: Variant) -> void:
 	zoom = new_value
@@ -168,3 +179,12 @@ func _on_tile_modes_tile_count_changed(count: TileModeSelector.TileCount) -> voi
 			tile_cols = 3
 	
 	tile_count = count
+
+
+func _on_tile_modes_repeat_selected_tile_set(is_set: bool) -> void:
+	set_tile_count(tile_count)
+
+
+func _on_grid_dropdown_toggled(toggled_on: bool) -> void:
+	grid_viewer.data.show_grid = toggled_on
+	grid_viewer.data.data_updated.emit()

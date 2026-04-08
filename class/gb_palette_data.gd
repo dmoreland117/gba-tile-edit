@@ -5,21 +5,26 @@ class_name GBPaletteData
 enum {PALETTE_MODE_FIXED, PALETTE_MODE_RGB}
 
 signal palette_updated()
-signal palette_color_updated(id:int)
+signal palette_color_updated(id:int, color:Color)
 signal palette_name_changed(new_name:String)
+
+var palette_name:String = 'Untitled'
 
 var _colors:Array[Color] = []
 
 
-@abstract func add_color()
-@abstract func get_color(id:int)
-@abstract func set_color(id:int, color:Color)
-@abstract func remove_color(id:int)
+@abstract func add_color() -> void
+@abstract func get_color(id:int) -> Color
+@abstract func set_color(id:int, color:Color) -> void
+@abstract func remove_color(id:int) -> void
 
 func get_colors() -> Array[Color]:
 	return _colors
 
-
+func set_palette_name(new_name:String):
+	palette_name = new_name
+	
+	palette_name_changed.emit(new_name)
 
 
 

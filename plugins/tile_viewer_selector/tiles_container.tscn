@@ -3,15 +3,18 @@
 [ext_resource type="Script" uid="uid://bhbt0khy226aw" path="res://plugins/tile_viewer_selector/tiles_container.gd" id="1_jfr2n"]
 [ext_resource type="Texture2D" uid="uid://dc7441xxsnysw" path="res://assets/icons/more_x24.svg" id="2_kvb4r"]
 [ext_resource type="Texture2D" uid="uid://bes2ngv3a52pp" path="res://assets/file_open_24x.svg" id="3_kvb4r"]
+[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="3_wyh5i"]
+[ext_resource type="PackedScene" uid="uid://d2fyngeuq8bcs" path="res://plugins/tile_viewer_selector/tile_viewer.tscn" id="4_5y12a"]
 [ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="4_wyh5i"]
 [ext_resource type="Texture2D" uid="uid://btkb5msbheua6" path="res://assets/add_24x.svg" id="5_5y12a"]
+[ext_resource type="Script" uid="uid://c7u17cm4o31lh" path="res://class/template_label.gd" id="5_h7s2i"]
 [ext_resource type="Texture2D" uid="uid://besw02bk8n8g8" path="res://assets/remove_24x.svg" id="6_h7s2i"]
 [ext_resource type="Texture2D" uid="uid://wd2jhldebdhj" path="res://assets/up_24x.svg" id="7_bi7cb"]
 [ext_resource type="Texture2D" uid="uid://cu5qigo75mrmq" path="res://assets/down_24x.svg" id="8_6max0"]
 
 [node name="Tiles Containers" type="VBoxContainer" unique_id=1593239150]
 custom_minimum_size = Vector2(160, 0)
-offset_right = 160.0
+offset_right = 341.0
 offset_bottom = 958.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -35,16 +38,48 @@ theme_type_variation = &"widget_container_panel"
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1330263856]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer" unique_id=641517777]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer" unique_id=1587811239]
+custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
+theme_type_variation = &"header_panel"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/PanelContainer" unique_id=1869937317]
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/ScrollContainer" unique_id=1020193401]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="tile_grid" type="GridContainer" parent="PanelContainer/VBoxContainer/ScrollContainer" unique_id=231528077]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/ScrollContainer/HBoxContainer" unique_id=1307303361]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/PanelContainer/ScrollContainer/HBoxContainer/HBoxContainer" unique_id=717308282]
+layout_mode = 2
+text = "Tile columns"
+label_settings = ExtResource("3_wyh5i")
+
+[node name="SpinBox" type="SpinBox" parent="PanelContainer/VBoxContainer/PanelContainer/ScrollContainer/HBoxContainer/HBoxContainer" unique_id=105087547]
+layout_mode = 2
+
+[node name="tile_viewer" parent="PanelContainer/VBoxContainer" unique_id=2061859763 instance=ExtResource("4_5y12a")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 3
-columns = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=2039923411]
+layout_mode = 2
+
+[node name="selection_info_label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1989672549]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start Tile: {start_tile} | Selection Size: {selection_size}"
+label_settings = ExtResource("3_wyh5i")
+script = ExtResource("5_h7s2i")
+replace = Dictionary[String, String]({
+"selection_size": "{0, 0)",
+"start_tile": "{0, 0)"
+})
 
 [node name="selected_tileset_opt" type="OptionButton" parent="." unique_id=1824368252]
 unique_name_in_owner = true
@@ -77,7 +112,7 @@ icon_alignment = 1
 [node name="VBoxContainer2" type="HBoxContainer" parent="hbox" unique_id=1446977555]
 layout_mode = 2
 
-[node name="add_color_btn3" type="Button" parent="hbox/VBoxContainer2" unique_id=831066604]
+[node name="add_color_btn" type="Button" parent="hbox/VBoxContainer2" unique_id=831066604]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "add Tile"
@@ -114,7 +149,8 @@ theme_type_variation = &"widget_menubar_button"
 icon = ExtResource("8_6max0")
 icon_alignment = 1
 
+[connection signal="selection_updated" from="PanelContainer/VBoxContainer/tile_viewer" to="." method="_on_tile_viewer_selection_updated"]
 [connection signal="item_selected" from="selected_tileset_opt" to="." method="_on_selected_tileset_opt_item_selected"]
 [connection signal="pressed" from="hbox/VBoxContainer/import_palette_btn" to="." method="_on_import_palette_btn_pressed"]
-[connection signal="pressed" from="hbox/VBoxContainer2/add_color_btn3" to="." method="_on_add_color_btn_3_pressed"]
+[connection signal="pressed" from="hbox/VBoxContainer2/add_color_btn" to="." method="_on_add_color_btn_pressed"]
 [connection signal="pressed" from="hbox/VBoxContainer2/remove_tile_btn4" to="." method="_on_remove_tile_btn_4_pressed"]

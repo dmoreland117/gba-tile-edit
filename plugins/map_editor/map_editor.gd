@@ -145,6 +145,7 @@ func _populate_tile_grid():
 		var tile_tex:TileTexture = TILE_TEXTURE.instantiate()
 		tile_tex.tiles = [Project.get_selected_tileset().get_tile(tile.tile_index)]
 		tile_tex.palette_bank = tile.palette_bank_index
+		tile_tex.palette = Project.get_selected_palette()
 		tile_tex.custom_minimum_size = Vector2(MAP_TILE_SIZE * tile_scale, MAP_TILE_SIZE * tile_scale)
 		tile_tex.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		tile_tex.flip_h = tile.h_flip

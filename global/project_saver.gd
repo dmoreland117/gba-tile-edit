@@ -51,8 +51,7 @@ static func save_project_file(path:String):
 		Log.info('Saving palette with name:', palette.palette_name)
 		Log.debug('Palette info:', {
 			'name': palette.palette_name,
-			'bank size': palette.bank_size,
-			'colors count': palette.colors.size()
+			'colors count': palette.get_colors().size()
 		})
 		proj_file_dict.palettes.append(serialize_palette(palette))
 	
@@ -86,19 +85,19 @@ static func save_project_file(path:String):
 static func serialize_palette(palette:GBPaletteData) -> Dictionary:
 	var ret = {
 		'name': palette.palette_name,
-		'mode': PALETTE_MODES[palette.mode],
-		'bank_size': palette.bank_size,
-		'colors': []
+		'colors': [],
+		'type': 'rgb'
 	}
 	
-	if palette.mode == GBPaletteData.PALETTE_MODE_FIXED:
-		ret['fixed_palette_colors'] = palette.fixed_color_palette
-	
-	for color in palette.colors:
-		ret.colors.append(color.get_rgb8())
+	if palette is FixedPaletteData:
+		ret['fixed_palette_colors'] = palette.get_fixed_colors()
+		ret['indexed_colors'] = palette.get_indexed_colors()
+		ret['type'] = 'fixed'
+		
+	for color in palette.get_colors():
+		ret.colors.append(color.to_rgba32())
 	
 	return ret
-	
 
 static func serialize_tileset(tileset:GBTileSet):
 	var ret = {
@@ -233,20 +232,24 @@ static func parse_tileset(tileset_dict:Dictionary) -> GBTileSet:
 	return ts
 
 static func parse_palette(palette_dict:Dictionary) -> GBPaletteData:
-	var pal = GBPaletteData.new()
-	pal.set_palette_name(palette_dict.get('name', 'ERROR'))
+	if palette_dict.get('type', 'rgb') == 'rgb':
+		var pal = RGBPaletteData.new()
+		pal.set_palette_name(palette_dict.get('name', 'ERROR'))
+		
+		var colors_rgb32 = palette_dict.get('colors', [])
+		for color in colors_rgb32:
+			pal.add_color(Color.hex(color))
+		
+		return pal
+	if palette_dict.get('type', 'rgb') == 'fixed':
+		var pal = FixedPaletteData.new()
+		pal.set_palette_name(palette_dict.get('name', 'ERROR'))
+		pal.register_fixed_colors(palette_dict.get('fixed_palette_colors', []))
+		pal._indexed_colors = palette_dict.get('indexed_colors', [])
+		
+		return pal
 	
-	var mode:String = palette_dict.get('mode', 'rgb')
-	if mode == 'rgb':
-		pal.set_palette_mode(GBPaletteData.PALETTE_MODE_RGB)
-	
-	pal.bank_size = palette_dict.get('bank_size', 16)
-	
-	var colors_rgb8 = palette_dict.get('colors', [])
-	for color in colors_rgb8:
-		pal.colors.append(GBPaletteColor.from_rgb8(color))
-	
-	return pal
+	return
 
 static func convert_old_file(old_version:String) -> Dictionary:
 	return {}

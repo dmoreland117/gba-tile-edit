@@ -45,7 +45,7 @@ func create_new_project(preset_id:int):
 	_tilesets.clear()
 	_maps.clear()
 	
-	_palettes.append(GBPaletteData.new())
+	_palettes.append(RGBPaletteData.new())
 	_tilesets.append(GBTileSet.new(Vector2(8, 8)))
 	_maps.append(GBMapData.new())
 	
@@ -56,20 +56,22 @@ func create_new_project(preset_id:int):
 	Context.selected_palette_bank_index = 0
 	Context.selected_palette_color_index = 0
 	
-	if preset['palette_mode'] == PluginManager.PALETTE_MODE_FIXED:
-		_palettes[Context.selected_palette_index].mode = GBPaletteData.PALETTE_MODE_FIXED
-		_palettes[Context.selected_palette_index].register_fixed_palette(preset['fixed_palette_colors'])
-		
-	if preset['palette_mode'] == PluginManager.PALETTE_MODE_RGB:
-		_palettes[Context.selected_palette_index].mode = GBPaletteData.PALETTE_MODE_RGB
+	#if preset['palette_mode'] == PluginManager.PALETTE_MODE_FIXED:
+		#_palettes[Context.selected_palette_index].mode = GBPaletteData.PALETTE_MODE_FIXED
+		#_palettes[Context.selected_palette_index].register_fixed_palette(preset['fixed_palette_colors'])
+		#
+	#if preset['palette_mode'] == PluginManager.PALETTE_MODE_RGB:
+		#_palettes[Context.selected_palette_index].mode = GBPaletteData.PALETTE_MODE_RGB
 	
-	for i in range(preset['initial_color_count']):
-		_palettes[Context.selected_palette_index].add_color()
 	
-	_palettes[Context.selected_palette_index].bank_size = preset.get('palette_bank_size', 16)
+	
+	#_palettes[Context.selected_palette_index].bank_size = preset.get('palette_bank_size', 16)
 	
 	#Exporter.default_exporter = preset.get('default_export_plugin_idx', 0)
 	
+	if _palettes[0] is FixedPaletteData:
+		_palettes[0].register_fixed_colors([Color.WHITE, Color.GREEN])
+	_palettes[0].add_color()
 	_tilesets[0].add_tile()
 
 func clear():
@@ -79,6 +81,9 @@ func clear():
 	
 	proj_name = ''
 
+func get_palette(idx:int) -> GBPaletteData:
+	return _palettes.get(idx)
+
 func get_palettes() -> Array[GBPaletteData]:
 	return _palettes
 
@@ -87,7 +92,7 @@ func select_palette(idx:int):
 	selected_palette_changed.emit(_palettes[idx])
 
 func get_selected_palette() -> GBPaletteData:
-	return _palettes[Context.selected_palette_index]
+	return _palettes.get(Context.selected_palette_index)
 
 func add_palette(new_palette:GBPaletteData):
 	_palettes.append(new_palette)

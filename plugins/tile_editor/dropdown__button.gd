@@ -14,11 +14,12 @@ signal dropdown_pressed()
 @export var icon:Texture : set=set_icon
 @export var toggle_mode:bool = false : set=set_toggle_mode
 
-var button_pressed:bool = false : set=set_toggle_mode
+var button_pressed:bool = false : set=set_button_pressed
 
 
 func set_button_pressed(press:bool):
 	button_pressed = press
+	
 	if main_button:
 		main_button.button_pressed = press
 
@@ -46,8 +47,7 @@ func _on_main_button_pressed() -> void:
 func _ready() -> void:
 	set_text(text)
 	set_icon(icon)
-	set_toggle_mode(toggle_mode)
-	set_button_pressed(button_pressed)
+	set_toggle_mode(true)
 
 func _on_dropdown_button_pressed() -> void:
 	if popup_panel.visible:

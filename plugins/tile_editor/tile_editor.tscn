@@ -10,13 +10,15 @@
 [ext_resource type="Texture2D" uid="uid://cqwurvddp01qf" path="res://assets/icons/icon_tiled_tile.svg" id="5_ick41"]
 [ext_resource type="ButtonGroup" uid="uid://ll122ga11ywd" path="res://plugins/tile_editor/tile_mode_btn_group.tres" id="5_ul6tg"]
 [ext_resource type="Texture2D" uid="uid://cpnbt8yxfr4me" path="res://assets/grid_x24.svg" id="8_21f4e"]
-[ext_resource type="Script" uid="uid://dxv1g6piyrylg" path="res://plugins/tile_editor/grid_options.gd" id="8_gaopj"]
 [ext_resource type="PackedScene" uid="uid://soyhgvhpjnjj" path="res://widget/dropdown__button.tscn" id="10_5cgb8"]
 [ext_resource type="Texture2D" uid="uid://coylvar1xkb1r" path="res://assets/icons/pencil_24x.svg" id="10_opda1"]
 [ext_resource type="Texture2D" uid="uid://cd2slle6m5l4g" path="res://assets/icons/fill_icon_x24.svg" id="11_5cgb8"]
 
 [sub_resource type="Resource" id="Resource_78vqg"]
 script = ExtResource("4_1r8kw")
+show_grid = true
+spacing_px = Vector2i(8, 8)
+line_thickness_px = 2
 metadata/_custom_type_script = "uid://0ui4vn5rq25o"
 
 [node name="Tile Editor" type="VBoxContainer" unique_id=1272304024]
@@ -47,6 +49,7 @@ size_flags_vertical = 6
 set_min_size = true
 
 [node name="grid_viewer" type="Control" parent="bg_panel/ScrollContainer/tile_texture" unique_id=979878733 node_paths=PackedStringArray("texture")]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -135,7 +138,6 @@ flat = true
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"widget_container_panel"
-script = ExtResource("8_gaopj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="bg_panel/MarginContainer/VBoxContainer/ScrollContainer/options_menubar/grid_options" unique_id=1225992685]
 layout_mode = 2
@@ -206,10 +208,12 @@ horizontal_alignment = 2
 [connection signal="mouse_exited" from="bg_panel" to="." method="_on_bg_panel_mouse_exited"]
 [connection signal="mouse_entered" from="bg_panel/ScrollContainer/tile_texture" to="." method="_on_tile_texture_mouse_entered"]
 [connection signal="mouse_exited" from="bg_panel/ScrollContainer/tile_texture" to="." method="_on_tile_texture_mouse_exited"]
+[connection signal="repeat_selected_tile_set" from="bg_panel/MarginContainer/VBoxContainer/ScrollContainer/options_menubar/tile_modes" to="." method="_on_tile_modes_repeat_selected_tile_set"]
 [connection signal="tile_count_changed" from="bg_panel/MarginContainer/VBoxContainer/ScrollContainer/options_menubar/tile_modes" to="." method="_on_tile_modes_tile_count_changed"]
 [connection signal="tile_mode_changed" from="bg_panel/MarginContainer/VBoxContainer/ScrollContainer/options_menubar/tile_modes" to="." method="_on_tile_modes_tile_mode_changed"]
 [connection signal="item_selected" from="bg_panel/MarginContainer/VBoxContainer/ScrollContainer/options_menubar/tile_modes/hbox/tile_count_opt" to="bg_panel/MarginContainer/VBoxContainer/ScrollContainer/options_menubar/tile_modes" method="_on_tile_count_opt_item_selected"]
 [connection signal="toggled" from="bg_panel/MarginContainer/VBoxContainer/ScrollContainer/options_menubar/tile_modes/hbox/repeat_tile_btn" to="bg_panel/MarginContainer/VBoxContainer/ScrollContainer/options_menubar/tile_modes" method="_on_check_button_toggled"]
+[connection signal="toggled" from="bg_panel/MarginContainer/VBoxContainer/ScrollContainer/options_menubar/grid_options/HBoxContainer/grid_dropdown" to="." method="_on_grid_dropdown_toggled"]
 [connection signal="value_changed" from="bg_panel/MarginContainer/VBoxContainer/HBoxContainer/zoom_control" to="." method="_on_zoom_slider_value_changed"]
 [connection signal="value_changed" from="bg_panel/MarginContainer/VBoxContainer/HBoxContainer/zoom_control/MarginContainer/HBoxContainer/zoom_slider" to="bg_panel/MarginContainer/VBoxContainer/HBoxContainer/zoom_control" method="_on_zoom_slider_value_changed"]
 [connection signal="pressed" from="bg_panel/MarginContainer/VBoxContainer/HBoxContainer/zoom_control/MarginContainer/HBoxContainer/reset_btn" to="bg_panel/MarginContainer/VBoxContainer/HBoxContainer/zoom_control" method="_on_reset_btn_pressed"]
