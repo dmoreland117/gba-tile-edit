@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://besw02bk8n8g8" path="res://assets/remove_24x.svg" id="4_iqxba"]
 [ext_resource type="Texture2D" uid="uid://wd2jhldebdhj" path="res://assets/up_24x.svg" id="5_4ws6c"]
 [ext_resource type="Texture2D" uid="uid://cu5qigo75mrmq" path="res://assets/down_24x.svg" id="6_iqxba"]
-[ext_resource type="ButtonGroup" uid="uid://c0kt1cdpv5s53" path="res://plugins/palette_editor/palette_bank_mode_btn_group.tres" id="7_hailv"]
 [ext_resource type="Texture2D" uid="uid://bskerohjbqkje" path="res://assets/icons/icon_palette_indexed.svg" id="8_4cufi"]
-[ext_resource type="Script" uid="uid://bnleo4igrn2w5" path="res://plugins/palette_editor/fixed_color_picker.gd" id="9_kop0x"]
 [ext_resource type="Texture2D" uid="uid://mticlr5lodet" path="res://assets/icons/icon_palette_banked.svg" id="9_x27xk"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_leryl"]
 
 [node name="Palette Editor" type="ScrollContainer" unique_id=1442519076]
 anchors_preset = 9
@@ -141,7 +141,7 @@ focus_mode = 3
 theme_type_variation = &"widget_menubar_button"
 toggle_mode = true
 button_pressed = true
-button_group = ExtResource("7_hailv")
+button_group = SubResource("ButtonGroup_leryl")
 icon = ExtResource("8_4cufi")
 icon_alignment = 1
 
@@ -153,7 +153,7 @@ tooltip_text = "Export palette file"
 focus_mode = 3
 theme_type_variation = &"widget_menubar_button"
 toggle_mode = true
-button_group = ExtResource("7_hailv")
+button_group = SubResource("ButtonGroup_leryl")
 icon = ExtResource("9_x27xk")
 icon_alignment = 1
 
@@ -163,16 +163,6 @@ title = "Color Picker"
 
 [node name="color_picker_vbox" type="VBoxContainer" parent="VBoxContainer/FoldableContainer2" unique_id=1665408611]
 layout_mode = 2
-
-[node name="color_picker_panel" type="PanelContainer" parent="VBoxContainer/FoldableContainer2/color_picker_vbox" unique_id=491566147]
-layout_mode = 2
-theme_type_variation = &"widget_container_panel"
-
-[node name="fixed_color_picker" type="HFlowContainer" parent="VBoxContainer/FoldableContainer2/color_picker_vbox/color_picker_panel" unique_id=649135940]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-script = ExtResource("9_kop0x")
 
 [node name="ColorPicker" type="ColorPicker" parent="VBoxContainer/FoldableContainer2/color_picker_vbox" unique_id=792182460]
 unique_name_in_owner = true
@@ -191,5 +181,4 @@ presets_visible = false
 [connection signal="pressed" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/vbox/VBoxContainer3/move_down_btn" to="VBoxContainer" method="_on_move_down_btn_pressed"]
 [connection signal="toggled" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/vbox/VBoxContainer4/indexed_btn" to="VBoxContainer" method="_on_banked_btn_toggled"]
 [connection signal="toggled" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/vbox/VBoxContainer4/banked_btn" to="VBoxContainer" method="_on_banked_btn_toggled"]
-[connection signal="color_changed" from="VBoxContainer/FoldableContainer2/color_picker_vbox/color_picker_panel/fixed_color_picker" to="." method="_on_fixed_color_picker_color_changed"]
 [connection signal="color_changed" from="VBoxContainer/FoldableContainer2/color_picker_vbox/ColorPicker" to="." method="_on_color_picker_color_changed"]

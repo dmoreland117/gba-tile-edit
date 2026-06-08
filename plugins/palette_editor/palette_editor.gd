@@ -1,8 +1,6 @@
 class_name PaletteEditor
 extends ScrollContainer
 
-const PALETTE_BANK = preload("uid://c104ob4n4fthl")
-
 signal color_prssed(id:int)
 
 @onready var move_up_btn: Button = %move_up_btn
@@ -12,7 +10,6 @@ signal color_prssed(id:int)
 
 @onready var color_button_hflow: HFlowContainer = %color_button_hflow
 @onready var color_picker: ColorPicker = %ColorPicker
-@onready var fixed_color_picker: FixedColorPicker = %fixed_color_picker
 
 var selected_color_id:int = -1 : set=select_color_id
 var banked:bool = false
@@ -55,10 +52,10 @@ func set_palette(new_palette:GBPaletteData) -> void:
 	if palette.get_colors().size() > 0:
 		selected_color_id = 0
 	
-	if palette is FixedPaletteData:
-		fixed_color_picker.show()
-		fixed_color_picker.colors = palette.get_fixed_colors()
-		color_picker.hide()	
+	#if palette is FixedPaletteData:
+		#fixed_color_picker.show()
+		#fixed_color_picker.colors = palette.get_fixed_colors()
+		#color_picker.hide()	
 #endregion
 
 #region privates
