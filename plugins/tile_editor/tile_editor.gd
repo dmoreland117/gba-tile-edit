@@ -1,199 +1,190 @@
-class_name TileEditor
 extends VBoxContainer
+class_name TileEditor
 
+const GRID_OPTIONS_MENU = preload('res://plugins/tile_editor/grid_options.tscn')
+const BASE_SCALE = 12.0
 
-const TILE_TEXTURE = preload("uid://r7wohb3j3kqu")
-const TILE_SIZE = 350
+@onready var tile_texture: TileTexture = $bg_panel/ScrollContainer/tile_texture
+@onready var zoom_control: PanelContainer = %zoom_control
+@onready var tile_modes: TileModeSelector = %tile_modes
+@onready var grid_dripdown: HBoxContainer = %grid_dropdown
+@onready var grid_viewer: Control = %grid_viewer
 
-enum TileMode {
-	ONE_TILE = 1,
-	TWO_TILE,
-	FOUR_TILE = 4
-}
+var tile_bank:int = 0
+var tile_idx:int = 0 : set=set_tile_idx
+var tile_count:int = 1 : set=set_tile_count
+var tile_cols:int = 1 : set=set_tile_cols
 
-@onready var tile_count_opt: OptionButton = %tile_count_opt
-@onready var palette_bank_opt: OptionButton = %palette_bank_opt
-@onready var tile_texture_grid: GridContainer = %tile_texture_grid
-@onready var tile_count_inpt: SpinBox = %tile_count_inpt
-@onready var col_count_inpt: SpinBox = %col_count_inpt
-@onready var show_grid_btn: Button = %show_grid_btn
-@onready var zoom_label: Label = %zoom_label
+var show_grid:bool = false
+var zoom_step:float = 0.1
+var zoom:float = 4.0 : set=set_zoom
 
-var mode:TileMode = TileMode.ONE_TILE:
-	set = set_tile_count
-
-var show_grid:bool = true : set=set_show_grid
-var tile_scale = 1.0 : set=set_tile_scale
+var _tile_size:Vector2
 
 var _mouse_inside:bool = false
-var _mouse_pos:Vector2  ## position relitive to the hovered tile
-var _hovered_tile_data:GBTileData
+var _mouse_inside_canvas:bool = false
+var _mouse_pos:Vector2 : set=_set_mouse_pos
+var _mouse_pixel_pos:Vector2i
+
 var _drawing:bool = false
 
 
-func _ready() -> void:
-	_draw_tile_textures()
-	_setup_menubar()
-	
-	set_tile_count(mode)
-	set_tile_scale(1.0)
-	
-	Project.palette.selected_palette_bank_changed.connect(_on_context_bank_changed)
-	Context.selected_tile_changed.connect(_draw_tile_textures)
-	Project.tiles.tiles_updated.connect(_draw_tile_textures)
-
-func set_tile_count(count:TileMode):
-	mode = count
-	
-	if mode == TileMode.ONE_TILE:
-		tile_texture_grid.columns = 1
-	if mode == TileMode.TWO_TILE or mode == TileMode.FOUR_TILE:
-		tile_texture_grid.columns = 2
-	
-	tile_count_inpt.value = mode
-	col_count_inpt.value = tile_texture_grid.columns
-	
-	_draw_tile_textures()
-	
-	Settings.set_setting(count, 'tile_mode', 'tile_editor')
-	Settings.save()
-
-func set_show_grid(val):
-	show_grid = val
-	for child in tile_texture_grid.get_children():
-		child.show_grid = val
-	
-	show_grid_btn.button_pressed = val
-	
-	Settings.set_setting(val, 'show_grid', 'tile_editor')
-	Settings.save()
-
-func _draw_tile_textures():
-	for child in tile_texture_grid.get_children():
-		child.queue_free()
-	
-	for i in range(mode):
-		var inst:TileTexture = TILE_TEXTURE.instantiate()
-		
-		var tile_data = Project.tiles.get_tile(Context.selected_tile_index + i)
-		if !tile_data:
-			return
-		
-		inst.tile = tile_data
-		inst.palette_bank = Project.palette.selected_palette_bank
-		inst.custom_minimum_size = Vector2(TILE_SIZE * tile_scale, TILE_SIZE * tile_scale)
-		inst.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		inst.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		inst.show_grid = show_grid
-		
-		tile_texture_grid.add_child(inst)
-
-func set_tile_scale(ts):
-	tile_scale = ts
-	
-	if !tile_texture_grid:
+func set_palette(id:int):
+	if !tile_texture:
 		return
 	
-	for child in tile_texture_grid.get_children():
-		child.custom_minimum_size = Vector2(TILE_SIZE * tile_scale, TILE_SIZE * tile_scale)
+	tile_texture.palette = Project.get_palette(id)
+
+func set_tile_count(count:int):
+	tile_count = count
 	
-	zoom_label.text = str(int(tile_scale * 100)) + ' %'
-
-func _draw() -> void:
-	if false:
-		var grid_mouse_pos = tile_texture_grid.get_local_mouse_position()
-		grid_mouse_pos += tile_texture_grid.position
-		
-		
-		var r = Rect2(
-			grid_mouse_pos,
-			grid_mouse_pos + tile_texture_grid.get_child(0).size
-		)
-		draw_rect(r, Color.GREEN)
-
-func _process(delta: float) -> void:
-	if !_mouse_inside:
+	if !tile_texture:
 		return
 	
-	#queue_redraw()
-	
-	_get_hovered_tile()
-	
-	if _drawing:
-		_hovered_tile_data.set_color_index(
-			_mouse_pos.x,
-			_mouse_pos.y,
-			Project.palette.selected_palette_idx
-		)
-	
-	if Input.is_action_just_pressed('zoom_in'):
-		tile_scale += 0.1
-	
-	if Input.is_action_just_pressed('zoom_out'):
-		tile_scale -= 0.1
-
-func _get_hovered_tile():
-	for child:Control in tile_texture_grid.get_children():
-		var child_mouse_pos = child.get_local_mouse_position()
+	var tiles:Array[GBTileData] = []
+	if tile_modes.repeat_selected_tile:
 		
-		if (child_mouse_pos.x > child.size.x or child_mouse_pos.y > child.size.y) or (child_mouse_pos.x < 0 or child_mouse_pos.y < 0):
-			continue
+		for i in range(count):
+			tiles.append(Project.get_selected_tileset().get_tile(tile_idx))
 		
-		_mouse_pos = child_mouse_pos
-		_mouse_pos.x = int(_mouse_pos.x / (child.size.x / GBTileData.TILE_SIZE))
-		_mouse_pos.y = int(_mouse_pos.y / (child.size.y / GBTileData.TILE_SIZE))
-		
-		if _hovered_tile_data != child.tile:
-			_hovered_tile_data = child.tile
-
-func _setup_menubar():
-	# banks dropdown
-	for i in range(16):
-		palette_bank_opt.add_item('Bank ' + str(i))
+		tile_texture.tiles = tiles
+		return
 	
-	palette_bank_opt.select(Project.palette.selected_palette_bank)
+	tiles = Project.get_selected_tileset().get_tile_range(tile_idx, tile_count)
 	
-	tile_count_opt.select(tile_count_opt.get_item_index(mode))
-
-	#col and tile count
-	tile_count_inpt.value = mode
-	col_count_inpt.value = tile_texture_grid.columns
+	tile_texture.tiles = tiles
 	
-	show_grid_btn.button_pressed = show_grid
-	show_grid_btn.toggled.connect(_on_show_grid_btn_toggled)
+
+func set_tile_cols(cols:int):
+	tile_cols = cols
 	
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			_drawing = event.pressed and _mouse_inside
+	if tile_texture:
+		tile_texture.tile_columns = cols
 
-func _on_context_bank_changed(bank:int):
-	palette_bank_opt.select(bank)
-	_draw_tile_textures()
+func set_zoom(new_zoom:float):
+	zoom = clamp(new_zoom, 1.0, 100)
+	if zoom_control:
+		zoom_control.value = new_zoom
+	
+	# resize the tile
+	_on_tile_texture_tiles_set()
 
-func _on_tile_texture_grid_mouse_entered() -> void:
+func set_tile_idx(idx:int):
+	tile_idx = idx
+	
+	var tiles = Project.get_selected_tileset().get_tile_range(tile_idx, tile_count)
+	if tile_texture:
+		tile_texture.tile_columns = tile_cols
+		tile_texture.tiles = tiles
+
+func set_pixel(x:int, y:int, index:int):
+	var data = tile_texture.get_tile_and_pixel_coords_from_global_pixel_pos(x, y)
+	
+	if data.data:
+		data.data.set_color_index(data.x, data.y, index)
+
+func set_pixelv(pos:Vector2i, index):
+	set_pixel(pos.x, pos.y, index)
+
+func _set_mouse_pos(pos):
+	_mouse_pos = pos
+	
+	var px_size_x = tile_texture.size.x / tile_texture.get_width()
+	var px_size_y = tile_texture.size.y / tile_texture.get_height()
+	
+	_mouse_pixel_pos = Vector2i(
+		pos.x / px_size_x,
+		pos.y / px_size_y
+	)
+	pass
+
+func _on_tile_texture_tiles_set():
+	if !tile_texture:
+		return
+	
+	tile_texture.custom_minimum_size.x = (tile_texture.get_width() * BASE_SCALE) * zoom
+	tile_texture.custom_minimum_size.y = (tile_texture.get_height() * BASE_SCALE) * zoom
+
+func _on_tile_texture_mouse_entered() -> void:
+	_mouse_inside_canvas = true
+
+func _on_tile_texture_mouse_exited() -> void:
+	_mouse_inside_canvas = false
+
+func _on_bg_panel_mouse_entered() -> void:
 	_mouse_inside = true
 
-func _on_tile_texture_grid_mouse_exited() -> void:
+func _on_bg_panel_mouse_exited() -> void:
 	_mouse_inside = false
 
-func _on_tile_count_opt_item_selected(index: int) -> void:
-	mode = tile_count_opt.get_item_id(index)
+func _process(delta: float) -> void:
+	if _mouse_inside:
+		if Input.is_action_just_pressed('zoom_in'):
+			zoom += zoom_step
+		if Input.is_action_just_pressed('zoom_out'):
+			zoom -= zoom_step
+	
+	if !_mouse_inside_canvas:
+		return
+	
+	_mouse_pos = tile_texture.get_local_mouse_position()
+	
+	_drawing = false
+	if Input.is_action_pressed("draw"):
+		_drawing = true
+	
+	if _drawing:
+		set_pixelv(
+			_mouse_pixel_pos,
+			Context.selected_palette_color_index
+		)
 
-func _on_palette_bank_opt_item_selected(index: int) -> void:
-	CommandPalette.call_command('tileeditor:setpalettebank', index)
+func _ready() -> void:
+	var grid_opt_popup = GRID_OPTIONS_MENU.instantiate()
+	grid_opt_popup.grid_data = grid_viewer.data
+	grid_dripdown.get_popup().add_child(grid_opt_popup)
+	
+	grid_viewer.data.show_grid = true
+	
+	tile_texture.palette = Project.get_selected_palette()
+	tile_texture.tiles_set.connect(_on_tile_texture_tiles_set)
+	set_tile_idx(tile_idx)
+	
+	Ui.register_tile_editor(self)
 
-func _on_tile_count_inpt_value_changed(value: float) -> void:
-	mode = int(value)
+func _on_zoom_slider_value_changed(new_value: Variant) -> void:
+	zoom = new_value
 
-func _on_col_count_inpt_value_changed(value: float) -> void:
-	tile_texture_grid.columns = value
+func _on_tile_modes_tile_mode_changed(mode: int) -> void:
+	if mode == TileModeSelector.TileMode.SINGLE:
+		tile_count = 1
+		tile_cols = 1
+		
+		return
+	
+	tile_count = tile_modes.tile_count
 
-func _on_show_grid_btn_toggled(toggled_on: bool) -> void:
-	show_grid = toggled_on
+func _on_tile_modes_tile_count_changed(count: TileModeSelector.TileCount) -> void:
+	if tile_modes.tile_mode == TileModeSelector.TileMode.SINGLE:
+		tile_cols = 1
+		tile_count = 1
+		return
+	
+	match count:
+		TileModeSelector.TileCount.TWO_TILES:
+			tile_cols = 2
+		TileModeSelector.TileCount.FOUR_TILES:
+			tile_cols = 2
+		TileModeSelector.TileCount.NINE_TILES:
+			tile_cols = 3
+	
+	tile_count = count
 
-func _on_zoom_in_btn_pressed() -> void:
-	tile_scale += 0.1
 
-func _on_zoom_out_btn_pressed() -> void:
-		tile_scale -= 0.1
+func _on_tile_modes_repeat_selected_tile_set(is_set: bool) -> void:
+	set_tile_count(tile_count)
+
+
+func _on_grid_dropdown_toggled(toggled_on: bool) -> void:
+	grid_viewer.data.show_grid = toggled_on
+	grid_viewer.data.data_updated.emit()

@@ -3,14 +3,15 @@ extends Node
 
 var _menubar:MenuBar
 var _tab_bar:TabBar
+var _tile_editor:TileEditor
 
 var containers = []
 
 enum {
-	TOP_RIGHT_CONTIANER,
-	LEFT_CONTAINER,
+	TOP_RIGHT_CONTIANER,	# hbox container
+	LEFT_CONTAINER,			# tab container
 	MAIN_CONTAINER,
-	RIGHT_CONTAINER,
+	RIGHT_CONTAINER,		# tab container
 	
 	CONTAINERS_SIZE
 }
@@ -22,6 +23,16 @@ func register_container(container:int, node:Control):
 	containers[container] = node
 	if container == MAIN_CONTAINER:
 		node.child_order_changed.connect(_update_main_tabbar)
+	if container == LEFT_CONTAINER:
+		containers[container].tab_changed.connect(_update_context_selected_tabs)
+	if container == RIGHT_CONTAINER:
+		containers[container].tab_changed.connect(_update_context_selected_tabs)
+
+func register_tile_editor(t:TileEditor):
+	_tile_editor = t
+
+func get_tile_editor() -> TileEditor:
+	return _tile_editor
 
 func _update_main_tabbar():
 	_tab_bar.clear_tabs()
@@ -52,12 +63,19 @@ func _on_tab_changed(idx):
 		child.hide()
 	
 	get_container(MAIN_CONTAINER).get_child(idx).show()
+	
+	_update_context_selected_tabs()
 
-func get_menu_bar():
+func get_menu_bar() -> MenuBar:
 	return _menubar
 
-func get_tab_bar():
+func get_tab_bar() -> TabBar:
 	return _tab_bar
 
 func get_container(container:int) -> Control:
 	return containers[container]
+
+func _update_context_selected_tabs(_tab:int = 0):
+	Context.selected_main_tab = get_tab_bar().current_tab
+	Context.selected_left_tab = get_container(LEFT_CONTAINER).current_tab
+	Context.selected_right_tab = get_container(RIGHT_CONTAINER).current_tab

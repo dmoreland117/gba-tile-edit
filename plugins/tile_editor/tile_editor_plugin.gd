@@ -10,11 +10,20 @@ func _enter_tree() -> void:
 	Ui.get_container(Ui.MAIN_CONTAINER).add_child(tile_editor)
 	
 	var tm = Settings.get_setting('tile_mode', 'tile_editor')
-	tile_editor.mode = tm
-	var sg = Settings.get_setting('show_grid', 'tile_editor', '.', false)
-	tile_editor.show_grid = sg
 	
 	_register_commands()
+	_connect_signals()
+
+func _connect_signals():
+	Context.selected_tile_changed.connect(
+		func(idx):
+			tile_editor.tile_idx = idx
+	)
+	
+	Project.palettes_updated.connect(
+		func():
+			tile_editor.set_palette(Context.selected_palette_index)
+	)
 
 func _register_commands():
 	CommandPalette.register_command(
@@ -33,5 +42,8 @@ func _add_settings():
 		Settings.set_setting(true, 'show_grid', 'tile_editor')
 	if !Settings.has_setting('tile_mode', 'tile_editor'):
 		Settings.set_setting(1, 'tile_mode', 'tile_editor')
+
 func set_selected_bank(bank:int):
-	Project.palette.selected_palette_bank = bank
+	Context.selected_palette_bank_index = bank
+	
+	return true

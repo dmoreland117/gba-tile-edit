@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cc3ugel47se16"]
+
+[node name="dropdown_and_lineedit" type="HBoxContainer" unique_id=1182557874]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=1296911278]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="." unique_id=505624183]
+layout_mode = 2

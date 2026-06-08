@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dqc0cy8b1th7t"]
+
+[ext_resource type="Script" uid="uid://7pqwmdsaqobt" path="res://plugins/export_ui/export_container.gd" id="1_rye6a"]
+[ext_resource type="Script" uid="uid://ckhyikvmnvn6h" path="res://plugins/export_ui/export_param_container.gd" id="2_q1lff"]
+[ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="3_53xte"]
+[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="3_jqint"]
+
+[node name="Export" type="ScrollContainer" unique_id=394348087]
+custom_minimum_size = Vector2(312, 0)
+offset_right = 312.0
+offset_bottom = 1061.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_rye6a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=556626404]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=1836416933]
+layout_mode = 2
+
+[node name="export_type_opt" type="OptionButton" parent="VBoxContainer/VBoxContainer" unique_id=1972256457]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 3
+
+[node name="export_format_opt" type="OptionButton" parent="VBoxContainer/VBoxContainer" unique_id=1345612136]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=807125055]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="export_param_container" type="VBoxContainer" parent="VBoxContainer/ScrollContainer" unique_id=1855385061]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_q1lff")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer" unique_id=488164197]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2" unique_id=1749636758]
+layout_mode = 2
+text = "Preview"
+label_settings = ExtResource("3_jqint")
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/VBoxContainer2" unique_id=1783130027]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+theme_type_variation = &"inner_panel"
+
+[node name="preview_container" type="VBoxContainer" parent="VBoxContainer/VBoxContainer2/PanelContainer" unique_id=751209792]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=166329860]
+layout_mode = 2
+
+[node name="file_path_input" type="LineEdit" parent="VBoxContainer/HBoxContainer" unique_id=1267124132]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "res://"
+
+[node name="file_path_picker_btn" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1259837240]
+layout_mode = 2
+text = "F"
+
+[node name="export_btn" type="Button" parent="VBoxContainer" unique_id=1672964037]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Export"
+icon = ExtResource("3_53xte")
+
+[connection signal="item_selected" from="VBoxContainer/VBoxContainer/export_type_opt" to="." method="_on_export_type_opt_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/VBoxContainer/export_format_opt" to="." method="_on_export_format_opt_item_selected"]
+[connection signal="params_updated" from="VBoxContainer/ScrollContainer/export_param_container" to="." method="_on_export_param_container_params_updated"]
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/file_path_input" to="." method="_on_file_path_input_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/file_path_picker_btn" to="." method="_on_file_path_picker_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/export_btn" to="." method="_on_export_btn_pressed"]

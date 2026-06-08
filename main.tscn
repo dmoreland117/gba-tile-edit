@@ -1,15 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://dkpttseek6jfw"]
+[gd_scene format=3 uid="uid://dkpttseek6jfw"]
 
 [ext_resource type="Theme" uid="uid://5tmknl2gspks" path="res://theme.tres" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://co1sr23jinggc" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="Script" uid="uid://xgmex8x8n0i7" path="res://ui.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://xgmex8x8n0i7" path="res://main_ui.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d3kfcrt5trost" path="res://popups.gd" id="4_7mycd"]
-[ext_resource type="Script" uid="uid://bgne4uq2iwsnc" path="res://welcome_popup.gd" id="5_4c57u"]
+[ext_resource type="Script" uid="uid://bgne4uq2iwsnc" path="res://popups/welcome_popup.gd" id="5_4c57u"]
 [ext_resource type="LabelSettings" uid="uid://vryua1inycx3" path="res://resources/label/body_bold.tres" id="5_7mycd"]
 [ext_resource type="Texture2D" uid="uid://mm6csnmgswc3" path="res://assets/textures/scr1.png" id="5_kek77"]
 [ext_resource type="LabelSettings" uid="uid://dxvhmchtcry6m" path="res://resources/label/body_lg.tres" id="7_272bh"]
 [ext_resource type="Script" uid="uid://cnn1ope3p6cyu" path="res://popups/command_palette_popup.gd" id="8_5vw27"]
+[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="8_w48qg"]
 [ext_resource type="PackedScene" uid="uid://8efh3ipu4r1e" path="res://popups/settings_window.tscn" id="9_kek77"]
+[ext_resource type="Texture2D" uid="uid://bes2ngv3a52pp" path="res://assets/file_open_24x.svg" id="9_vivmo"]
+[ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="10_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://qrwcvcba7a84" path="res://popups/create_tileset_window.tscn" id="11_efxa6"]
+[ext_resource type="Texture2D" uid="uid://dct64lw8qa7x3" path="res://icon.svg" id="11_vivmo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c57u"]
 content_margin_left = 4.0
@@ -27,7 +32,7 @@ shadow_offset = Vector2(0, 2)
 [sub_resource type="LabelSettings" id="LabelSettings_272bh"]
 font_size = 48
 
-[node name="main" type="Control"]
+[node name="main" type="Control" unique_id=373488546]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,69 +43,69 @@ mouse_filter = 2
 theme = ExtResource("1_1bvp3")
 script = ExtResource("1_h2yge")
 
-[node name="ui" type="MarginContainer" parent="."]
+[node name="ui" type="MarginContainer" parent="." unique_id=67569025]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 4
 script = ExtResource("1_ig7tw")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ui"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui" unique_id=1593222202]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="MarginContainer" type="MarginContainer" parent="ui/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ui/VBoxContainer" unique_id=228659834]
 layout_mode = 2
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="top_bar" type="HBoxContainer" parent="ui/VBoxContainer/MarginContainer"]
+[node name="top_bar" type="HBoxContainer" parent="ui/VBoxContainer/MarginContainer" unique_id=116684884]
 layout_mode = 2
 
-[node name="menu" type="MenuBar" parent="ui/VBoxContainer/MarginContainer/top_bar"]
+[node name="menu" type="MenuBar" parent="ui/VBoxContainer/MarginContainer/top_bar" unique_id=274642625]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="tab_bar_container" type="CenterContainer" parent="ui/VBoxContainer/MarginContainer/top_bar"]
+[node name="tab_bar_container" type="CenterContainer" parent="ui/VBoxContainer/MarginContainer/top_bar" unique_id=1242167416]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="TabBar" type="TabBar" parent="ui/VBoxContainer/MarginContainer/top_bar/tab_bar_container"]
+[node name="TabBar" type="TabBar" parent="ui/VBoxContainer/MarginContainer/top_bar/tab_bar_container" unique_id=288415706]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 3
 clip_tabs = false
 
-[node name="TabBar" type="TabBar" parent="ui/VBoxContainer/MarginContainer/top_bar/tab_bar_container/TabBar"]
+[node name="TabBar" type="TabBar" parent="ui/VBoxContainer/MarginContainer/top_bar/tab_bar_container/TabBar" unique_id=874260807]
 layout_mode = 0
 focus_mode = 3
 clip_tabs = false
 
-[node name="top_right_container" type="HBoxContainer" parent="ui/VBoxContainer/MarginContainer/top_bar"]
+[node name="top_right_container" type="HBoxContainer" parent="ui/VBoxContainer/MarginContainer/top_bar" unique_id=950548833]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="middle_containers" type="HBoxContainer" parent="ui/VBoxContainer"]
+[node name="middle_containers" type="HBoxContainer" parent="ui/VBoxContainer" unique_id=740644968]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="reght_split" type="HSplitContainer" parent="ui/VBoxContainer/middle_containers"]
+[node name="reght_split" type="HSplitContainer" parent="ui/VBoxContainer/middle_containers" unique_id=1235759137]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="left_split" type="HSplitContainer" parent="ui/VBoxContainer/middle_containers/reght_split"]
+[node name="left_split" type="HSplitContainer" parent="ui/VBoxContainer/middle_containers/reght_split" unique_id=2128102502]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="left_container" type="TabContainer" parent="ui/VBoxContainer/middle_containers/reght_split/left_split"]
+[node name="left_container" type="TabContainer" parent="ui/VBoxContainer/middle_containers/reght_split/left_split" unique_id=72335114]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
@@ -108,31 +113,32 @@ focus_mode = 3
 clip_tabs = false
 tab_focus_mode = 0
 
-[node name="PanelContainer2" type="PanelContainer" parent="ui/VBoxContainer/middle_containers/reght_split/left_split"]
+[node name="PanelContainer2" type="PanelContainer" parent="ui/VBoxContainer/middle_containers/reght_split/left_split" unique_id=992326936]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
+theme_type_variation = &"main__panel"
 
-[node name="main_container" type="VBoxContainer" parent="ui/VBoxContainer/middle_containers/reght_split/left_split/PanelContainer2"]
+[node name="main_container" type="VBoxContainer" parent="ui/VBoxContainer/middle_containers/reght_split/left_split/PanelContainer2" unique_id=1943714337]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 
-[node name="right_container" type="TabContainer" parent="ui/VBoxContainer/middle_containers/reght_split"]
+[node name="right_container" type="TabContainer" parent="ui/VBoxContainer/middle_containers/reght_split" unique_id=1784256002]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 
-[node name="bottom_bar" type="HBoxContainer" parent="ui/VBoxContainer"]
+[node name="bottom_bar" type="HBoxContainer" parent="ui/VBoxContainer" unique_id=197499730]
 layout_mode = 2
 
-[node name="popups" type="Control" parent="."]
+[node name="popups" type="Control" parent="." unique_id=759412357]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("4_7mycd")
 
-[node name="welcome_popup" type="PopupPanel" parent="popups"]
+[node name="welcome_popup" type="PopupPanel" parent="popups" unique_id=325794007]
 unique_name_in_owner = true
 transparent_bg = false
 oversampling_override = 1.0
@@ -145,14 +151,14 @@ content_scale_factor = 1.5
 theme_override_styles/panel = SubResource("StyleBoxFlat_4c57u")
 script = ExtResource("5_4c57u")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup"]
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup" unique_id=313347523]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 529.3333
 offset_bottom = 396.0
 theme = ExtResource("1_1bvp3")
 
-[node name="TextureRect" type="TextureRect" parent="popups/welcome_popup/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="popups/welcome_popup/VBoxContainer" unique_id=802887050]
 self_modulate = Color(1, 1, 1, 0.6666667)
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
@@ -160,7 +166,7 @@ texture = ExtResource("5_kek77")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="ColorRect" type="ColorRect" parent="popups/welcome_popup/VBoxContainer/TextureRect"]
+[node name="ColorRect" type="ColorRect" parent="popups/welcome_popup/VBoxContainer/TextureRect" unique_id=1635364846]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -171,7 +177,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.12156863)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup/VBoxContainer/TextureRect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup/VBoxContainer/TextureRect" unique_id=482251962]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -180,21 +186,21 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="popups/welcome_popup/VBoxContainer/TextureRect/VBoxContainer"]
+[node name="Label" type="Label" parent="popups/welcome_popup/VBoxContainer/TextureRect/VBoxContainer" unique_id=606237928]
 layout_mode = 2
 text = "Welcome to "
 label_settings = ExtResource("5_7mycd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="popups/welcome_popup/VBoxContainer/TextureRect/VBoxContainer"]
+[node name="Label2" type="Label" parent="popups/welcome_popup/VBoxContainer/TextureRect/VBoxContainer" unique_id=2029673284]
 layout_mode = 2
 text = "GBA Edit"
 label_settings = SubResource("LabelSettings_272bh")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="popups/welcome_popup/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="popups/welcome_popup/VBoxContainer" unique_id=1320440385]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 12
@@ -202,35 +208,143 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer" unique_id=216153172]
 layout_mode = 2
 
-[node name="system_preset_opt" type="OptionButton" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="PanelContainer" type="PanelContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1061887040]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"inner_panel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer" unique_id=974062130]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 8)
+[node name="HBoxContainer" type="HBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=390886978]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=2140902604]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Name"
+label_settings = ExtResource("8_w48qg")
+
+[node name="Label2" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=2147151718]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Last Edited"
+label_settings = ExtResource("8_w48qg")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=2043571048]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer" unique_id=203841430]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=948931952]
 layout_mode = 2
 
-[node name="new_project_btn" type="Button" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=862951934]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Castle"
+label_settings = ExtResource("5_7mycd")
+
+[node name="Label2" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=689962553]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "01/17/2026"
+label_settings = ExtResource("5_7mycd")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1483335140]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=2100261148]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Castle"
+label_settings = ExtResource("5_7mycd")
+
+[node name="Label2" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=438209336]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "01/17/2026"
+label_settings = ExtResource("5_7mycd")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1070646813]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=65016752]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Castle"
+label_settings = ExtResource("5_7mycd")
+
+[node name="Label2" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1408742323]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "01/17/2026"
+label_settings = ExtResource("5_7mycd")
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1391529439]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4" unique_id=1140640750]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Castle"
+label_settings = ExtResource("5_7mycd")
+
+[node name="Label2" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4" unique_id=472912703]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "01/17/2026"
+label_settings = ExtResource("5_7mycd")
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=607542872]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5" unique_id=1338338154]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Castle"
+label_settings = ExtResource("5_7mycd")
+
+[node name="Label2" type="Label" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5" unique_id=585601756]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "01/17/2026"
+label_settings = ExtResource("5_7mycd")
+
+[node name="Control" type="Control" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1710256214]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer" unique_id=880209325]
+layout_mode = 2
+
+[node name="new_project_btn" type="Button" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=498077515]
 layout_mode = 2
 text = "New"
 
-[node name="Button2" type="Button" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=658799979]
 layout_mode = 2
 text = "Open"
 
-[node name="Button3" type="Button" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Button3" type="Button" parent="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1289907787]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Quit"
 
-[node name="command_palette_popup" type="PopupPanel" parent="popups"]
+[node name="new_project_popup" type="PopupPanel" parent="popups" unique_id=2129650365]
 unique_name_in_owner = true
 transparent_bg = false
 oversampling_override = 1.0
@@ -239,66 +353,294 @@ size = Vector2i(800, 600)
 transient_to_focused = true
 transparent = false
 force_native = true
+content_scale_factor = 1.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_4c57u")
+script = ExtResource("5_4c57u")
+
+[node name="MarginContainer" type="MarginContainer" parent="popups/new_project_popup" unique_id=608902078]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 529.3333
+offset_bottom = 396.0
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/new_project_popup/MarginContainer" unique_id=1680922741]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="popups/new_project_popup/MarginContainer/VBoxContainer" unique_id=101025387]
+layout_mode = 2
+placeholder_text = "Project Name..."
+
+[node name="PanelContainer" type="PanelContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer" unique_id=1907302104]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"inner_panel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer" unique_id=1954313290]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1507215528]
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "Default"
+popup/item_0/id = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=668919920]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer" unique_id=532570416]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=758696494]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1864432010]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Palette mode"
+label_settings = ExtResource("8_w48qg")
+
+[node name="OptionButton" type="OptionButton" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1392150183]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "Fixed"
+popup/item_0/id = 0
+popup/item_1/text = "RGB"
+popup/item_1/id = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=174963955]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=214897610]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Palette Bank Size"
+label_settings = ExtResource("8_w48qg")
+
+[node name="OptionButton" type="SpinBox" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=218006564]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1438163973]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1464941167]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Colors"
+label_settings = ExtResource("8_w48qg")
+
+[node name="OptionButton" type="SpinBox" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1512191909]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=718647346]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4" unique_id=465922]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Map Size"
+label_settings = ExtResource("8_w48qg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4" unique_id=1919432042]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer" unique_id=630776472]
+layout_mode = 2
+suffix = "tiles"
+
+[node name="SpinBox2" type="SpinBox" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer" unique_id=1620298885]
+layout_mode = 2
+suffix = "tiles"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=2018197731]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1216608837]
+layout_mode = 2
+theme_type_variation = &"widget_menubar_button"
+text = "Load"
+icon = ExtResource("9_vivmo")
+
+[node name="Button2" type="Button" parent="popups/new_project_popup/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1723702119]
+layout_mode = 2
+theme_type_variation = &"widget_menubar_button"
+text = "Save"
+icon = ExtResource("10_2cqfq")
+
+[node name="Control" type="Control" parent="popups/new_project_popup/MarginContainer/VBoxContainer" unique_id=733144130]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="popups/new_project_popup/MarginContainer/VBoxContainer" unique_id=374530126]
+layout_mode = 2
+
+[node name="create_project_btn" type="Button" parent="popups/new_project_popup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=323383057]
+layout_mode = 2
+theme_type_variation = &"primary_btn"
+text = "Create"
+
+[node name="cancel_btn" type="Button" parent="popups/new_project_popup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=886799490]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Cancel"
+
+[node name="export_window" type="PopupPanel" parent="popups" unique_id=1582381974]
+unique_name_in_owner = true
+transparent_bg = false
+oversampling_override = 1.0
+title = "Welcome"
+size = Vector2i(1465, 600)
+transient_to_focused = true
+transparent = false
+content_scale_factor = 1.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_4c57u")
+script = ExtResource("5_4c57u")
+
+[node name="MarginContainer" type="MarginContainer" parent="popups/export_window" unique_id=1156353439]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 972.6667
+offset_bottom = 396.0
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="popups/export_window/MarginContainer" unique_id=85048700]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/export_window/MarginContainer/HBoxContainer" unique_id=688781721]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="popups/export_window/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1703971270]
+layout_mode = 2
+text = "Export"
+
+[node name="TabContainer" type="TabContainer" parent="popups/export_window/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1490934432]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Palette" type="VBoxContainer" parent="popups/export_window/MarginContainer/HBoxContainer/VBoxContainer/TabContainer" unique_id=1794401409]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="popups/export_window/MarginContainer/HBoxContainer/VBoxContainer" unique_id=407672872]
+layout_mode = 2
+
+[node name="create_project_btn" type="Button" parent="popups/export_window/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1618341356]
+layout_mode = 2
+theme_type_variation = &"primary_btn"
+text = "Create"
+
+[node name="cancel_btn" type="Button" parent="popups/export_window/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1184108029]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Cancel"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="popups/export_window/MarginContainer/HBoxContainer" unique_id=511556279]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="popups/export_window/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=2099197690]
+layout_mode = 2
+text = "Preview"
+
+[node name="TextureRect" type="TextureRect" parent="popups/export_window/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=223844285]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("11_vivmo")
+expand_mode = 3
+
+[node name="command_palette_popup" type="PopupPanel" parent="popups" unique_id=965151288]
+unique_name_in_owner = true
+transparent_bg = false
+oversampling_override = 1.0
+title = "Welcome"
+size = Vector2i(1200, 600)
+wrap_controls = false
+transient_to_focused = true
+transparent = false
+force_native = true
 content_scale_factor = 2.0
 script = ExtResource("8_5vw27")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="popups/command_palette_popup"]
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/command_palette_popup" unique_id=789519164]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 396.0
+offset_right = 596.0
 offset_bottom = 296.0
 
-[node name="Label" type="Label" parent="popups/command_palette_popup/VBoxContainer"]
+[node name="Label" type="Label" parent="popups/command_palette_popup/VBoxContainer" unique_id=1332727910]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Command palette"
 label_settings = ExtResource("7_272bh")
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="popups/command_palette_popup/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="popups/command_palette_popup/VBoxContainer" unique_id=1648062011]
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"inner_panel"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="popups/command_palette_popup/VBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="popups/command_palette_popup/VBoxContainer/PanelContainer" unique_id=1042800351]
 layout_mode = 2
 theme = ExtResource("1_1bvp3")
 
-[node name="LineEdit" type="LineEdit" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1522546934]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Enter Command..."
 
-[node name="Control" type="Control" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer" unique_id=972697777]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1102480960]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="command_list" type="VBoxContainer" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]
+[node name="command_list" type="VBoxContainer" parent="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer" unique_id=483671480]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="save_file" type="FileDialog" parent="popups"]
+[node name="save_file" type="FileDialog" parent="popups" unique_id=921585073]
 unique_name_in_owner = true
 access = 2
 filters = PackedStringArray("")
 
-[node name="open_file" type="FileDialog" parent="popups"]
+[node name="open_file" type="FileDialog" parent="popups" unique_id=764869874]
 unique_name_in_owner = true
 title = "Open a File"
 file_mode = 0
 access = 2
 filters = PackedStringArray("")
 
-[node name="settings_Window" parent="popups" instance=ExtResource("9_kek77")]
+[node name="settings_Window" parent="popups" unique_id=670593570 instance=ExtResource("9_kek77")]
 unique_name_in_owner = true
-visible = true
+
+[node name="create_tileset_window" parent="popups" unique_id=1548871046 instance=ExtResource("11_efxa6")]
 
 [connection signal="pressed" from="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/new_project_btn" to="popups/welcome_popup" method="_on_new_project_btn_pressed"]
 [connection signal="pressed" from="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="popups/welcome_popup" method="_on_button_2_pressed"]
+[connection signal="pressed" from="popups/new_project_popup/MarginContainer/VBoxContainer/HBoxContainer/create_project_btn" to="popups/new_project_popup" method="_on_new_project_btn_pressed"]
+[connection signal="pressed" from="popups/export_window/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/create_project_btn" to="popups/export_window" method="_on_new_project_btn_pressed"]
 [connection signal="visibility_changed" from="popups/command_palette_popup" to="popups/command_palette_popup" method="_on_visibility_changed"]
 [connection signal="text_submitted" from="popups/command_palette_popup/VBoxContainer/PanelContainer/VBoxContainer/LineEdit" to="popups/command_palette_popup" method="_on_line_edit_text_submitted"]

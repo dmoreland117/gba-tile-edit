@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://d2fyngeuq8bcs"]
+
+[ext_resource type="PackedScene" uid="uid://r7wohb3j3kqu" path="res://widget/tile_texture.tscn" id="1_2wtyh"]
+[ext_resource type="Script" uid="uid://ol5gnh2vh3ra" path="res://plugins/tile_viewer_selector/tile_viewer.gd" id="1_tt5hc"]
+[ext_resource type="Script" uid="uid://cil2hngfarhc4" path="res://plugins/tile_viewer_selector/selection_overlay.gd" id="3_hcj5s"]
+
+[node name="tile_viewer" type="ScrollContainer" unique_id=2061859763]
+offset_right = 400.0
+offset_bottom = 400.0
+size_flags_vertical = 3
+script = ExtResource("1_tt5hc")
+
+[node name="tiles_grid" type="GridContainer" parent="." unique_id=1248835547]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 4
+
+[node name="tile_texture" parent="tiles_grid" unique_id=409470904 instance=ExtResource("1_2wtyh")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+
+[node name="tile_texture2" parent="tiles_grid" unique_id=1853692401 instance=ExtResource("1_2wtyh")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+
+[node name="tile_texture3" parent="tiles_grid" unique_id=1740276224 instance=ExtResource("1_2wtyh")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+
+[node name="tile_texture4" parent="tiles_grid" unique_id=1613856929 instance=ExtResource("1_2wtyh")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+
+[node name="selection_overlay" type="Control" parent="." unique_id=1552728749 node_paths=PackedStringArray("tile_viewer")]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("3_hcj5s")
+tile_viewer = NodePath("..")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

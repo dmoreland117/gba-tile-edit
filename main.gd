@@ -1,81 +1,49 @@
 extends Control
 
-const NES_PALETTE:Array[Color] = [
-	Color(124/255.0, 124/255.0, 124/255.0),
-	Color(0/255.0, 0/255.0, 252/255.0),
-	Color(0/255.0, 0/255.0, 188/255.0),
-	Color(68/255.0, 40/255.0, 188/255.0),
-	Color(148/255.0, 0/255.0, 132/255.0),
-	Color(168/255.0, 0/255.0, 32/255.0),
-	Color(168/255.0, 16/255.0, 0/255.0),
-	Color(136/255.0, 20/255.0, 0/255.0),
-	Color(80/255.0, 48/255.0, 0/255.0),
-	Color(0/255.0, 120/255.0, 0/255.0),
-	Color(0/255.0, 104/255.0, 0/255.0),
-	Color(0/255.0, 88/255.0, 0/255.0),
-	Color(0/255.0, 64/255.0, 88/255.0),
-	Color(0/255.0, 0/255.0, 0/255.0),
-	Color(0/255.0, 0/255.0, 0/255.0),
-	Color(0/255.0, 0/255.0, 0/255.0),
-	Color(188/255.0, 188/255.0, 188/255.0),
-	Color(0/255.0, 120/255.0, 248/255.0),
-	Color(0/255.0, 88/255.0, 248/255.0),
-	Color(104/255.0, 68/255.0, 252/255.0),
-	Color(216/255.0, 0/255.0, 204/255.0),
-	Color(228/255.0, 0/255.0, 88/255.0),
-	Color(248/255.0, 56/255.0, 0/255.0),
-	Color(228/255.0, 92/255.0, 16/255.0),
-	Color(172/255.0, 124/255.0, 0/255.0),
-	Color(0/255.0, 184/255.0, 0/255.0),
-	Color(0/255.0, 168/255.0, 0/255.0),
-	Color(0/255.0, 168/255.0, 68/255.0),
-	Color(0/255.0, 136/255.0, 136/255.0),
-	Color(0/255.0, 0/255.0, 0/255.0),
-	Color(0/255.0, 0/255.0, 0/255.0),
-	Color(0/255.0, 0/255.0, 0/255.0),
-	Color(248/255.0, 248/255.0, 248/255.0),
-	Color(60/255.0, 188/255.0, 252/255.0),
-	Color(104/255.0, 136/255.0, 252/255.0),
-	Color(152/255.0, 120/255.0, 248/255.0),
-	Color(248/255.0, 120/255.0, 248/255.0),
-	Color(248/255.0, 88/255.0, 152/255.0),
-	Color(248/255.0, 120/255.0, 88/255.0),
-	Color(252/255.0, 160/255.0, 68/255.0),
-	Color(248/255.0, 184/255.0, 0/255.0),
-	Color(184/255.0, 248/255.0, 24/255.0),
-	Color(88/255.0, 216/255.0, 84/255.0),
-	Color(88/255.0, 248/255.0, 152/255.0),
-	Color(0/255.0, 232/255.0, 216/255.0),
-	Color(120/255.0, 120/255.0, 120/255.0),
-	Color(0/255.0, 0/255.0, 0/255.0),
-	Color(0/255.0, 0/255.0, 0/255.0),
-	Color(252/255.0, 252/255.0, 252/255.0),
-	Color(164/255.0, 228/255.0, 252/255.0),
-	Color(184/255.0, 184/255.0, 248/255.0),
-	Color(216/255.0, 184/255.0, 248/255.0),
-	Color(248/255.0, 184/255.0, 248/255.0),
-	Color(248/255.0, 164/255.0, 192/255.0),
-	Color(240/255.0, 208/255.0, 176/255.0),
-	Color(252/255.0, 224/255.0, 168/255.0),
-	Color(248/255.0, 216/255.0, 120/255.0),
-	Color(216/255.0, 248/255.0, 120/255.0),
-	Color(184/255.0, 248/255.0, 184/255.0),
-	Color(184/255.0, 248/255.0, 216/255.0),
-	Color(0/255.0, 252/255.0, 252/255.0),
-	Color(248/255.0, 216/255.0, 248/255.0),
-	Color(0/255.0, 0/255.0, 0/255.0),
-	Color(0/255.0, 0/255.0, 0/255.0),
-]
-
+# start app > 
 
 
 func _ready() -> void:
-	
-	var c = GBPaletteColor.from_rgb8(0xFF0000)
-	
 	Project.create_initail_project()
 	
 	Settings.load()
+	
+	var file_popup_menu = PopupMenu.new()
+	file_popup_menu.name = 'File'
+	file_popup_menu.add_item('Open', -1, KEY_MASK_CTRL | KEY_O)
+	file_popup_menu.add_item('Save', -1, KEY_MASK_CTRL | KEY_S)
+	file_popup_menu.add_item('Save As', -1, KEY_MASK_CTRL | KEY_MASK_ALT | KEY_S)
+	
+	file_popup_menu.id_pressed.connect(
+		func(id):
+			match id:
+				0:
+					CommandPalette.call_command('load')
+				1:
+					CommandPalette.call_command('save')
+				2:
+					CommandPalette.call_command('saveas')
+	)
+	
+	var edit_popup_menu = PopupMenu.new()
+	edit_popup_menu.name = 'Edit'
+	edit_popup_menu.add_item('Create Palette', -1, KEY_MASK_CTRL | KEY_MASK_SHIFT | KEY_P)
+	edit_popup_menu.add_item('Create Tileset', -1, KEY_MASK_CTRL | KEY_MASK_SHIFT | KEY_T)
+	edit_popup_menu.add_item('Settings', -1, KEY_MASK_CTRL | KEY_COMMA)
+	
+	edit_popup_menu.id_pressed.connect(
+		func(id):
+			match id:
+				0:
+					CommandPalette.call_command('addpalette', 'test', GBPaletteData.PALETTE_MODE_FIXED)
+				1:
+					Popups.show_create_tileset_window()
+				2:
+					Popups.show_settings_window()
+	)
+	
+	Ui.get_menu_bar().add_child(file_popup_menu)
+	Ui.get_menu_bar().add_child(edit_popup_menu)
 	
 	CommandPalette.register_command(
 		'save',
@@ -103,13 +71,13 @@ func _ready() -> void:
 	
 	Ui.get_container(Ui.TOP_RIGHT_CONTIANER).add_child(save_btn)
 	
-	PluginManager.load_plugin("res://plugins/palette_editor/color_palette_and_picker.gd")
-	PluginManager.load_plugin("res://plugins/tile_editor/tile_editor_plugin.gd")
-	PluginManager.load_plugin("res://plugins/exporter/exporter_ui_plugin.gd")
-	PluginManager.load_plugin("res://plugins/tile_viewer_selector/tile_viewer_plugin.gd")
-	PluginManager.load_plugin("res://plugins/map_editor/map_edit_plugin.gd")
+	PluginManager.scan_dir_paths()
 	
 	Popups.show_welcome_popup()
+	
+	var w:Window = get_window()
+	w.content_scale_factor = 1
+	pass
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("show_cmd_palette"):
@@ -124,7 +92,8 @@ func save_proj():
 	else:
 		path = Project.last_save_path
 	
-	Project.save(path)
+	#Project.save(path)
+	ProjectSaver.save_project_file(path)
 	
 	return true
 
@@ -136,6 +105,6 @@ func save_proj_as():
 
 func load_proj():
 	var path = await Popups.show_open_file_popup(['*.gbproj'])
-	Project.load(path)
+	ProjectSaver.load_project_file(path)
 	
 	return true

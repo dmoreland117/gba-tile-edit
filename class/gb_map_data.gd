@@ -5,7 +5,7 @@ signal tile_attrib_updated()
 signal resized()
 
 var map_name:String = 'Untitled'
-var size:Vector2 = Vector2(32, 32)
+var size:Vector2i = Vector2i(32, 32)
 
 var tile_attrbs:Array[GBTileAttrib] = []
 
@@ -63,7 +63,7 @@ func clear():
 func get_16_bit_array() -> Array[int]:
 	return []
 	
-func to_dict() -> Dictionary:
+func to_pretty() -> Dictionary:
 	var d = {
 		'name': map_name,
 		'size': {

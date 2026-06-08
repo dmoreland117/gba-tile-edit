@@ -5,6 +5,7 @@ enum {
 	PALLET_MODE_RGB
 }
 
+var uid:String
 var label:String
 var palette_mode:int
 var palette_bank_size:int
@@ -16,6 +17,7 @@ var default_export_plugin_idx:int # unused
 
 static func from_dict(dict:Dictionary) -> SystemPreset:
 	var sp = SystemPreset.new()
+	sp.uid = dict.get('uid')
 	sp.label = dict.get('label')
 	sp.palette_mode = dict.get('palette_mode', 1)
 	sp.palette_bank_size = dict.get('palette_bank_size', 4)

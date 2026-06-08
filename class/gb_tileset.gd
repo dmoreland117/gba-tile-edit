@@ -5,11 +5,15 @@ signal tiles_updated()
 
 var tileset_name = 'Untitled'
 var tile_datas:Array[GBTileData] = []
+var tile_size:Vector2i = Vector2(8, 8)
 
+
+func _init(size:Vector2) -> void:
+	tile_size = size
 
 func add_tile(tile:GBTileData = null):
 	if !tile:
-		tile_datas.append(GBTileData.new())
+		tile_datas.append(GBTileData.new(tile_size))
 		tiles_updated.emit()
 		return
 	
@@ -30,6 +34,16 @@ func get_tile(idx:int) -> GBTileData:
 	
 	return tile_datas[idx]
 
+func get_tile_range(idx, count) -> Array[GBTileData]:
+	var ret:Array[GBTileData] = []
+	
+	for i in range(count):
+		var t = tile_datas.get(idx + i)
+		if t:
+			ret.append(t)
+	
+	return ret
+
 func set_tile(idx:int, tile:GBTileData):
 	if !_check_idx_in_bounds(idx):
 		return
@@ -48,15 +62,19 @@ func clear():
 	tile_datas.clear()
 	tiles_updated.emit()
 
-func get_16_bit_array() -> Array[int]:
+func get_tiles_as_indexes() -> Array[Array]:
+	var ret:Array[Array] = []
+	for tile in tile_datas:
+		ret.append(tile.data)
+	
+	return ret
+
+func get_indexes_array() -> Array[int]:
 	var ret:Array[int] = []
 	for tile in tile_datas:
-		ret.append(tile.get_bytes_array())
+		ret.append_array(tile.data)
 	
-	return []
-
-func get_8_bit_array() -> Array[int]:
-	return get_16_bit_array()
+	return ret
 
 func _check_idx_in_bounds(idx:int) -> bool:
 	return idx >= 0 and idx < tile_datas.size()
@@ -78,7 +96,7 @@ static func from_dict(dict:Dictionary, old_tiles:GBTileSet):
 	old_tiles.tileset_name = dict['name']
 	old_tiles.clear()
 	for data:Array in dict['tiles']:
-		var t = GBTileData.new()
+		var t = GBTileData.new(Vector2(8, 8))
 		t.data.clear()
 		for i in data:
 			t.data.append(int(i))

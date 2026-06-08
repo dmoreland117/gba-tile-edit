@@ -21,6 +21,13 @@ func get_bgr5() -> int:
 	ret = (b5 << 10) | (g5 << 5) | r5
 	return ret
 
+func get_rgb8() -> int:
+	var r8 := color.r8 & 0xFF
+	var g8 := color.g8 & 0xFF
+	var b8 := color.b8 & 0xFF
+
+	return ((r8 << 16) | (g8 << 8) | b8) & 0xFFFFFF
+	
 static func from_rgb5(rgb5:int) -> GBPaletteColor:
 	var b5 = (rgb5 >> 10) & 0x1F 
 	var g5 = (rgb5 >> 5) & 0x1F 
@@ -38,8 +45,8 @@ static func from_rgb5(rgb5:int) -> GBPaletteColor:
 	return GBPaletteColor.new(c)
 
 static func from_rgb8(rgb8:int) -> GBPaletteColor:
-	var r8 = (rgb8 >> 14) & 0xFF 
-	var g8 = (rgb8 >> 7) & 0xFF 
+	var r8 = (rgb8 >> 16) & 0xFF 
+	var g8 = (rgb8 >> 8) & 0xFF 
 	var b8 = rgb8 & 0xFF 
 	
 	var c = Color(1, 1, 1)

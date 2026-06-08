@@ -24,3 +24,10 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Arg:Type"
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="arg_type" type="Label" parent="HBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2

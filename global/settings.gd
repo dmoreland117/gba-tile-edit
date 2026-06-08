@@ -1,6 +1,8 @@
 extends Node
 
 
+const SETTINGS_API_VERSION = 1.0
+
 var _settings:Dictionary = {}
 
 
@@ -13,9 +15,28 @@ func set_setting(value, setting_name:String, category:String, sub_category:Strin
 	if !sub_cat:
 		_settings[category][sub_category] = {}
 	
-	_settings[category][sub_category][setting_name] = value
+	_settings[category][sub_category][setting_name] = {
+		'value': value
+	}
 
-func get_setting(setting_name:String, category:String, sub_category:String = '.', default = null):
+func set_setting_type(type:int, hint:int, setting_name:String, category:String, sub_category:String = '.'):
+	var cat = _settings.get(category)
+	if !cat:
+		return
+	
+	var sub_cat = _settings[category].get(sub_category)
+	if !sub_cat:
+		return
+	
+	var setting = _settings[category][sub_category][setting_name]
+	if !setting:
+		return
+	
+	setting['type'] = type
+	setting['hint'] = hint
+
+
+func get_setting(setting_name:String, category:String, sub_category:String = '.', default = null) -> Dictionary:
 	var cat = _settings.get(category)
 	if !cat:
 		printerr('Category does not exist. ', category)
@@ -37,9 +58,23 @@ func get_categories() -> PackedStringArray:
 	var ret = PackedStringArray()
 	
 	for cat in _settings.keys():
+		if cat == 'version':
+			continue
+		
 		ret.append(cat)
 	
 	return ret
+
+func get_sub_category_settings(category:String, sub_category:String = '.') -> Dictionary:
+	var sub_cats:Dictionary = _settings.get(category)
+	if !sub_cats:
+		return {}
+	
+	var sub_cat = sub_cats.get(sub_category)
+	if !sub_cat:
+		return {}
+	
+	return sub_cat
 
 func get_sub_categories(category:String) -> PackedStringArray:
 	var ret = PackedStringArray()
@@ -76,6 +111,7 @@ func save():
 		return
 	
 	var settings_dict = _settings
+	settings_dict['version'] = SETTINGS_API_VERSION
 	file.store_string(str(settings_dict))
 	file.close()
 
@@ -84,9 +120,11 @@ func load():
 	if settings_str.is_empty():
 		return
 	
-	var settings_dict = JSON.parse_string(settings_str)
+	var settings_dict:Dictionary = JSON.parse_string(settings_str)
 	if !settings_dict:
 		return
+	
+	settings_dict.erase('version')
 	
 	_settings = settings_dict
 	

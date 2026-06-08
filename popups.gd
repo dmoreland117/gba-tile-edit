@@ -6,6 +6,8 @@ extends Control
 @onready var save_file: FileDialog = %save_file
 @onready var open_file: FileDialog = %open_file
 @onready var settings_window: Window = %settings_Window
+@onready var create_tileset_window: Window = $create_tileset_window
+@onready var new_project_popup: PopupPanel = %new_project_popup
 
 static var _instance:Popups
 
@@ -33,3 +35,9 @@ static func show_open_file_popup(filters:PackedStringArray) -> String:
 
 static func show_settings_window():
 	_instance.settings_window.popup_centered()
+
+static func show_create_tileset_window():
+	_instance.create_tileset_window.popup_centered()
+
+static func show_new_project_window():
+	_instance.new_project_popup.popup_centered()

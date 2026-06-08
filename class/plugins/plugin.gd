@@ -10,3 +10,23 @@ func register_exporter_plugin(plugin:ExportPlugin):
 
 func register_system_preset(preset:Dictionary):
 	PluginManager.register_system_preset(preset)
+
+func instance_scene_at_path(path:String, script_path:String):
+	if !FileAccess.file_exists(path):
+		return
+	if !FileAccess.file_exists(script_path):
+		return
+	
+	var scene = ResourceLoader.load(path)
+	if !scene:
+		return
+	
+	var scene_instance:Node = scene.instantiate()
+	
+	var script:Script = ResourceLoader.load(script_path)
+	if !script:
+		return
+	
+	scene_instance.set_script(script)
+	
+	return scene_instance
