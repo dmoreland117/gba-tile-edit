@@ -1,19 +1,29 @@
 extends Node
 
 
+signal command_added(command:Command)
+signal command_removed(cmd_name:String)
 signal commands_updated()
 
-var commands:Dictionary = {}
+var commands:Dictionary[String, Command] = {}
 
 
 func register_command(cmd_name:String, args:Array[Dictionary], callback:Callable):
-	commands[cmd_name] = Command.new(args, callback)
+	var cmd = Command.new(args, callback)
+	commands[cmd_name] = cmd
+	command_added.emit(cmd)
 	commands_updated.emit()
+
+func remove_command(cmd_name:String):
+	if !commands.erase(name):
+		Log.err('Command', cmd_name, 'does not exist')
+	
+	command_removed.emit(cmd_name)
 
 func call_command(command:String, ...args):
 	var cmd_data:Command = commands.get(command)
 	if !cmd_data:
-		printerr('command does not exist ', command)
+		Log.err('Command', command, 'does not exist')
 		return
 	
 	var c = cmd_data.callable
@@ -22,12 +32,14 @@ func call_command(command:String, ...args):
 
 	var err = await c.callv(typed_args)
 	if !err:
-		printerr('error executing command.')
+		Log.err('Command did not execute succesfully.')
 		return
-	
 
-func get_commands() -> Dictionary:
+func get_commands() -> Dictionary[String, Command]:
 	return commands
+
+func get_command_names() -> PackedStringArray:
+	return commands.keys()
 
 func _get_typed_args_array(cmd_args:Array[Dictionary], passed_args):
 	var ret = []
@@ -51,12 +63,3 @@ func _get_typed_args_array(cmd_args:Array[Dictionary], passed_args):
 				))
 	
 	return ret
-
-class Command:
-	var args:Array[Dictionary]
-	var callable:Callable
-
-	func _init(c_args:Array[Dictionary], callback:Callable) -> void:
-		args = c_args
-		callable = callback
-		
