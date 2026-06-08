@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://r7wohb3j3kqu" path="res://widget/tile_texture.tscn" id="2_ofhsb"]
 [ext_resource type="Script" uid="uid://dhix8gqt5cxjo" path="res://plugins/tile_editor/zoom_slider.gd" id="3_1nac1"]
 [ext_resource type="Script" uid="uid://cklhqe0dpape1" path="res://widget/grid_viewer.gd" id="3_ick41"]
-[ext_resource type="Script" uid="uid://0ui4vn5rq25o" path="res://class/plugins/grid_data.gd" id="4_1r8kw"]
+[ext_resource type="Script" uid="uid://0ui4vn5rq25o" path="res://class/grid_data.gd" id="4_1r8kw"]
 [ext_resource type="Texture2D" uid="uid://xiok0g81mbi2" path="res://assets/icons/icon_single_tile.svg" id="4_8sblb"]
 [ext_resource type="Script" uid="uid://b7w70khcp3c0m" path="res://plugins/tile_editor/tile_modes.gd" id="4_ick41"]
 [ext_resource type="Texture2D" uid="uid://cqwurvddp01qf" path="res://assets/icons/icon_tiled_tile.svg" id="5_ick41"]
@@ -17,7 +17,6 @@
 [sub_resource type="Resource" id="Resource_78vqg"]
 script = ExtResource("4_1r8kw")
 show_grid = true
-spacing_px = Vector2i(8, 8)
 line_thickness_px = 2
 metadata/_custom_type_script = "uid://0ui4vn5rq25o"
 

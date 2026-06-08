@@ -48,7 +48,8 @@ func get_cell_at_position(pos:Vector2) -> Vector2i:
 
 func _clear_children():
 	for child in tiles_grid.get_children():
-		remove_child(child)
+		
+		tiles_grid.remove_child(child)
 		child.queue_free()
 
 func _populate_tiles():
@@ -67,26 +68,14 @@ func _populate_tiles():
 func _ready() -> void:
 	set_tiles(tiles)
 
-func _draw() -> void:
-	return
-	var sel = get_selection()
-	
-	var first_grid_child = null
-	if !tiles_grid.get_child_count() > 0:
-		return 
-	
-	first_grid_child = tiles_grid.get_child(0)
-	
-	
-	var rect_pos = Vector2(sel.position) * first_grid_child.size.x
-	var rect_size = Vector2(sel.size) * first_grid_child.size.x
-
-	if _dragging:
-		draw_rect(Rect2(rect_pos, rect_size), Color(0, 0.5, 1, 0.3), true)
-	
-	draw_rect(Rect2(rect_pos, rect_size), Color(0, 0.5, 1), false, 2)
-
 func get_selection() -> Dictionary:
+	if !tiles_grid:
+		return {
+			"position": Vector2i(0, 0),
+			'start_tile_idx': 0,
+			"size": Vector2i(1, 1)
+		}
+	
 	var min_cell = Vector2i(
 		min(_start_tile_pos.x, _current_tile_pos.x),
 		min(_start_tile_pos.y, _current_tile_pos.y)

@@ -22,9 +22,10 @@ func set_cell_size(new_size):
 
 func _ready() -> void:
 	cell_size = Vector2i(64, 64)
+	selection = tile_viewer.get_selection()
 	tile_viewer.selection_updated.connect(_on_grid_selection_updated)
 
-func set_cell_size_to_first_tile():
+func set_cell_size_to_first_child_size():
 	if tile_viewer:
 		if !tile_viewer.tiles_grid:
 			return

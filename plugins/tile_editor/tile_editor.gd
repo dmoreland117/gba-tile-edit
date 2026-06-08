@@ -12,7 +12,7 @@ const BASE_SCALE = 12.0
 
 var tile_bank:int = 0
 var tile_idx:int = 0 : set=set_tile_idx
-var tile_count:int = 2 : set=set_tile_count
+var tile_count:int = 1 : set=set_tile_count
 var tile_cols:int = 1 : set=set_tile_cols
 
 var show_grid:bool = false

@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://5tmknl2gspks" path="res://theme.tres" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://co1sr23jinggc" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="Script" uid="uid://xgmex8x8n0i7" path="res://ui.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://xgmex8x8n0i7" path="res://main_ui.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d3kfcrt5trost" path="res://popups.gd" id="4_7mycd"]
-[ext_resource type="Script" uid="uid://bgne4uq2iwsnc" path="res://welcome_popup.gd" id="5_4c57u"]
+[ext_resource type="Script" uid="uid://bgne4uq2iwsnc" path="res://popups/welcome_popup.gd" id="5_4c57u"]
 [ext_resource type="LabelSettings" uid="uid://vryua1inycx3" path="res://resources/label/body_bold.tres" id="5_7mycd"]
 [ext_resource type="Texture2D" uid="uid://mm6csnmgswc3" path="res://assets/textures/scr1.png" id="5_kek77"]
 [ext_resource type="LabelSettings" uid="uid://dxvhmchtcry6m" path="res://resources/label/body_lg.tres" id="7_272bh"]
@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://8efh3ipu4r1e" path="res://popups/settings_window.tscn" id="9_kek77"]
 [ext_resource type="Texture2D" uid="uid://bes2ngv3a52pp" path="res://assets/file_open_24x.svg" id="9_vivmo"]
 [ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="10_2cqfq"]
-[ext_resource type="PackedScene" uid="uid://qrwcvcba7a84" path="res://create_tileset_window.tscn" id="11_efxa6"]
+[ext_resource type="PackedScene" uid="uid://qrwcvcba7a84" path="res://popups/create_tileset_window.tscn" id="11_efxa6"]
 [ext_resource type="Texture2D" uid="uid://dct64lw8qa7x3" path="res://icon.svg" id="11_vivmo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c57u"]
@@ -513,7 +513,7 @@ script = ExtResource("5_4c57u")
 [node name="MarginContainer" type="MarginContainer" parent="popups/export_window" unique_id=1156353439]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 973.0
+offset_right = 972.6667
 offset_bottom = 396.0
 size_flags_vertical = 3
 theme_override_constants/margin_left = 12

@@ -73,12 +73,6 @@ func _ready() -> void:
 	
 	PluginManager.scan_dir_paths()
 	
-	#PluginManager.load_plugin("res://plugin_test.cfg")
-	#PluginManager.load_plugin("res://plugins/tile_editor/tile_editor_plugin.gd")
-	#PluginManager.load_plugin("res://plugins/exporter/exporter_ui_plugin.gd")
-	#PluginManager.load_plugin("res://plugins/tile_viewer_selector/tile_viewer_plugin.gd")
-	#PluginManager.load_plugin("res://plugins/map_editor/map_edit_plugin.gd")
-	
 	Popups.show_welcome_popup()
 	
 	var w:Window = get_window()

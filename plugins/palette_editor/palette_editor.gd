@@ -8,8 +8,6 @@ signal color_prssed(id:int)
 @onready var move_up_btn: Button = %move_up_btn
 @onready var move_down_btn: Button = %move_down_btn
 @onready var banked_btn: Button = %banked_btn
-@onready var fixed_mode_btn: Button = %fixed_mode_btn
-@onready var palette_name_input: LineEdit = %palette_name_input
 @onready var selected_palette_opt: OptionButton = %selected_palette_opt
 
 @onready var color_button_hflow: HFlowContainer = %color_button_hflow

@@ -19,6 +19,23 @@ func set_setting(value, setting_name:String, category:String, sub_category:Strin
 		'value': value
 	}
 
+func set_setting_type(type:int, hint:int, setting_name:String, category:String, sub_category:String = '.'):
+	var cat = _settings.get(category)
+	if !cat:
+		return
+	
+	var sub_cat = _settings[category].get(sub_category)
+	if !sub_cat:
+		return
+	
+	var setting = _settings[category][sub_category][setting_name]
+	if !setting:
+		return
+	
+	setting['type'] = type
+	setting['hint'] = hint
+
+
 func get_setting(setting_name:String, category:String, sub_category:String = '.', default = null) -> Dictionary:
 	var cat = _settings.get(category)
 	if !cat:

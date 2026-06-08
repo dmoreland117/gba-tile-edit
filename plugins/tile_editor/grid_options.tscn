@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dxv1g6piyrylg" path="res://plugins/tile_editor/grid_options.gd" id="1_lwhuw"]
 
 [node name="grid_options" type="VBoxContainer" unique_id=1666166649]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 233.0
+offset_bottom = 149.0
 script = ExtResource("1_lwhuw")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="." unique_id=2089263343]
@@ -13,6 +13,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="HBoxContainer3" unique_id=170954623]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Color"
 
 [node name="grid_colorpicker_btn" type="ColorPickerButton" parent="HBoxContainer3" unique_id=1323965383]
@@ -27,12 +28,15 @@ layout_mode = 2
 [node name="Label" type="Label" parent="HBoxContainer" unique_id=1665805092]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Spacing x"
 
 [node name="spacing_x_input" type="SpinBox" parent="HBoxContainer" unique_id=168410700]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 suffix = "px"
+select_all_on_focus = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1425183459]
 layout_mode = 2
@@ -40,13 +44,33 @@ layout_mode = 2
 [node name="Label" type="Label" parent="HBoxContainer2" unique_id=303785753]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Spacing y"
 
 [node name="spacing_y_input" type="SpinBox" parent="HBoxContainer2" unique_id=1243479592]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 suffix = "px"
+select_all_on_focus = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="." unique_id=334966224]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer4" unique_id=738439821]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Line Thickness"
+
+[node name="thickness_input" type="SpinBox" parent="HBoxContainer4" unique_id=1301690887]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+suffix = "px"
+select_all_on_focus = true
 
 [connection signal="color_changed" from="HBoxContainer3/grid_colorpicker_btn" to="." method="_on_grid_colorpicker_btn_color_changed"]
 [connection signal="value_changed" from="HBoxContainer/spacing_x_input" to="." method="_on_spacing_x_input_value_changed"]
 [connection signal="value_changed" from="HBoxContainer2/spacing_y_input" to="." method="_on_spacing_y_input_value_changed"]
+[connection signal="value_changed" from="HBoxContainer4/thickness_input" to="." method="_on_thickness_input_value_changed"]
