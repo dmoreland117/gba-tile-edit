@@ -122,6 +122,10 @@ class Palettes:
 		_palettes.append(new_palette)
 		palettes_updated.emit()
 	
+	func remove_palette(id:int):
+		_palettes.remove_at(id)
+		palettes_updated.emit()
+	
 	func clear():
 		_palettes.clear()
 		palettes_updated.emit()

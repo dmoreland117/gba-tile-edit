@@ -22,7 +22,7 @@ signal repeat_selected_tile_set(is_set:bool)
 
 var tile_mode:TileMode = TileMode.SINGLE : set=set_tile_mode
 var tile_count:TileCount = TileCount.TWO_TILES : set=set_tile_count
-var repeat_selected_tile:bool = true
+var repeat_selected_tile:bool = true : set=set_repeat_selected_tile
 
 
 func set_repeat_selected_tile(val):

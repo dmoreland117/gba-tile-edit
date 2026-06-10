@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://soyhgvhpjnjj"]
 
-[ext_resource type="Script" uid="uid://ftu6vucqbfft" path="res://plugins/plugins_old/tile_editor/dropdown__button.gd" id="1_pivpk"]
+[ext_resource type="Script" uid="uid://ftu6vucqbfft" path="res://plugins/base/editor_ui/tile_editor/dropdown__button.gd" id="1_pivpk"]
 [ext_resource type="Texture2D" uid="uid://cu5qigo75mrmq" path="res://assets/down_24x.svg" id="3_0wdrq"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_jsdjg"]

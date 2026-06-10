@@ -166,6 +166,8 @@ can_add_swatches = false
 presets_visible = false
 
 [connection signal="item_selected" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/HBoxContainer2/selected_palette_opt" to="." method="_on_selected_palette_opt_item_selected"]
+[connection signal="pressed" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/HBoxContainer2/VBoxContainer2/add_palette_btn" to="." method="_on_add_palette_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/HBoxContainer2/VBoxContainer2/remove_palette_btn" to="." method="_on_remove_palette_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/HBoxContainer2/VBoxContainer2/rename_palette_btn" to="." method="_on_rename_palette_btn_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/color_button_hflow" to="." method="_on_color_button_hflow_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/color_button_hflow" to="." method="_on_color_button_hflow_mouse_exited"]

@@ -1,7 +1,7 @@
 extends VBoxContainer
 class_name TileEditor
 
-const GRID_OPTIONS_MENU = preload('res://plugins/plugins_old/tile_editor/grid_options.tscn')
+const GRID_OPTIONS_MENU = preload('res://plugins/base/editor_ui/tile_editor/grid_options.tscn')
 const BASE_SCALE = 12.0
 
 @onready var tile_texture: TileTexture = $bg_panel/ScrollContainer/tile_texture
@@ -10,7 +10,9 @@ const BASE_SCALE = 12.0
 @onready var grid_dripdown: HBoxContainer = %grid_dropdown
 @onready var grid_viewer: Control = %grid_viewer
 
-var tile_bank:int = 0
+var palette_editor:PaletteEditor
+
+var palette_color_start_id:int = 0
 var tile_idx:int = 0 : set=set_tile_idx
 var tile_count:int = 1 : set=set_tile_count
 var tile_cols:int = 1 : set=set_tile_cols
@@ -136,7 +138,7 @@ func _process(delta: float) -> void:
 	if _drawing:
 		set_pixelv(
 			_mouse_pixel_pos,
-			Context.selected_palette_color_index
+			palette_editor.selected_color_id - palette_color_start_id
 		)
 
 func _ready() -> void:
