@@ -1,4 +1,4 @@
-extends PopupPanel
+extends PopupPanel	
 
 
 const COMMAND_PALETTE_ITEM = preload("uid://c34gs4jas8a5h")

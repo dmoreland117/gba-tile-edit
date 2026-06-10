@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dq1so4787omkk"]
 
-[ext_resource type="Script" uid="uid://dxv1g6piyrylg" path="res://plugins/tile_editor/grid_options.gd" id="1_lwhuw"]
+[ext_resource type="Script" uid="uid://dxv1g6piyrylg" path="res://plugins/plugins_old/tile_editor/grid_options.gd" id="1_lwhuw"]
 
 [node name="grid_options" type="VBoxContainer" unique_id=1666166649]
 offset_right = 233.0

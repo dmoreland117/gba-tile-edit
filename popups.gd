@@ -8,6 +8,7 @@ extends Control
 @onready var settings_window: Window = %settings_Window
 @onready var create_tileset_window: Window = $create_tileset_window
 @onready var new_project_popup: PopupPanel = %new_project_popup
+@onready var name_rename_popup: NameRenamePopup = %name_rename_popup
 
 static var _instance:Popups
 
@@ -26,6 +27,14 @@ static func show_save_file_popup(filters:PackedStringArray) -> String:
 	_instance.save_file.popup_centered()
 	
 	return await _instance.save_file.file_selected
+
+static func show_name_rename_popup(message, old_name, accept_text = 'OK') -> String:
+	_instance.name_rename_popup.accept_text = accept_text
+	_instance.name_rename_popup.message = message
+	_instance.name_rename_popup.old_name = old_name
+	_instance.name_rename_popup.popup_centered()
+	
+	return await _instance.name_rename_popup.name_submitted
 
 static func show_open_file_popup(filters:PackedStringArray) -> String:
 	_instance.open_file.filters = filters

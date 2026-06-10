@@ -1,7 +1,7 @@
 extends VBoxContainer
 class_name TileEditor
 
-const GRID_OPTIONS_MENU = preload('res://plugins/tile_editor/grid_options.tscn')
+const GRID_OPTIONS_MENU = preload('res://plugins/plugins_old/tile_editor/grid_options.tscn')
 const BASE_SCALE = 12.0
 
 @onready var tile_texture: TileTexture = $bg_panel/ScrollContainer/tile_texture

@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="10_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://qrwcvcba7a84" path="res://popups/create_tileset_window.tscn" id="11_efxa6"]
 [ext_resource type="Texture2D" uid="uid://dct64lw8qa7x3" path="res://icon.svg" id="11_vivmo"]
+[ext_resource type="PackedScene" uid="uid://gthns815f6tg" path="res://popups/name_rename_popup.tscn" id="16_2cqfq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c57u"]
 content_margin_left = 4.0
@@ -637,6 +638,11 @@ filters = PackedStringArray("")
 unique_name_in_owner = true
 
 [node name="create_tileset_window" parent="popups" unique_id=1548871046 instance=ExtResource("11_efxa6")]
+
+[node name="name_rename_popup" parent="popups" unique_id=444427895 instance=ExtResource("16_2cqfq")]
+unique_name_in_owner = true
+visible = false
+force_native = false
 
 [connection signal="pressed" from="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/new_project_btn" to="popups/welcome_popup" method="_on_new_project_btn_pressed"]
 [connection signal="pressed" from="popups/welcome_popup/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="popups/welcome_popup" method="_on_button_2_pressed"]

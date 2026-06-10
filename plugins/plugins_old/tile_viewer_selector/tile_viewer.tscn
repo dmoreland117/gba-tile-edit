@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://d2fyngeuq8bcs"]
 
 [ext_resource type="PackedScene" uid="uid://r7wohb3j3kqu" path="res://widget/tile_texture.tscn" id="1_2wtyh"]
-[ext_resource type="Script" uid="uid://ol5gnh2vh3ra" path="res://plugins/tile_viewer_selector/tile_viewer.gd" id="1_tt5hc"]
-[ext_resource type="Script" uid="uid://cil2hngfarhc4" path="res://plugins/tile_viewer_selector/selection_overlay.gd" id="3_hcj5s"]
+[ext_resource type="Script" uid="uid://ol5gnh2vh3ra" path="res://plugins/plugins_old/tile_viewer_selector/tile_viewer.gd" id="1_tt5hc"]
+[ext_resource type="Script" uid="uid://cil2hngfarhc4" path="res://plugins/plugins_old/tile_viewer_selector/selection_overlay.gd" id="3_hcj5s"]
 
 [node name="tile_viewer" type="ScrollContainer" unique_id=2061859763]
 offset_right = 400.0

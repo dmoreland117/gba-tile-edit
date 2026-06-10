@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b60wc5mnlvqpb"]
 
-[ext_resource type="Script" uid="uid://mmo8ro564a0d" path="res://plugins/map_editor/map_editor.gd" id="1_8sb7y"]
+[ext_resource type="Script" uid="uid://mmo8ro564a0d" path="res://plugins/plugins_old/map_editor/map_editor.gd" id="1_8sb7y"]
 [ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="2_5x2ld"]
 [ext_resource type="Texture2D" uid="uid://coylvar1xkb1r" path="res://assets/icons/pencil_24x.svg" id="2_8sb7y"]
 [ext_resource type="Texture2D" uid="uid://dabsryctmg1g6" path="res://assets/icons/swap_horiz_24x.svg" id="3_x1jh8"]

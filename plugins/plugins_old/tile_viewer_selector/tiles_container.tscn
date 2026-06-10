@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://btej4pvrnpkp2"]
 
-[ext_resource type="Script" uid="uid://bhbt0khy226aw" path="res://plugins/tile_viewer_selector/tiles_container.gd" id="1_jfr2n"]
+[ext_resource type="Script" uid="uid://bhbt0khy226aw" path="res://plugins/plugins_old/tile_viewer_selector/tiles_container.gd" id="1_jfr2n"]
 [ext_resource type="Texture2D" uid="uid://dc7441xxsnysw" path="res://assets/icons/more_x24.svg" id="2_kvb4r"]
 [ext_resource type="Texture2D" uid="uid://bes2ngv3a52pp" path="res://assets/file_open_24x.svg" id="3_kvb4r"]
 [ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="3_wyh5i"]
-[ext_resource type="PackedScene" uid="uid://d2fyngeuq8bcs" path="res://plugins/tile_viewer_selector/tile_viewer.tscn" id="4_5y12a"]
+[ext_resource type="PackedScene" uid="uid://d2fyngeuq8bcs" path="res://plugins/plugins_old/tile_viewer_selector/tile_viewer.tscn" id="4_5y12a"]
 [ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="4_wyh5i"]
 [ext_resource type="Texture2D" uid="uid://btkb5msbheua6" path="res://assets/add_24x.svg" id="5_5y12a"]
 [ext_resource type="Script" uid="uid://c7u17cm4o31lh" path="res://class/template_label.gd" id="5_h7s2i"]

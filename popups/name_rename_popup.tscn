@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://gthns815f6tg"]
+
+[ext_resource type="Script" uid="uid://bjcr427imw4tx" path="res://popups/name_rename_popup.gd" id="1_celq3"]
+[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="2_tua1l"]
+
+[node name="name_rename_popup" type="Window" unique_id=444427895]
+oversampling_override = 1.0
+title = "Enter name"
+initial_position = 1
+size = Vector2i(700, 250)
+popup_window = true
+popup_wm_hint = true
+minimize_disabled = true
+maximize_disabled = true
+force_native = true
+content_scale_factor = 2.0
+script = ExtResource("1_celq3")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1105015798]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1862912962]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1254848874]
+layout_mode = 2
+
+[node name="messagelbl" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=667312029]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Message"
+label_settings = ExtResource("2_tua1l")
+horizontal_alignment = 1
+
+[node name="new_name_input" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=526944012]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=632631004]
+layout_mode = 2
+alignment = 1
+
+[node name="confirm_btn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=132554047]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_type_variation = &"primary_btn"
+text = "OK"
+
+[node name="cancel_btn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1811579189]
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Cancel"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/confirm_btn" to="." method="_on_confirm_btn_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/cancel_btn" to="." method="_on_cancel_btn_pressed"]
