@@ -28,10 +28,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="selected_palette_opt" type="OptionButton" parent="VBoxContainer" unique_id=587725739]
-unique_name_in_owner = true
-layout_mode = 2
-
 [node name="FoldableContainer" type="FoldableContainer" parent="VBoxContainer" unique_id=1904518599]
 layout_mode = 2
 title = "Palette"
@@ -49,6 +45,10 @@ layout_mode = 2
 size_flags_horizontal = 10
 icon = ExtResource("2_3uvmv")
 flat = true
+
+[node name="selected_palette_opt" type="OptionButton" parent="VBoxContainer/FoldableContainer/palette_colors_and_toolbar" unique_id=587725739]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/FoldableContainer/palette_colors_and_toolbar" unique_id=1777727505]
 layout_mode = 2
@@ -172,7 +172,7 @@ edit_intensity = false
 can_add_swatches = false
 presets_visible = false
 
-[connection signal="item_selected" from="VBoxContainer/selected_palette_opt" to="VBoxContainer" method="_on_selected_palette_opt_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/selected_palette_opt" to="." method="_on_selected_palette_opt_item_selected"]
 [connection signal="mouse_entered" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/color_button_hflow" to="." method="_on_color_button_hflow_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/color_button_hflow" to="." method="_on_color_button_hflow_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/FoldableContainer/palette_colors_and_toolbar/vbox/VBoxContainer2/add_color_btn3" to="." method="_on_add_color_btn_3_pressed"]

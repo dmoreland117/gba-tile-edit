@@ -5,7 +5,9 @@ class_name GBPaletteData
 enum {PALETTE_MODE_FIXED, PALETTE_MODE_RGB}
 
 signal palette_updated()
+signal palette_color_added()
 signal palette_color_updated(id:int, color:Color)
+signal palette_color_removed(id:int)
 signal palette_name_changed(new_name:String)
 
 var palette_name:String = 'Untitled'

@@ -7,14 +7,9 @@ var palette_editor:PaletteEditor
 func _enter_tree() -> void:
 	_register_commands()
 	
-	Project.palettes_updated.connect(
-		func():
-			palette_editor.palette = Project.get_selected_palette()
-	)
-	
 	palette_editor = PALETTE_EDITOR.instantiate()
 	Ui.get_container(Ui.LEFT_CONTAINER).add_child(palette_editor)
-	palette_editor.palette = Project.get_selected_palette()
+	palette_editor.palette = Project.palettes.get_palette(0)
 
 func _exit_tree() -> void:
 	pass
@@ -127,7 +122,7 @@ func _remove_color(id:int, bank:int):
 	return true
 
 func _add_color():
-	Project.get_selected_palette().add_color()
+	Project.palettes.get_selected_palette().add_color()
 	
 	return true
 

@@ -63,10 +63,6 @@ func _ready() -> void:
 	set_tiles(tiles)
 	set_palette(palette)
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	
-	var pal = Project.get_selected_palette()
-	if pal:
-		pal.palette_updated.connect(_draw_tiles)
 
 func update():
 	_draw_tiles()

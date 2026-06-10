@@ -2,9 +2,9 @@ extends GBPaletteData
 class_name RGBPaletteData
 
 
-
 func add_color(color=Color.WHITE) -> void:
 	_colors.append(color)
+	palette_color_added.emit()
 	palette_updated.emit()
 
 func get_color(id:int) -> Color:
@@ -25,4 +25,5 @@ func remove_color(id:int) -> void:
 		return
 	
 	_colors.remove_at(id)
+	palette_color_removed.emit(id)
 	palette_updated.emit()

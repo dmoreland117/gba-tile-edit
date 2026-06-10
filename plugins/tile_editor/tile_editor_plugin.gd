@@ -20,7 +20,7 @@ func _connect_signals():
 			tile_editor.tile_idx = idx
 	)
 	
-	Project.palettes_updated.connect(
+	Project.palettes.palettes_updated.connect(
 		func():
 			tile_editor.set_palette(Context.selected_palette_index)
 	)

@@ -59,7 +59,7 @@ func _populate_tiles():
 		var inst = TILE_TEXTURE.instantiate()
 		var a:Array[GBTileData] = [tile]
 		inst.tiles = a
-		inst.palette = Project.get_selected_palette()
+		inst.palette = Project.palettes.get_palette(0)
 		inst.custom_minimum_size.x = 64
 		inst.custom_minimum_size.y = 64
 		

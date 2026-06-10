@@ -146,7 +146,7 @@ func _ready() -> void:
 	
 	grid_viewer.data.show_grid = true
 	
-	tile_texture.palette = Project.get_selected_palette()
+	tile_texture.palette = Project.palettes.get_palette(0)
 	tile_texture.tiles_set.connect(_on_tile_texture_tiles_set)
 	set_tile_idx(tile_idx)
 	

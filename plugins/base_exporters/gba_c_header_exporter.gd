@@ -13,7 +13,7 @@ enum {
 
 
 func _init() -> void:
-	Project.palettes_updated.connect(request_update_export_params)
+	Project.palettes.palettes_updated.connect(request_update_export_params)
 
 func get_exporter_name() -> String:
 	return 'GBA Dexkit Pro C Header'

@@ -3,7 +3,7 @@ class_name GBABinExporter
 
 
 func _init() -> void:
-	Project.palettes_updated.connect(request_update_export_params)
+	Project.palettes.palettes_updated.connect(request_update_export_params)
 
 func get_exporter_name() -> String:
 	return 'GBA Binary'
@@ -20,7 +20,7 @@ func get_export_params(type:String) -> Dictionary:
 		ret = {
 			'palette': {
 				'type': ExportPropContainer.TYPE_ENUM,
-				'options': Project.get_palettes().map(
+				'options': Project.palettes.get_palettes().map(
 					func(e): return e.palette_name
 				),
 				'default': 0

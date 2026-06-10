@@ -2,8 +2,6 @@ extends Node
 
 
 signal Preset_idx_changed(idx:int)
-signal selected_palette_changed(new_palette:GBPaletteData)
-signal palettes_updated()
 signal tilesets_updated()
 signal maps_updated()
 signal proj_name_changed(new_name:String)
@@ -16,8 +14,7 @@ var preset_idx:int = 0:
 		preset_idx = val
 		Preset_idx_changed.emit(val)
 
-
-var _palettes:Array[GBPaletteData] = []
+var palettes:Palettes = Palettes.new()
 var _tilesets:Array[GBTileSet] = []
 var _maps:Array[GBMapData] = []
 
@@ -41,11 +38,11 @@ func create_new_project(preset_id:int):
 	Log.pr('Creating Project with system type:', preset.name)
 	Log.debug(preset)
 	
-	_palettes.clear()
+	palettes.clear()
 	_tilesets.clear()
 	_maps.clear()
 	
-	_palettes.append(RGBPaletteData.new())
+	palettes.add_palette(RGBPaletteData.new())
 	_tilesets.append(GBTileSet.new(Vector2(8, 8)))
 	_maps.append(GBMapData.new())
 	
@@ -69,34 +66,19 @@ func create_new_project(preset_id:int):
 	
 	#Exporter.default_exporter = preset.get('default_export_plugin_idx', 0)
 	
-	if _palettes[0] is FixedPaletteData:
-		_palettes[0].register_fixed_colors([Color.WHITE, Color.GREEN])
-	_palettes[0].add_color()
+	#if _palettes[0] is FixedPaletteData:
+		#_palettes[0].register_fixed_colors([Color.WHITE, Color.GREEN])
+	palettes.get_palette(0).add_color()
 	_tilesets[0].add_tile()
 
 func clear():
 	_maps.clear()
 	_tilesets.clear()
-	_palettes.clear()
+	palettes.clear()
 	
 	proj_name = ''
 
-func get_palette(idx:int) -> GBPaletteData:
-	return _palettes.get(idx)
 
-func get_palettes() -> Array[GBPaletteData]:
-	return _palettes
-
-func select_palette(idx:int):
-	Context.selected_palette_index = idx
-	selected_palette_changed.emit(_palettes[idx])
-
-func get_selected_palette() -> GBPaletteData:
-	return _palettes.get(Context.selected_palette_index)
-
-func add_palette(new_palette:GBPaletteData):
-	_palettes.append(new_palette)
-	palettes_updated.emit()
 
 func get_tileset(idx:int) ->GBTileSet:
 	if _tilesets.is_empty():
@@ -123,3 +105,23 @@ func get_map(idx:int) -> GBMapData:
 
 func get_maps() -> Array[GBMapData]:
 	return _maps
+
+class Palettes:
+	signal palettes_updated()
+	
+	var _palettes:Array[GBPaletteData] = []
+	
+	
+	func get_palette(idx:int) -> GBPaletteData:
+		return _palettes.get(idx)
+
+	func get_palettes() -> Array[GBPaletteData]:
+		return _palettes
+
+	func add_palette(new_palette:GBPaletteData):
+		_palettes.append(new_palette)
+		palettes_updated.emit()
+	
+	func clear():
+		_palettes.clear()
+		palettes_updated.emit()
