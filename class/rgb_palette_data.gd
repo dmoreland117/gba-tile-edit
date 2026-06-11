@@ -10,8 +10,11 @@ func add_color(color=Color.WHITE) -> void:
 func get_color(id:int) -> Color:
 	if _colors.is_empty():
 		return Color.BLACK
+	var c = _colors.get(id) 
+	if !c:
+		return Color.BLACK
 	
-	return _colors.get(id)
+	return c
 
 func set_color(id:int, color:Color) -> void:
 	if id >= _colors.size():

@@ -2,6 +2,8 @@ class_name PaletteEditor
 extends ScrollContainer
 
 
+signal palette_id_changed(id:int)
+
 @onready var move_up_btn: Button = %move_up_btn
 @onready var move_down_btn: Button = %move_down_btn
 @onready var selected_palette_opt: OptionButton = %selected_palette_opt
@@ -9,8 +11,8 @@ extends ScrollContainer
 @onready var color_button_hflow: HFlowContainer = %color_button_hflow
 @onready var color_picker: ColorPicker = %ColorPicker
 
-
 var palette:GBPaletteData : get=get_palette
+
 var selected_palette_id:int : set=set_palette_id
 var selected_color_id:int : set=set_color_id
 
@@ -38,6 +40,8 @@ func set_palette_id(id:int):
 	palette.palette_name_changed.connect(_on_palette_name_changed)
 	
 	_draw_palette_colors()
+	
+	palette_id_changed.emit(id)
 
 func get_palette() -> GBPaletteData:
 	return Project.palettes.get_palette(selected_palette_id)
