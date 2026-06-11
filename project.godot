@@ -23,7 +23,6 @@ config/icon="res://icon.svg"
 
 Ui="*res://global/ui.gd"
 Project="*res://global/project.gd"
-Context="*res://global/context.gd"
 CommandPalette="*res://global/command_palette.gd"
 PluginManager="*res://global/plugin_manager.gd"
 Utils="*res://global/utils.gd"

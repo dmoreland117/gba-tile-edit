@@ -21,8 +21,6 @@ var show_grid:bool = false
 var zoom_step:float = 0.1
 var zoom:float = 4.0 : set=set_zoom
 
-var _tile_size:Vector2
-
 var _mouse_inside:bool = false
 var _mouse_inside_canvas:bool = false
 var _mouse_pos:Vector2 : set=_set_mouse_pos
@@ -35,7 +33,7 @@ func set_palette(id:int):
 	if !tile_texture:
 		return
 	
-	tile_texture.palette = Project.get_palette(id)
+	tile_texture.palette = Project.palettes.get_palette(id)
 
 func set_tile_count(count:int):
 	tile_count = count
@@ -151,6 +149,11 @@ func _ready() -> void:
 	tile_texture.palette = Project.palettes.get_palette(0)
 	tile_texture.tiles_set.connect(_on_tile_texture_tiles_set)
 	set_tile_idx(tile_idx)
+	
+	palette_editor.palette_id_changed.connect(
+		func(new_id):
+			set_palette(new_id)
+	)
 	
 	Ui.register_tile_editor(self)
 
