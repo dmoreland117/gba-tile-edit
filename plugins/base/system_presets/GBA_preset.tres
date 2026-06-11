@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SystemPreset" format=3 uid="uid://b6ggeuq8bp2ox"]
+
+[ext_resource type="Script" uid="uid://c4653vbqgxw1x" path="res://class/plugins/system_preset.gd" id="1_ubj7d"]
+
+[resource]
+script = ExtResource("1_ubj7d")
+uid = "base.gba_preset"
+label = "GBA (Game Boy Advanced)"
+palette_mode = 1
+palette_bank_size = 16
+initial_color_count = 1
+initial_map_size = Vector2(32, 32)
+metadata/_custom_type_script = "uid://c4653vbqgxw1x"

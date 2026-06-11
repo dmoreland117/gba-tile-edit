@@ -1,25 +1,26 @@
+extends Resource
 class_name SystemPreset
 
-enum {
+enum PaletteMode {
 	PALETTE_MODE_FIXED,
-	PALLET_MODE_RGB
+	PALETTE_MODE_RGB
 }
 
-var uid:String
-var label:String
-var palette_mode:int
-var palette_bank_size:int
-var fixed_palette_colors:Array[Color]
-var initial_color_count:int
-var initial_map_size:Vector2
-var default_export_plugin_idx:int # unused
+@export var uid:String
+@export var label:String
+@export var palette_mode:PaletteMode
+@export var palette_bank_size:int
+@export var fixed_palette_colors:Array[Color]
+@export var initial_color_count:int
+@export var initial_map_size:Vector2
+@export var default_export_plugin_uid:String
 
 
 static func from_dict(dict:Dictionary) -> SystemPreset:
 	var sp = SystemPreset.new()
 	sp.uid = dict.get('uid')
 	sp.label = dict.get('label')
-	sp.palette_mode = dict.get('palette_mode', 1)
+	sp.palette_mode = dict.get('palette_mode', PaletteMode.PALETTE_MODE_RGB)
 	sp.palette_bank_size = dict.get('palette_bank_size', 4)
 	sp.fixed_palette_colors = dict.get('fixed_palette_colors')
 	sp.initial_color_count = dict.get('initial_color_count', 4)
