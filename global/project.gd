@@ -46,13 +46,6 @@ func create_new_project(preset_id:int):
 	_tilesets.append(GBTileSet.new(Vector2(8, 8)))
 	_maps.append(GBMapData.new())
 	
-	Context.selected_map_index = 0
-	Context.selected_tileset_index = 0
-	Context.selected_tileset_tile_index = 0
-	Context.selected_palette_index = 0
-	Context.selected_palette_bank_index = 0
-	Context.selected_palette_color_index = 0
-	
 	#if preset['palette_mode'] == PluginManager.PALETTE_MODE_FIXED:
 		#_palettes[Context.selected_palette_index].mode = GBPaletteData.PALETTE_MODE_FIXED
 		#_palettes[Context.selected_palette_index].register_fixed_palette(preset['fixed_palette_colors'])
@@ -87,7 +80,7 @@ func get_tileset(idx:int) ->GBTileSet:
 	return _tilesets.get(idx)
 
 func get_selected_tileset() -> GBTileSet:
-	return _tilesets.get(Context.selected_tileset_index)
+	return _tilesets.get(0)
 
 func get_tilesets() -> Array[GBTileSet]:
 	return _tilesets

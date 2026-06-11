@@ -32,22 +32,10 @@ static func save_project_file(path:String):
 		'system_id': '',
 		'palettes': [],
 		'tilesets': [],
-		'tilemaps': [],
-		'context': {
-			'selected_palette_index': Context.selected_palette_index,
-			'selected_palette_color_index': Context.selected_palette_color_index,
-			'Context.selected_palette_bank_index': Context.selected_palette_bank_index,
-			'selected_tile_index': Context.selected_tileset_tile_index,
-			'selected_map_index': Context.selected_map_index,
-			'selected_tabs': {
-				'left_panel': Context.selected_left_tab,
-				'right_panel': Context.selected_right_tab,
-				'main_panel': Context.selected_main_tab
-			}
-		}
+		'tilemaps': []
 	}
 	
-	for palette in Project.get_palettes():
+	for palette in Project.palettes.get_palettes():
 		Log.info('Saving palette with name:', palette.palette_name)
 		Log.debug('Palette info:', {
 			'name': palette.palette_name,
@@ -89,10 +77,10 @@ static func serialize_palette(palette:GBPaletteData) -> Dictionary:
 		'type': 'rgb'
 	}
 	
-	if palette is FixedPaletteData:
-		ret['fixed_palette_colors'] = palette.get_fixed_colors()
-		ret['indexed_colors'] = palette.get_indexed_colors()
-		ret['type'] = 'fixed'
+	#if palette is FixedPaletteData:
+		#ret['fixed_palette_colors'] = palette.get_fixed_colors()
+		#ret['indexed_colors'] = palette.get_indexed_colors()
+		#ret['type'] = 'fixed'
 		
 	for color in palette.get_colors():
 		ret.colors.append(color.to_rgba32())
@@ -168,13 +156,13 @@ static func load_project_file(path:String) -> void:
 	var tilemaps_arr = proj_file_dict.get('tilemaps', [])
 	
 	for palette in palettes_arr:
-		Project.add_palette(parse_palette(palette))
+		Project.palettes.add_palette(parse_palette(palette))
 	for tileset in tilesets_arr:
 		Project.add_tileset(parse_tileset(tileset))
 	for map in tilemaps_arr:
 		Project.add_map(parse_tilemap(map))
 	
-	Project.palettes_updated.emit()
+	Project.palettes.palettes_updated.emit()
 	Project.tilesets_updated.emit()
 	Project.maps_updated.emit()
 	
@@ -182,14 +170,6 @@ static func load_project_file(path:String) -> void:
 	if context_dict.is_empty():
 		return
 	
-	Context.selected_palette_index = context_dict.get('selected_palette_index', 0)
-	Context.selected_palette_bank_index = context_dict.get('selected_palette_bank_index', 0)
-	Context.selected_palette_color_index = context_dict.get('selected_palette_color_index', 0)
-	
-	Context.selected_tileset_index = context_dict.get('selected_tileset_index', 0)
-	Context.selected_map_index = context_dict.get('selected_map_index', 0)
-	
-	Context.selected_map_index = context_dict.get('selected_map_index', 0)
 	pass
 
 static func parse_tilemap(map_dict:Dictionary) -> GBMapData:

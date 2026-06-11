@@ -76,6 +76,4 @@ func get_container(container:int) -> Control:
 	return containers[container]
 
 func _update_context_selected_tabs(_tab:int = 0):
-	Context.selected_main_tab = get_tab_bar().current_tab
-	Context.selected_left_tab = get_container(LEFT_CONTAINER).current_tab
-	Context.selected_right_tab = get_container(RIGHT_CONTAINER).current_tab
+	pass
