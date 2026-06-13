@@ -11,6 +11,7 @@ var params:Dictionary = {} :
 		params = val
 		_draw_param_controls()
 		
+		params_updated.emit()
 var parsed_params = {}
 
 
