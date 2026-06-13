@@ -1,5 +1,6 @@
 extends GBEditPlugin
 
+const SETTINGS_POPUP = preload("uid://8efh3ipu4r1e")
 
 const PALETTE_EDITOR = preload('uid://w3ut3j5wah08')
 const TILE_EDITOR = preload('uid://btlvl3adq1x6g')
@@ -40,10 +41,7 @@ func _enter_tree() -> void:
 			match id:
 				0:
 					CommandPalette.call_command('addpalette', 'test', GBPaletteData.PALETTE_MODE_FIXED)
-				1:
-					Popups.show_create_tileset_window()
-				2:
-					Popups.show_settings_window()
+				
 	)
 	
 	Ui.get_menu_bar().add_child(file_popup_menu)
@@ -87,7 +85,8 @@ func add_palette(pal_name:String):
 func save_proj():
 	var path
 	if Project.last_save_path.is_empty():
-		path = await Popups.show_save_file_popup(['*.gbproj'])
+		pass
+		#path = await Popups.show_save_file_popup(['*.gbproj'])
 	else:
 		path = Project.last_save_path
 	
@@ -97,13 +96,13 @@ func save_proj():
 	return true
 
 func save_proj_as():
-	var path = await Popups.show_save_file_popup(['*.gbproj'])
-	Project.save(path)
+	#var path = await Popups.show_save_file_popup(['*.gbproj'])
+	#Project.save(path)
 	
 	return true
 
 func load_proj():
-	var path = await Popups.show_open_file_popup(['*.gbproj'])
-	ProjectSaver.load_project_file(path)
+	#var path = await Popups.show_open_file_popup(['*.gbproj'])
+	#ProjectSaver.load_project_file(path)
 	
 	return true

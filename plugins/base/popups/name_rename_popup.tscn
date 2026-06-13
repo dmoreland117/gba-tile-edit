@@ -1,18 +1,13 @@
 [gd_scene format=3 uid="uid://gthns815f6tg"]
 
-[ext_resource type="Script" uid="uid://bjcr427imw4tx" path="res://popups/name_rename_popup.gd" id="1_celq3"]
+[ext_resource type="Script" uid="uid://bjcr427imw4tx" path="res://plugins/base/popups/name_rename_popup.gd" id="1_celq3"]
 [ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="2_tua1l"]
 
-[node name="name_rename_popup" type="Window" unique_id=444427895]
+[node name="name_rename_popup" type="Popup" unique_id=80699553]
 oversampling_override = 1.0
 title = "Enter name"
 initial_position = 1
-size = Vector2i(700, 250)
-visible = false
-popup_window = true
-popup_wm_hint = true
-minimize_disabled = true
-maximize_disabled = true
+size = Vector2i(700, 264)
 force_native = true
 content_scale_factor = 2.0
 script = ExtResource("1_celq3")
@@ -64,6 +59,5 @@ layout_mode = 2
 size_flags_horizontal = 6
 text = "Cancel"
 
-[connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/confirm_btn" to="." method="_on_confirm_btn_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/cancel_btn" to="." method="_on_cancel_btn_pressed"]

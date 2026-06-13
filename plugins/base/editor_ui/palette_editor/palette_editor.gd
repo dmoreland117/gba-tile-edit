@@ -174,11 +174,15 @@ func _on_selected_palette_opt_item_selected(index: int) -> void:
 	selected_palette_id = index
 
 func _on_rename_palette_btn_pressed() -> void:
-	var new_name = await Popups.show_name_rename_popup('Rename Palette', palette.palette_name)
-	palette.set_palette_name(new_name)
+	pass
 
 func _on_add_palette_btn_pressed() -> void:
-	var new_name = await Popups.show_name_rename_popup('Name new Palette', 'Untitled', 'Create')
+	var name_popup = PopupManager.show_popup('base.name_rename_popup')
+	name_popup.old_name = 'Untitled Palette'
+	name_popup.message = 'Create new Palette'
+	
+	var new_name = await name_popup.name_submitted
+	
 	var new_pal = RGBPaletteData.new()
 	new_pal.set_palette_name(new_name)
 	new_pal.add_color()

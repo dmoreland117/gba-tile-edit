@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://qrwcvcba7a84"]
 
-[ext_resource type="Script" uid="uid://b6ulbu6uv35q4" path="res://popups/create_tileset_window.gd" id="1_541bp"]
+[ext_resource type="Script" uid="uid://b6ulbu6uv35q4" path="res://plugins/base/popups/create_tileset_window.gd" id="1_541bp"]
 
 [node name="create_tileset_window" type="Window" unique_id=1604102580]
 oversampling_override = 1.0

@@ -1,5 +1,5 @@
 class_name NameRenamePopup
-extends Window
+extends Popup
 
 
 signal name_submitted(new_name:String)
@@ -8,9 +8,30 @@ signal name_submitted(new_name:String)
 @onready var new_name_input: LineEdit = %new_name_input
 @onready var create_tileset_btn: Button = %confirm_btn
 
-var message:String = ''
-var old_name:String = ''
-var accept_text:String = 'OK'
+var message:String = '' :
+	set(val):
+		message = val
+		
+		if !message_lbl:
+			return
+		
+		message_lbl.text = val
+var old_name:String = '' :
+	set(val):
+		old_name = val
+		
+		if !new_name_input:
+			return
+		
+		new_name_input.placeholder_text = val
+var accept_text:String = 'OK' :
+	set(val):
+		accept_text = val
+		
+		if !create_tileset_btn:
+			return
+		
+		create_tileset_btn.text = val
 
 
 # Called when the node enters the scene tree for the first time.
