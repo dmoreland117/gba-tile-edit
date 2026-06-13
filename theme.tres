@@ -168,9 +168,8 @@ content_margin_left = 12.0
 content_margin_top = 6.0
 content_margin_right = 12.0
 content_margin_bottom = 6.0
-bg_color = Color(0.1764, 0.1848, 0.21, 0)
-border_width_bottom = 1
-border_color = Color(1, 0.47058824, 0.47058824, 1)
+bg_color = Color(0.16862746, 0.18431373, 0.22352941, 1)
+border_color = Color(0.1640625, 0.1640625, 0.1640625, 1)
 expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yin2u"]
@@ -178,11 +177,9 @@ content_margin_left = 12.0
 content_margin_top = 6.0
 content_margin_right = 12.0
 content_margin_bottom = 6.0
-bg_color = Color(0.15294118, 0.16078432, 0.18431373, 0)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+bg_color = Color(0.07300846, 0.07938105, 0.095312476, 1)
+border_color = Color(0.1640625, 0.1640625, 0.1640625, 1)
+expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhp3g"]
 content_margin_left = 12.0
@@ -316,6 +313,27 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wcq0w"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.1764, 0.1848, 0.21, 0)
+border_width_bottom = 1
+border_color = Color(1, 0.47058824, 0.47058824, 1)
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqfed"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.15294118, 0.16078432, 0.18431373, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6cw85"]
 content_margin_left = 12.0
 content_margin_top = 6.0
@@ -401,7 +419,8 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_1rmny")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_skm8o")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_skm8o")
 TabBar/colors/font_selected_color = Color(1, 0.47058824, 0.47058824, 1)
-TabBar/constants/tab_separation = 16
+TabBar/constants/h_separation = 0
+TabBar/constants/tab_separation = 0
 TabBar/styles/tab_selected = SubResource("StyleBoxFlat_mihib")
 TabBar/styles/tab_unselected = SubResource("StyleBoxFlat_yin2u")
 TabContainer/colors/font_selected_color = Color(1, 0.47058824, 0.47058824, 1)
@@ -433,6 +452,9 @@ inner_panel/base_type = &"PanelContainer"
 inner_panel/styles/panel = SubResource("StyleBoxFlat_n3ikw")
 main__panel/base_type = &"PanelContainer"
 main__panel/styles/panel = SubResource("StyleBoxFlat_535ge")
+main_tabbar/base_type = &"TabBar"
+main_tabbar/styles/tab_selected = SubResource("StyleBoxFlat_wcq0w")
+main_tabbar/styles/tab_unselected = SubResource("StyleBoxFlat_eqfed")
 primary_btn/base_type = &"Button"
 primary_btn/styles/hover = SubResource("StyleBoxFlat_6cw85")
 primary_btn/styles/hover_pressed = SubResource("StyleBoxFlat_wdt2l")
