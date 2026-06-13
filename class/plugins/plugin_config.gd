@@ -2,6 +2,7 @@ class_name PluginConfig
 
 
 var label:String
+var uid:String
 var plugin_script:Script
 
 
@@ -16,6 +17,7 @@ static func load_file(path:String) -> PluginConfig:
 	
 	var p = PluginConfig.new()
 	p.label = config.get_value('gbplugin', 'label')
+	p.uid = config.get_value('gbplugin', 'uid')
 	
 	var script_path:String = config.get_value('gbplugin', 'script_path')
 	if !script_path:
