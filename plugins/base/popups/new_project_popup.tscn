@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://cuyhf83v0k0m"]
+
+[ext_resource type="Script" uid="uid://bgne4uq2iwsnc" path="res://plugins/base/popups/welcome_popup.gd" id="1_lxipe"]
+[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="2_olu4o"]
+[ext_resource type="Texture2D" uid="uid://bes2ngv3a52pp" path="res://assets/file_open_24x.svg" id="3_410y4"]
+[ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="4_g3c1c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c57u"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.13611963, 0.14347011, 0.17654723, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.25490198)
+shadow_offset = Vector2(0, 2)
+
+[node name="new_project_popup" type="PopupPanel" unique_id=19003984]
+transparent_bg = false
+oversampling_override = 1.0
+title = "Welcome"
+size = Vector2i(800, 600)
+transient_to_focused = true
+transparent = false
+force_native = true
+content_scale_factor = 1.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_4c57u")
+script = ExtResource("1_lxipe")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1234462468]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 529.3333
+offset_bottom = 396.0
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1726831863]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=10077391]
+layout_mode = 2
+placeholder_text = "Project Name..."
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=629545]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"inner_panel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer" unique_id=1117632736]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=55573857]
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "Default"
+popup/item_0/id = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=98117406]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer" unique_id=1388908865]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=837847035]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=345542839]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Palette mode"
+label_settings = ExtResource("2_olu4o")
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1336976964]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "Fixed"
+popup/item_0/id = 0
+popup/item_1/text = "RGB"
+popup/item_1/id = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=256422515]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=2041928387]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Palette Bank Size"
+label_settings = ExtResource("2_olu4o")
+
+[node name="OptionButton" type="SpinBox" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1036506717]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1238079463]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1159200288]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Colors"
+label_settings = ExtResource("2_olu4o")
+
+[node name="OptionButton" type="SpinBox" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1786263163]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1952644042]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4" unique_id=752503657]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Map Size"
+label_settings = ExtResource("2_olu4o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4" unique_id=365431631]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer" unique_id=1214552918]
+layout_mode = 2
+suffix = "tiles"
+
+[node name="SpinBox2" type="SpinBox" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer" unique_id=1680672666]
+layout_mode = 2
+suffix = "tiles"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1601929274]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1649810111]
+layout_mode = 2
+theme_type_variation = &"widget_menubar_button"
+text = "Load"
+icon = ExtResource("3_410y4")
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=223878115]
+layout_mode = 2
+theme_type_variation = &"widget_menubar_button"
+text = "Save"
+icon = ExtResource("4_g3c1c")
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=59544427]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1145422467]
+layout_mode = 2
+
+[node name="create_project_btn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=824284716]
+layout_mode = 2
+theme_type_variation = &"primary_btn"
+text = "Create"
+
+[node name="cancel_btn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1434675568]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Cancel"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/create_project_btn" to="." method="_on_new_project_btn_pressed"]
