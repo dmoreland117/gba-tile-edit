@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://gthns815f6tg"]
 
 [ext_resource type="Script" uid="uid://bjcr427imw4tx" path="res://plugins/base/popups/name_rename_popup.gd" id="1_celq3"]
-[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="2_tua1l"]
+[ext_resource type="LabelSettings" uid="uid://dxvhmchtcry6m" path="res://resources/label/body_lg.tres" id="2_lku41"]
 
 [node name="name_rename_popup" type="Popup" unique_id=80699553]
 oversampling_override = 1.0
 title = "Enter name"
 initial_position = 1
-size = Vector2i(700, 264)
+size = Vector2i(550, 172)
+visible = true
 force_native = true
-content_scale_factor = 2.0
 script = ExtResource("1_celq3")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1105015798]
@@ -28,24 +28,33 @@ theme_override_constants/margin_bottom = 12
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1254848874]
 layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
 
-[node name="messagelbl" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=667312029]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1481912429]
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="messagelbl" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=667312029]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Message"
-label_settings = ExtResource("2_tua1l")
+label_settings = ExtResource("2_lku41")
 horizontal_alignment = 1
 
 [node name="new_name_input" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=526944012]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 4
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=632631004]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1343705698]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer" unique_id=632631004]
 layout_mode = 2
 alignment = 1
 
-[node name="confirm_btn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=132554047]
+[node name="confirm_btn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer3" unique_id=132554047]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
@@ -53,11 +62,12 @@ size_flags_horizontal = 6
 theme_type_variation = &"primary_btn"
 text = "OK"
 
-[node name="cancel_btn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1811579189]
+[node name="cancel_btn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer3" unique_id=1811579189]
 custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Cancel"
 
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/confirm_btn" to="." method="_on_confirm_btn_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/cancel_btn" to="." method="_on_cancel_btn_pressed"]
+[connection signal="text_submitted" from="PanelContainer/MarginContainer/VBoxContainer/new_name_input" to="." method="_on_new_name_input_text_submitted"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer3/confirm_btn" to="." method="_on_confirm_btn_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer3/cancel_btn" to="." method="_on_cancel_btn_pressed"]

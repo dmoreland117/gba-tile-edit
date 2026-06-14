@@ -45,6 +45,7 @@ static func show_popup(popup_id:String, properties:Dictionary[String, Variant] =
 
 static func show_file_dialouge(mode:FileDialog.FileMode, filters:PackedStringArray = [], title:String = '') -> FileDialog:
 	var fd = FileDialog.new()
+	fd.use_native_dialog = true
 	fd.title = title
 	fd.file_mode = mode
 	fd.filters = filters

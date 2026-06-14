@@ -177,9 +177,10 @@ func _on_rename_palette_btn_pressed() -> void:
 	pass
 
 func _on_add_palette_btn_pressed() -> void:
-	var name_popup = PopupManager.show_popup('base.name_rename_popup')
-	name_popup.old_name = 'Untitled Palette'
-	name_popup.message = 'Create new Palette'
+	var name_popup = PopupManager.show_popup('base.name_rename_popup', {
+		'old_name': 'Untitled Palette',
+		'message': 'Create new Palette'
+	})
 	
 	var new_name = await name_popup.name_submitted
 	

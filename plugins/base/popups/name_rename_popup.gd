@@ -47,11 +47,16 @@ func _ready() -> void:
 			new_name_input.text = ''
 			create_tileset_btn.text = accept_text
 	)
+	
+	new_name_input.grab_focus()
 
 func _on_confirm_btn_pressed() -> void:
 	name_submitted.emit(new_name_input.text)
 	hide()
 
 func _on_cancel_btn_pressed() -> void:
-	name_submitted.emit(old_name)
+	hide()
+
+func _on_new_name_input_text_submitted(new_text: String) -> void:
+	name_submitted.emit(new_text)
 	hide()

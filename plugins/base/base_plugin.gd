@@ -85,24 +85,27 @@ func add_palette(pal_name:String):
 func save_proj():
 	var path
 	if Project.last_save_path.is_empty():
-		pass
-		#path = await Popups.show_save_file_popup(['*.gbproj'])
+		var fd = PopupManager.show_file_dialouge(FileDialog.FILE_MODE_SAVE_FILE, ['*.gbproj'])
+		path = await fd.file_selected
 	else:
 		path = Project.last_save_path
 	
-	#Project.save(path)
 	ProjectSaver.save_project_file(path)
 	
 	return true
 
 func save_proj_as():
-	#var path = await Popups.show_save_file_popup(['*.gbproj'])
-	#Project.save(path)
+	var fd = PopupManager.show_file_dialouge(FileDialog.FILE_MODE_SAVE_FILE, ['*.gbproj'])
+	var path = await fd.file_selected
+	
+	ProjectSaver.save_project_file(path)
 	
 	return true
 
 func load_proj():
-	#var path = await Popups.show_open_file_popup(['*.gbproj'])
-	#ProjectSaver.load_project_file(path)
+	var fd = PopupManager.show_file_dialouge(FileDialog.FILE_MODE_OPEN_FILE, ['*.gbproj'])
+	var path = await fd.file_selected
+	
+	ProjectSaver.load_project_file(path)
 	
 	return true
