@@ -18,13 +18,16 @@ static func register_popup(popup_id:String, scene:PackedScene):
 static func remove_popup(popup_id:String) -> bool:
 	return _popup_scenes.erase(popup_id)
 
-static func show_popup(popup_id:String) -> Popup:
+static func show_popup(popup_id:String, properties:Dictionary[String, Variant] = {}) -> Popup:
 	if !_popups_container:
 		Log.warn('_popups_container is null')
 		return
 	
 	var popup_scene:PackedScene = _popup_scenes.get(popup_id)
 	var instance:Popup = popup_scene.instantiate()
+	
+	for property in properties.keys():
+		instance.set(property, properties.get(property))
 	
 	Log.pr('Showing popup id:', popup_id)
 	
@@ -39,3 +42,16 @@ static func show_popup(popup_id:String) -> Popup:
 	instance.popup_centered()
 	
 	return instance
+
+static func show_file_dialouge(mode:FileDialog.FileMode, filters:PackedStringArray = [], title:String = '') -> FileDialog:
+	var fd = FileDialog.new()
+	fd.title = title
+	fd.file_mode = mode
+	fd.filters = filters
+	
+	Log.pr('Showing File popup')
+	
+	_popups_container.add_child(fd)
+	fd.popup_centered()
+	
+	return fd
