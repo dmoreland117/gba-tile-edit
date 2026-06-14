@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://btej4pvrnpkp2"]
 
-[ext_resource type="Script" uid="uid://bhbt0khy226aw" path="res://plugins/plugins_old/tile_viewer_selector/tiles_container.gd" id="1_jfr2n"]
-[ext_resource type="Texture2D" uid="uid://dc7441xxsnysw" path="res://assets/icons/more_x24.svg" id="2_kvb4r"]
-[ext_resource type="Texture2D" uid="uid://bes2ngv3a52pp" path="res://assets/file_open_24x.svg" id="3_kvb4r"]
-[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="3_wyh5i"]
-[ext_resource type="PackedScene" uid="uid://d2fyngeuq8bcs" path="res://plugins/plugins_old/tile_viewer_selector/tile_viewer.tscn" id="4_5y12a"]
-[ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="4_wyh5i"]
-[ext_resource type="Texture2D" uid="uid://btkb5msbheua6" path="res://assets/add_24x.svg" id="5_5y12a"]
-[ext_resource type="Script" uid="uid://c7u17cm4o31lh" path="res://class/template_label.gd" id="5_h7s2i"]
-[ext_resource type="Texture2D" uid="uid://besw02bk8n8g8" path="res://assets/remove_24x.svg" id="6_h7s2i"]
-[ext_resource type="Texture2D" uid="uid://wd2jhldebdhj" path="res://assets/up_24x.svg" id="7_bi7cb"]
-[ext_resource type="Texture2D" uid="uid://cu5qigo75mrmq" path="res://assets/down_24x.svg" id="8_6max0"]
+[ext_resource type="Script" uid="uid://bhbt0khy226aw" path="res://plugins/base/editor_ui/tile_selector/tile_viewer.gd" id="1_l4xpk"]
+[ext_resource type="Texture2D" uid="uid://dc7441xxsnysw" path="res://assets/icons/more_x24.svg" id="2_74rsk"]
+[ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="3_vscym"]
+[ext_resource type="PackedScene" uid="uid://d2fyngeuq8bcs" path="res://plugins/base/editor_ui/tile_selector/tile_container.tscn" id="4_bdbvn"]
+[ext_resource type="Script" uid="uid://c7u17cm4o31lh" path="res://class/template_label.gd" id="5_sm3bs"]
+[ext_resource type="Texture2D" uid="uid://bes2ngv3a52pp" path="res://assets/file_open_24x.svg" id="6_7rqom"]
+[ext_resource type="Texture2D" uid="uid://e63g63da4jon" path="res://assets/file_export_24x.svg" id="7_lfogf"]
+[ext_resource type="Texture2D" uid="uid://btkb5msbheua6" path="res://assets/add_24x.svg" id="8_8fjwe"]
+[ext_resource type="Texture2D" uid="uid://besw02bk8n8g8" path="res://assets/remove_24x.svg" id="9_2biw1"]
+[ext_resource type="Texture2D" uid="uid://wd2jhldebdhj" path="res://assets/up_24x.svg" id="10_mu6oi"]
+[ext_resource type="Texture2D" uid="uid://cu5qigo75mrmq" path="res://assets/down_24x.svg" id="11_jf8vd"]
 
 [node name="Tiles Containers" type="VBoxContainer" unique_id=1593239150]
 custom_minimum_size = Vector2(160, 0)
@@ -19,7 +19,7 @@ offset_bottom = 958.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"inner_panel"
-script = ExtResource("1_jfr2n")
+script = ExtResource("1_l4xpk")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=875557492]
 layout_mode = 2
@@ -27,7 +27,7 @@ layout_mode = 2
 [node name="Button" type="Button" parent="HBoxContainer" unique_id=331554609]
 layout_mode = 2
 size_flags_horizontal = 10
-icon = ExtResource("2_kvb4r")
+icon = ExtResource("2_74rsk")
 flat = true
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=949564654]
@@ -58,12 +58,12 @@ layout_mode = 2
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/PanelContainer/ScrollContainer/HBoxContainer/HBoxContainer" unique_id=717308282]
 layout_mode = 2
 text = "Tile columns"
-label_settings = ExtResource("3_wyh5i")
+label_settings = ExtResource("3_vscym")
 
 [node name="SpinBox" type="SpinBox" parent="PanelContainer/VBoxContainer/PanelContainer/ScrollContainer/HBoxContainer/HBoxContainer" unique_id=105087547]
 layout_mode = 2
 
-[node name="tile_viewer" parent="PanelContainer/VBoxContainer" unique_id=2061859763 instance=ExtResource("4_5y12a")]
+[node name="tile_viewer" parent="PanelContainer/VBoxContainer" unique_id=2061859763 instance=ExtResource("4_bdbvn")]
 unique_name_in_owner = true
 layout_mode = 2
 
@@ -74,8 +74,8 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Start Tile: {start_tile} | Selection Size: {selection_size}"
-label_settings = ExtResource("3_wyh5i")
-script = ExtResource("5_h7s2i")
+label_settings = ExtResource("3_vscym")
+script = ExtResource("5_sm3bs")
 replace = Dictionary[String, String]({
 "selection_size": "{0, 0)",
 "start_tile": "{0, 0)"
@@ -97,7 +97,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Import a Tileset file"
 theme_type_variation = &"widget_menubar_button"
-icon = ExtResource("3_kvb4r")
+icon = ExtResource("6_7rqom")
 icon_alignment = 1
 
 [node name="export_palette_btn" type="Button" parent="hbox/VBoxContainer" unique_id=232527900]
@@ -106,7 +106,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Export Tileset file"
 theme_type_variation = &"widget_menubar_button"
-icon = ExtResource("4_wyh5i")
+icon = ExtResource("7_lfogf")
 icon_alignment = 1
 
 [node name="VBoxContainer2" type="HBoxContainer" parent="hbox" unique_id=1446977555]
@@ -117,7 +117,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "add Tile"
 theme_type_variation = &"green_button"
-icon = ExtResource("5_5y12a")
+icon = ExtResource("8_8fjwe")
 icon_alignment = 1
 
 [node name="remove_tile_btn4" type="Button" parent="hbox/VBoxContainer2" unique_id=1594054923]
@@ -125,7 +125,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "remove selected Tile"
 theme_type_variation = &"widget_menubar_button"
-icon = ExtResource("6_h7s2i")
+icon = ExtResource("9_2biw1")
 icon_alignment = 1
 
 [node name="VBoxContainer3" type="HBoxContainer" parent="hbox" unique_id=746235933]
@@ -137,7 +137,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Export palette file"
 theme_type_variation = &"widget_menubar_button"
-icon = ExtResource("7_bi7cb")
+icon = ExtResource("10_mu6oi")
 icon_alignment = 1
 
 [node name="move_down_btn" type="Button" parent="hbox/VBoxContainer3" unique_id=1695074601]
@@ -146,7 +146,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Export palette file"
 theme_type_variation = &"widget_menubar_button"
-icon = ExtResource("8_6max0")
+icon = ExtResource("11_jf8vd")
 icon_alignment = 1
 
 [connection signal="selection_updated" from="PanelContainer/VBoxContainer/tile_viewer" to="." method="_on_tile_viewer_selection_updated"]
