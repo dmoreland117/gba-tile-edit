@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://b6usbcvoyj1xl"]
 
-[ext_resource type="Script" uid="uid://yfoiorf2wri3" path="res://plugins/base/popups/exporter_popup.gd" id="1_vyp2g"]
-[ext_resource type="Script" uid="uid://i48g3u0vlvj0" path="res://plugins/base/popups/exporter_opt_button.gd" id="2_6bwnh"]
+[ext_resource type="Script" uid="uid://yfoiorf2wri3" path="res://plugins/base/popups/exporter/exporter_popup.gd" id="1_vyp2g"]
+[ext_resource type="Script" uid="uid://i48g3u0vlvj0" path="res://plugins/base/popups/exporter/exporter_opt_button.gd" id="2_6bwnh"]
 [ext_resource type="LabelSettings" uid="uid://bdpw4s64226gw" path="res://resources/label/body.tres" id="2_vyp2g"]
-[ext_resource type="Script" uid="uid://lvxasc7jts18" path="res://plugins/base/popups/export_category_tabbar.gd" id="3_canww"]
+[ext_resource type="Script" uid="uid://lvxasc7jts18" path="res://plugins/base/popups/exporter/export_category_tabbar.gd" id="3_canww"]
 [ext_resource type="Script" uid="uid://ckhyikvmnvn6h" path="res://plugins/plugins_old/export_ui/export_param_container.gd" id="3_clk4s"]
 
 [node name="exporter_popup" type="PopupPanel" unique_id=1352593817]

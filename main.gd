@@ -13,8 +13,5 @@ func _ready() -> void:
 	
 	PopupManager.register_popup('base.welcome_popup', WELCOME_POPUP)
 	PopupManager.register_popup('base.name_rename_popup', NAME_RENAME_POPUP)
-	var p = await PopupManager.show_popup('base.welcome_popup')
+	PopupManager.show_popup('base.welcome_popup')
 	
-	var w:Window = get_window()
-	w.content_scale_factor = 1
-	pass
